@@ -10,4 +10,10 @@ services:
       - traefik.http.routers.lowticket.entrypoints=websecure
       - traefik.http.routers.lowticket.rule=Host(`lowticket.srv1899434.hstgr.cloud`)
       - traefik.http.routers.lowticket.tls.certresolver=letsencrypt
+      - traefik.http.routers.lowticket.service=lowticket
+      # Roteador separado: se o certificado do domínio falhar, a URL temporária continua com HTTPS
+      - traefik.http.routers.appnovidades.entrypoints=websecure
+      - traefik.http.routers.appnovidades.rule=Host(`appnovidades.com.br`) || Host(`www.appnovidades.com.br`)
+      - traefik.http.routers.appnovidades.tls.certresolver=letsencrypt
+      - traefik.http.routers.appnovidades.service=lowticket
       - traefik.http.services.lowticket.loadbalancer.server.port=80

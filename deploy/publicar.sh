@@ -12,4 +12,4 @@ scp "$ROOT/deploy/docker-compose.yml" "$ROOT/deploy/nginx.conf" "$SERVER:$REMOTE
 tar -C "$ROOT/sites" -cf - . | ssh "$SERVER" "find $REMOTE/sites -mindepth 1 -delete && tar -C $REMOTE/sites -xf -"
 ssh "$SERVER" "cd $REMOTE && docker compose up -d && docker compose exec -T web nginx -s reload"
 
-echo "Publicado em https://lowticket.srv1899434.hstgr.cloud"
+echo "Publicado em https://appnovidades.com.br"
