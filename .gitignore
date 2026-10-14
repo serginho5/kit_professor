@@ -3,3 +3,14 @@ node_modules/
 .DS_Store
 Thumbs.db
 *.log
+
+# Pré-visualizações geradas pelos scripts do kit
+produtos/*/_build/preview/
+
+# Saídas de trabalho da skill de design
+.taste-skill/
+produtos/*/pagina-de-vendas/.taste-skill/
+
+# Pacotes gerados para upload na Kiwify
+produtos/_para-kiwify/
+produtos/relatorios-creche/_build/nul*

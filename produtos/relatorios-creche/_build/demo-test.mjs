@@ -1,0 +1,21 @@
+import { Browser } from 'file:///C:/Users/sergi/.claude/skills/design-taste-frontend/scripts/lib/cdp.mjs';
+import { pathToFileURL } from 'node:url';
+const b = await Browser.launch({ width: 1440, height: 900 });
+const p = await b.newPage({ width: 1440, height: 900 });
+const errs = [];
+await p.send('Runtime.enable'); p.browser.on(p.sessionId, 'Runtime.exceptionThrown', (e) => errs.push(e.exceptionDetails.text + ' ' + (e.exceptionDetails.exception?.description || '')));
+await p.goto(pathToFileURL('../pagina-de-vendas/index.html').href, { settleMs: 1500 });
+const r = await p.eval(async () => {
+  const out = {};
+  out.inicial = document.querySelectorAll('.slip').length + ' tiras, nome padrão: ' + document.querySelector('.slip .nm').textContent;
+  const i = document.getElementById('nome'); i.value = 'maria clara'; i.dispatchEvent(new Event('input'));
+  await new Promise(r => setTimeout(r, 400));
+  out.digitado = [...document.querySelectorAll('.slip .nm')].map(e => e.textContent).slice(0, 3).join(' | ');
+  document.querySelector('[data-turma="maternal"]').click();
+  out.maternal = document.querySelector('.slip p').textContent.slice(0, 90);
+  out.preview = document.querySelectorAll('#frame img').length + ' imagens na prévia';
+  out.checkout = document.getElementById('comprar').getAttribute('href');
+  return out;
+});
+console.log(JSON.stringify(r, null, 1)); console.log('erros JS:', errs.length ? errs : 'nenhum');
+await b.close();

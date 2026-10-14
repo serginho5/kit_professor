@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>O guia definitivo do berçário ao maternal · Relatórios da Creche</title>
+<meta name="description" content="Guia pedagógico, banco com 299 frases BNCC, modelos editáveis no Canva e fichas de observação para escrever o relatório de bebês e crianças de 0 a 3 anos. R$ 37,00, acesso imediato.">
+<meta name="theme-color" content="#2D2A4A">
+<meta property="og:title" content="Relatórios da Creche · Berçário e Maternal com BNCC">
+<meta property="og:description" content="299 frases BNCC, modelos editáveis no Canva, guia pedagógico e fichas de observação. R$ 37,00.">
+<meta property="og:image" content="https://appnovidades.com.br/relatorios-creche/assets/og-capa.jpg">
+<meta property="og:url" content="https://appnovidades.com.br/relatorios-creche/">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- taste-skill-ignore: Fredoka e Nunito são as fontes do próprio kit (identidade do produto) -->
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+/* ---------- Tokens (cores e tipos do próprio kit) ---------- */
+:root{
+  --ground:#2D2A4A; --paper:#FFFFFF; --ink:#2D2A4A; --soft:#5E5A7A; --mist:#F6F4FA;
+  --coral:#EF6F57; --coral-t:#FDE7E2; --mint:#2FA587; --mint-t:#DCF2EB;
+  --sun:#E9A21F; --sun-t:#FCF0D4; --sky:#3F86D6; --sky-t:#DFEBF9; --lilac:#8A67C9; --lilac-t:#EEE7F8;
+  --action:#EF6F57; --action-ink:#1F1C36;
+  --f-head:'Fredoka',system-ui,sans-serif; --f-text:'Nunito',system-ui,sans-serif;
+  --s-small:1rem;
+  --s-body:clamp(1.0625rem,1rem + 0.25vw,1.1875rem);
+  --s-lead:clamp(1.375rem,1.1rem + 0.9vw,1.75rem);
+  --s-head:clamp(2.25rem,1.4rem + 3.4vw,4.25rem);
+  --s-display:clamp(3.25rem,1rem + 7.2vw,7.5rem);
+  --r:22px; --gut:clamp(20px,3vw,40px); --max:1320px;
+  --ease:cubic-bezier(.23,1,.32,1); --t-ui:240ms; --t-in:720ms;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:24px}
+html,body{overflow-x:clip}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 var(--s-body)/1.55 var(--f-text);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+h1,h2,h3{font-family:var(--f-head);font-weight:600;letter-spacing:-0.02em;line-height:1.02;margin:0;text-wrap:balance}
+p{margin:0}
+::selection{background:var(--sun);color:var(--ink)}
+:focus-visible{outline:3px solid var(--sun);outline-offset:3px;border-radius:6px}
+.wrap{width:min(100% - 2*var(--gut),var(--max));margin-inline:auto}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;min-height:58px;padding:0 32px;border-radius:999px;border:0;background:var(--action);color:var(--action-ink);font:800 var(--s-body)/1 var(--f-text);text-decoration:none;cursor:pointer;transition:transform 160ms var(--ease),background var(--t-ui) ease;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.btn:hover{background:#F4826C}
+.btn:active{transform:scale(.97)}
+.btn--dark{background:var(--ink);color:var(--paper)}
+.btn--dark:hover{background:#403C66}
+.btn .arrow{transition:transform var(--t-ui) var(--ease)}
+.btn:hover .arrow{transform:translateX(4px)}
+
+/* ---------- Entrada das seções (conteúdo nunca fica escondido sem script) ---------- */
+.js [data-in]{opacity:0;transform:translateY(24px);transition:opacity var(--t-in) var(--ease),transform var(--t-in) var(--ease);transition-delay:calc(var(--i,0) * 80ms)}
+.js [data-in].is-in{opacity:1;transform:none}
+
+/* ---------- HERO: pilha de pastas ---------- */
+.hero{position:relative;display:flex;flex-direction:column;min-height:100svh;background:var(--ground);color:var(--paper);overflow:hidden;isolation:isolate}
+.topbar{position:relative;z-index:3;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:22px var(--gut)}
+.wordmark{grid-column:2;font:600 var(--s-body)/1 var(--f-head);letter-spacing:-0.01em;text-decoration:none;display:flex;align-items:center;gap:10px}
+.wordmark i{display:inline-flex;gap:3px}
+.wordmark i b{width:9px;height:9px;border-radius:50%;display:block}
+.topbar__link{justify-self:end;font-weight:700;font-size:var(--s-small);text-decoration:none;padding:10px 0;border-bottom:2px solid transparent;transition:border-color var(--t-ui) ease}
+.topbar__link:hover{border-color:var(--sun)}
+.hero__title{position:relative;z-index:2;text-align:center;font-size:clamp(2.5rem,1rem + 5.4vw,6rem);line-height:.92;letter-spacing:-0.035em;margin-top:clamp(28px,5vh,64px);padding-inline:var(--gut)}
+.hero__sub{position:relative;z-index:2;text-align:center;max-width:52ch;margin:22px auto 0;font-size:var(--s-body);color:#E9E6F5;padding-inline:var(--gut)}
+.hero__sub b{color:var(--paper)}
+.folders{position:relative;flex:1;min-height:430px;margin-top:64px;z-index:1}
+.folder{position:absolute;left:7vw;width:86vw;top:calc(var(--n) * 58px);bottom:-200px;background:var(--c);color:var(--ink);text-decoration:none;border-radius:0 var(--r) 0 0;transform:translateY(40px);opacity:0;animation:rise 900ms var(--ease) forwards;animation-delay:calc(260ms + var(--n) * 90ms)}
+.folder__tab{color:var(--t,var(--ink))!important;position:absolute;bottom:100%;left:var(--x);height:40px;min-width:210px;padding:0 34px;display:flex;align-items:center;justify-content:center;background:var(--c);font:800 var(--s-body)/1 var(--f-text);clip-path:polygon(14px 0,calc(100% - 14px) 0,100% 100%,0 100%);text-decoration:none;color:var(--ink)}
+a.folder:hover,a.folder:focus-visible{transform:translateY(-10px)!important;transition:transform var(--t-ui) var(--ease)}
+.folder--front{background:var(--paper);bottom:0}
+.folder--front .folder__tab{background:var(--paper)}
+.front{display:grid;grid-template-columns:auto 1fr;gap:28px 48px;padding:30px 32px 0;align-items:start}
+.front__buy{display:flex;flex-direction:column;gap:12px}
+.front__note{font-size:var(--s-small);color:var(--soft);font-weight:600}
+.front__sheet{justify-self:end;width:min(380px,42vw);transform:rotate(1.5deg);transform-origin:top left}
+@keyframes rise{to{transform:none;opacity:1}}
+
+/* ---------- INTRO: título, nota e fatos ---------- */
+.intro{padding:150px 0 120px}
+.intro__top{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gut);align-items:end}
+.intro__top h2{grid-column:1/8;font-size:var(--s-head)}
+.intro__note{grid-column:9/13;font-size:var(--s-body)}
+.facts{display:flex;justify-content:space-between;gap:32px;margin-top:110px;flex-wrap:wrap}
+.fact b{display:block;font:600 var(--s-head)/1 var(--f-head);letter-spacing:-0.02em}
+.fact span{display:block;margin-top:10px;max-width:22ch;color:var(--soft);font-size:var(--s-small)}
+
+/* ---------- FEATURES: folhas que se empilham ---------- */
+.kit{padding:150px 0 60px}
+.kit__head{font-size:var(--s-head);margin-bottom:48px;max-width:16ch}
+.sheet{position:sticky;top:calc(var(--n) * 72px);height:calc(max(600px,min(74svh,680px)) + (3 - var(--n)) * 72px);grid-template-rows:72px 1fr;background:var(--c);border-radius:var(--r) var(--r) 0 0;display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gut);padding:0 var(--gut);overflow:hidden}
+.sheet__name{grid-column:1/-1;height:72px;display:flex;align-items:center;font-size:var(--s-lead)}
+.sheet__body{grid-column:1/6;align-self:center;padding-bottom:40px}
+.sheet__body p{font-size:var(--s-body)}
+.sheet__body ul{margin:18px 0 0;padding:0;list-style:none;display:grid;gap:8px;font-weight:700}
+.sheet__body li{display:flex;gap:10px;align-items:baseline}
+.sheet__body li::before{content:"";flex:none;width:10px;height:10px;border-radius:50%;background:var(--k);transform:translateY(-1px)}
+.sheet__pic{grid-column:7/13;align-self:stretch;margin-top:4px;overflow:hidden;border-radius:14px 14px 0 0;background:var(--paper)}
+.sheet__pic img{width:100%;height:100%;object-fit:cover;object-position:top}
+
+/* ---------- COMO FUNCIONA: linha de momentos ---------- */
+.moments{padding:150px 0 140px;background:var(--mist)}
+.moments__top{display:flex;justify-content:space-between;align-items:end;gap:24px}
+.moments__top h2{font-size:var(--s-head)}
+.moments__nav{display:flex;gap:8px}
+.moments__nav button{width:52px;height:52px;border:0;border-radius:50%;background:var(--ink);color:var(--paper);font-size:var(--s-body);cursor:pointer;transition:transform 160ms var(--ease),background var(--t-ui)}
+.moments__nav button:hover{background:#403C66}
+.moments__nav button:active{transform:scale(.94)}
+.bar{height:6px;background:#E2DEEC;border-radius:6px;margin:22px 0 40px;overflow:hidden}
+.bar i{display:block;height:100%;width:var(--p,14%);background:var(--ink);border-radius:6px;transition:width 160ms linear}
+.row{--pad:max(var(--gut),calc((100vw - var(--max)) / 2));display:flex;gap:32px;overflow-x:auto;scroll-snap-type:x mandatory;padding-inline:var(--pad);scroll-padding-inline:var(--pad);scrollbar-width:none;overscroll-behavior-x:contain}
+.row::-webkit-scrollbar{display:none}
+.moment{flex:0 0 290px;scroll-snap-align:start}
+.moment h3{font:800 var(--s-body)/1.25 var(--f-text);letter-spacing:0}
+.moment p{margin-top:8px;color:var(--soft);font-size:var(--s-small)}
+.moment figure{margin:var(--gap,96px) 0 0;aspect-ratio:4/5;overflow:hidden;border-radius:14px;background:var(--paper)}
+.moment img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform 600ms var(--ease)}
+.moment:hover img{transform:scale(1.03)}
+
+/* ---------- PALAVRAS: troque isto por isto ---------- */
+.words{padding:150px 0;background:var(--sky-t)}
+.words__grid{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gut)}
+.words__side{grid-column:1/6;position:sticky;top:60px;align-self:start}
+.words h2{font-size:var(--s-head);max-width:11ch}
+.words__lead{margin-top:20px;font-size:var(--s-lead);line-height:1.3}
+.pairs{grid-column:7/13;display:grid;gap:40px}
+.pair{display:grid;gap:8px}
+.pair del{color:var(--soft);font-size:var(--s-lead);text-decoration-thickness:3px;text-decoration-color:var(--coral)}
+.pair p{font-size:var(--s-body);line-height:1.5;font-weight:600}
+.words__note{margin-top:8px;font-size:var(--s-body);background:var(--paper);border-radius:var(--r);padding:24px 26px}
+.words__note b{font-weight:800}
+
+/* ---------- LISTA: a folha impressa + prévia ---------- */
+.contents{padding:150px 0;background:var(--ground);color:var(--paper)}
+.contents__grid{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gut);align-items:start}
+.preview{grid-column:1/6;position:sticky;top:60px}
+.preview h2{font-size:var(--s-head)}
+.preview p{margin-top:16px;color:#E9E6F5;max-width:34ch}
+.preview__frame{position:relative;margin-top:36px;aspect-ratio:893/1263;width:min(100%,420px);border-radius:14px;overflow:hidden;background:var(--paper)}
+.preview__frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.02);transition:opacity var(--t-ui) ease,transform 420ms var(--ease)}
+.preview__frame img.is-on{opacity:1;transform:none}
+/* taste-skill-ignore: radial-gradient é só máscara das bordas onduladas (recorte), não pinta cor */
+.menu{grid-column:7/13;background:var(--paper);color:var(--ink);padding:72px 56px;--sc:14px;-webkit-mask:radial-gradient(circle at 50% 0,#0000 var(--sc),#000 calc(var(--sc) + .5px)) 50% 0/36px 51% repeat-x,radial-gradient(circle at 50% 100%,#0000 var(--sc),#000 calc(var(--sc) + .5px)) 50% 100%/36px 51% repeat-x;mask:radial-gradient(circle at 50% 0,#0000 var(--sc),#000 calc(var(--sc) + .5px)) 50% 0/36px 51% repeat-x,radial-gradient(circle at 50% 100%,#0000 var(--sc),#000 calc(var(--sc) + .5px)) 50% 100%/36px 51% repeat-x}
+.menu h3{text-align:center;font-size:var(--s-lead)}
+.menu__note{text-align:center;color:var(--soft);margin-top:8px;font-size:var(--s-small)}
+.menu__group{margin-top:52px}
+.menu__group h4{margin:0 0 18px;text-align:center;font:600 var(--s-lead)/1.2 var(--f-head);color:var(--k)}
+.menu ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.menu li{border-radius:12px;transition:background var(--t-ui) ease}
+.menu li button{all:unset;box-sizing:border-box;display:grid;grid-template-columns:1fr auto;gap:2px 18px;width:100%;padding:10px 12px;cursor:pointer;border-radius:12px}
+.menu li button:focus-visible{outline:3px solid var(--sun)}
+.menu li:hover,.menu li.is-on{background:var(--mist)}
+.menu .it{font-weight:700;font-size:var(--s-body)}
+.menu .qt{font-weight:800;font-variant-numeric:tabular-nums;color:var(--k);font-size:var(--s-body)}
+.menu .ds{grid-column:1/-1;color:var(--soft);font-size:var(--s-small)}
+.menu__end{margin-top:52px;text-align:center;font-weight:700}
+.menu__end span{display:block;color:var(--soft);font-weight:600;font-size:var(--s-small)}
+@media (hover:hover) and (pointer:fine){.menu ul:hover li:not(:hover){opacity:.45}.menu li{transition:opacity var(--t-ui) ease,background var(--t-ui) ease}}
+
+/* ---------- PREÇO ---------- */
+.price{padding:150px 0;background:var(--mint-t)}
+.price__grid{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gut);align-items:start}
+.price__side{grid-column:1/5}
+.price__side h2{font-size:var(--s-head)}
+.price__side figure{margin:36px 0 0;width:min(100%,300px);aspect-ratio:4/5;overflow:hidden;border-radius:14px}
+.price__side figure img{width:100%;height:100%;object-fit:cover}
+.price__side figcaption{margin-top:10px;font-size:var(--s-small);color:var(--soft)}
+.price__list{grid-column:6/13}
+.pgroup + .pgroup{margin-top:48px}
+.pgroup h3{font:600 var(--s-lead)/1.2 var(--f-head);margin-bottom:18px}
+.prow{display:flex;justify-content:space-between;gap:24px;align-items:baseline;padding:11px 0}
+.prow b{font-size:var(--s-body);font-weight:800}
+.prow .v{font-size:var(--s-body);font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}
+.prow small{display:block;color:var(--soft);font-size:var(--s-small);max-width:40ch;font-weight:400;margin-top:2px}
+.total{margin-top:40px;background:var(--paper);border-radius:var(--r);padding:34px 34px 30px;display:grid;gap:18px}
+.total__line{display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap}
+.total__line span{font:600 var(--s-lead)/1.1 var(--f-head)}
+.total__line b{font:600 var(--s-head)/1 var(--f-head);letter-spacing:-0.03em}
+.total__line b small{font-size:var(--s-lead);letter-spacing:0;margin-right:6px}
+.total .btn{width:100%;min-height:66px}
+.total__fine{display:flex;flex-wrap:wrap;gap:8px 22px;color:var(--soft);font-weight:700;font-size:var(--s-small)}
+.guarantee{margin-top:24px;display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center;background:var(--paper);color:var(--ink);border-radius:var(--r);padding:26px 32px 26px 22px}
+.carimbo{width:168px;height:168px;flex:none;color:#D0442D;transform:rotate(-11deg)}
+.carimbo text{font-family:var(--f-head);font-weight:600;fill:currentColor}
+.carimbo .arco{font-family:var(--f-text);font-weight:900;font-size:13px;letter-spacing:1.8px}
+.js .guarantee .carimbo{opacity:0;transform:rotate(-4deg) scale(1.25)}
+.js .guarantee.is-in .carimbo{opacity:1;transform:rotate(-11deg) scale(1);transition:transform 380ms cubic-bezier(.34,1.4,.64,1) 260ms,opacity 160ms ease 260ms}
+.guarantee h3{font:600 var(--s-lead)/1.15 var(--f-head);margin-bottom:8px}
+.guarantee p{font-size:var(--s-body)}
+
+/* ---------- DÚVIDAS: fichas com aba ---------- */
+.faq{padding:150px 0 170px}
+.faq__inner{width:min(100% - 2*var(--gut),860px);margin-inline:auto}
+.faq h2{font-size:var(--s-head)}
+.faq__hint{margin-top:12px;color:var(--soft)}
+/* fichário: todos os cartões no mesmo lugar; a aba escolhida traz o cartão para a frente */
+.fich{position:relative;display:grid;margin-top:110px;--tw:calc((100% - 5 * 6px) / 6)}
+.fich__card{grid-area:1/1;position:relative;z-index:calc(10 - var(--i));background:var(--c);border-radius:0 var(--r) var(--r) var(--r);min-height:300px;transform:translateY(calc(var(--i) * -7px))}
+.fich__card.is-on{z-index:20}
+.fich__tab{position:absolute;bottom:calc(100% - 1px);left:calc(var(--i) * (var(--tw) + 6px));width:var(--tw);height:48px;border:0;background:var(--c);color:var(--ink);font:800 var(--s-small)/1 var(--f-text);cursor:pointer;clip-path:polygon(10px 0,calc(100% - 10px) 0,100% 100%,0 100%);transition:height 240ms var(--ease);touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.fich__tab:hover{height:54px}
+.fich__card.is-on .fich__tab{height:56px}
+.fich__tab:focus-visible{outline:3px solid var(--ink);outline-offset:-6px}
+.fich__body{padding:44px 48px 48px;max-width:68ch}
+.fich__body h3{font:600 var(--s-lead)/1.2 var(--f-head);margin-bottom:14px}
+.fich__body p{font-size:var(--s-body)}
+.fich__card.is-on .fich__body{animation:ficha 420ms var(--ease)}
+@keyframes ficha{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* ---------- FINAL + RODAPÉ ---------- */
+.close{background:var(--ground);color:var(--paper);padding:150px 0 110px;text-align:center}
+.close h2{font-size:var(--s-display);line-height:.95;letter-spacing:-0.035em}
+.close p{margin:26px auto 36px;max-width:44ch;font-size:var(--s-lead);line-height:1.35;color:#E9E6F5}
+.back{background:var(--ground);padding:0 0 60px}
+/* taste-skill-ignore: máscara do recorte em ondas do cartão-postal */
+.postcard{width:min(100% - 2*var(--gut),1100px);margin-inline:auto;background:var(--paper);color:var(--ink);padding:80px 56px 30px;display:grid;grid-template-columns:1fr 1fr;gap:48px;--sc:30px;-webkit-mask:radial-gradient(circle at 50% 0,#0000 var(--sc),#000 calc(var(--sc) + .5px)) 50% 0/100px 51% repeat-x,linear-gradient(#000 0 0) 0 100%/100% 50% no-repeat;mask:radial-gradient(circle at 50% 0,#0000 var(--sc),#000 calc(var(--sc) + .5px)) 50% 0/100px 51% repeat-x,linear-gradient(#000 0 0) 0 100%/100% 50% no-repeat}
+.postcard h2{font-size:var(--s-head)}
+.postcard__msg p{margin-top:14px;max-width:40ch}
+.postcard__addr{position:relative;display:grid;gap:12px;align-content:start;padding-top:8px}
+.postcard__addr a{font-weight:700;font-size:var(--s-body);text-decoration:none;width:fit-content;border-bottom:2px solid transparent;transition:border-color var(--t-ui)}
+.postcard__addr a:hover{border-color:var(--coral)}
+.stamp{position:absolute;right:0;top:-30px;width:96px;padding:6px;background:var(--paper);transform:rotate(4deg)}
+.stamp img{aspect-ratio:3/4;object-fit:cover;width:100%}
+.imprint{grid-column:1/-1;text-align:center;color:var(--soft);font-size:var(--s-small);padding-top:24px}
+.credits{grid-column:1/-1;color:var(--soft);font-size:var(--s-small);text-align:center}
+
+.menu li .thumb{display:none;width:72px;border-radius:6px;grid-row:1/3}
+/* barra de compra no celular */
+.buybar{position:fixed;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));z-index:20;display:none;transform:translateY(140%);transition:transform 420ms var(--ease)}
+.buybar.is-on{transform:none}
+.buybar .btn{width:100%;min-height:58px}
+
+/* ---------- Telefone ---------- */
+@media (max-width:820px){
+  .hero{min-height:0}
+  .topbar{grid-template-columns:1fr auto;padding:18px var(--gut)}
+  .wordmark{grid-column:1}
+  .hero__title{font-size:clamp(1.75rem,8.6vw,3.25rem);line-height:1;margin-top:32px;padding-inline:10px;letter-spacing:-0.045em}
+  .hero__sub{margin-top:16px}
+  .folders{margin-top:44px;min-height:0;height:340px;flex:none}
+  .folder{left:0;width:100%;top:calc(var(--n) * 50px)}
+  .folder__tab{height:34px;min-width:0;padding:0 20px;font-size:var(--s-small)}
+  .topbar__link{font-size:var(--s-small)}
+  .wordmark i{display:none}
+  .front{grid-template-columns:1fr;padding:22px 20px 0}
+  .front .btn{width:100%}
+  .front__sheet{display:none}
+  .intro{padding:64px 0 72px}
+  .intro__top{display:block}
+  .intro__top h2{font-size:clamp(1.75rem,8vw,2.25rem)}
+  .intro__note{margin-top:20px}
+  .facts{display:grid;grid-template-columns:1fr 1fr;gap:28px 20px;margin-top:44px}
+  .kit{padding:40px 0 40px}
+  .sheet{position:relative;top:auto;min-height:0;height:auto;border-radius:var(--r);margin-bottom:16px;display:flex;flex-direction:column;gap:0;padding:0 20px 28px}
+  .sheet__name{height:64px;flex:none}
+  .sheet__pic{order:2;aspect-ratio:4/3;margin:6px 0 20px;flex:none}
+  .sheet__body{order:3;padding-bottom:0}
+  .sheet__body p{font-size:var(--s-body)}
+  .moments{padding:110px 0}
+  .moments__nav{display:none}
+  .moment{flex:0 0 72vw}
+  .moment figure{margin-top:calc(var(--gap,96px) * .45)}
+  .row{gap:16px}
+  .words{padding:110px 0}
+  .words__side{position:static;grid-column:1/-1}
+  .pairs{grid-column:1/-1;margin-top:48px}
+  .pair{grid-template-columns:1fr;gap:8px}
+  .pair p,.pair del{font-size:var(--s-body)}
+  .pairs{gap:32px}
+  .contents{padding:110px 0}
+  .preview{position:static;grid-column:1/-1}
+  .preview__frame{display:none}
+  .menu{grid-column:1/-1;margin-inline:calc(-1 * var(--gut) + 10px);padding:56px 24px}
+  .menu ul:hover li:not(:hover){opacity:1}
+  .menu li button{grid-template-columns:56px 1fr;gap:0 14px;align-items:start}
+  .menu li .thumb{display:block;width:56px;grid-row:1/4;align-self:start}
+  .menu .it,.menu .qt,.menu .ds{grid-column:2}
+  .menu .qt{font-size:var(--s-small)}
+  .price{padding:110px 0}
+  .price__side,.price__list{grid-column:1/-1}
+  .price__side figure{width:60%}
+  .total{padding:26px 22px}
+  .guarantee{grid-template-columns:1fr;justify-items:center;text-align:center;padding:28px 22px 30px;gap:14px}
+  .carimbo{width:150px;height:150px}
+  .faq{padding:110px 0 120px}
+  .fich{--tw:calc((100% - 5 * 4px) / 6)}
+  .fich__tab{left:calc(var(--i) * (var(--tw) + 4px));height:44px;font-size:.8125rem;clip-path:polygon(5px 0,calc(100% - 5px) 0,100% 100%,0 100%)}
+  .fich__card.is-on .fich__tab{height:50px}
+  .fich__tab:hover{height:44px}
+  .fich__body{padding:30px 22px 32px}
+  .close{padding:110px 0 90px}
+  .close h2{font-size:clamp(2.5rem,11.5vw,3.5rem)}
+  .postcard{grid-template-columns:1fr;padding:72px 24px 24px;--sc:22px}
+  .stamp{display:none}
+
+}
+@media (max-width:420px){.hero__title{font-size:8.6vw}}
+@media (max-width:600px){.buybar{display:block}.back{padding-bottom:110px}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:1ms!important;animation-delay:0ms!important;transition-duration:1ms!important;scroll-behavior:auto!important}
+  .js [data-in]{opacity:1;transform:none}
+  .folder{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js')</script>
+
+<!-- ===================== HERO ===================== -->
+<header class="hero" id="topo">
+  <nav class="topbar" aria-label="Principal">
+    <a class="wordmark" href="#topo" aria-label="Relatórios da Creche, início"><i aria-hidden="true"><b style="background:#EF6F57"></b><b style="background:#2FA587"></b><b style="background:#E9A21F"></b><b style="background:#3F86D6"></b><b style="background:#8A67C9"></b></i>Relatórios da Creche</a>
+    <a class="topbar__link" href="#preco">Comprar por R$ 37,00</a>
+  </nav>
+  <h1 class="hero__title">O guia definitivo<br> do berçário ao maternal</h1>
+  <p class="hero__sub">Tudo para escrever o <b>relatório de fim de semestre</b> de bebês e crianças de 0 a 3 anos: guia pedagógico, <b>299 frases da BNCC</b> e modelos editáveis no Canva. R$ 37,00, acesso imediato.</p>
+
+  <div class="folders">
+    <a class="folder" href="#duvidas" style="--n:0;--c:#7650BE;--t:#FFFFFF;--x:72%"><span class="folder__tab">Dúvidas</span></a>
+    <a class="folder" href="#preco" style="--n:1;--c:#2F74C4;--t:#FFFFFF;--x:54%"><span class="folder__tab">Preço</span></a>
+    <a class="folder" href="#semestre" style="--n:2;--c:#E9A21F;--x:34%"><span class="folder__tab">O semestre</span></a>
+    <a class="folder" href="#kit" style="--n:3;--c:#3DB896;--x:15%"><span class="folder__tab">O que vem</span></a>
+    <div class="folder folder--front" style="--n:4;--x:0%">
+      <a class="folder__tab" href="#comece">Comece aqui</a>
+      <div class="front">
+        <div class="front__buy">
+          <a class="btn" href="#preco">Quero o kit por R$ 37,00 <span class="arrow" aria-hidden="true">→</span></a>
+          <span class="front__note">Pagamento único · acesso imediato · 7 dias de garantia</span>
+        </div>
+        <img class="front__sheet" src="assets/modelo-helena.webp" width="893" height="1263" alt="Página de um relatório de exemplo do kit: foto, nome Helena, turma Berçário II e o bloco Chegada e vínculos.">
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- ===================== INTRO ===================== -->
+<section class="intro" id="comece" aria-labelledby="t-intro">
+  <div class="wrap">
+    <div class="intro__top">
+      <h2 id="t-intro" data-in>Chega de noite em claro</h2>
+      <p class="intro__note" data-in style="--i:1">Fim de semestre, quinze crianças e a página em branco. E a pergunta de toda professora de berçário: <b>o que escrever sobre um bebê que ainda não fala?</b> Este kit responde, com frases prontas e fundamento pedagógico.</p>
+    </div>
+    <div class="facts">
+      <div class="fact" data-in style="--i:0"><b>299 frases</b><span>para os 61 objetivos da BNCC de 0 a 3 anos</span></div>
+      <div class="fact" data-in style="--i:1"><b>30 páginas</b><span>de guia com base legal, teoria e marcos do desenvolvimento</span></div>
+      <div class="fact" data-in style="--i:2"><b>7 fichas</b><span>para registrar em 5 minutos por dia</span></div>
+      <div class="fact" data-in style="--i:3"><b>R$ 37,00</b><span>pagamento único, sem mensalidade</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== OS 4 MATERIAIS ===================== -->
+<section class="kit" id="kit" aria-labelledby="t-kit">
+  <div class="wrap"><h2 class="kit__head" id="t-kit" data-in>Quatro materiais, um só kit</h2></div>
+  <div class="wrap">
+    <article class="sheet" style="--n:0;--c:#FDE7E2;--k:#EF6F57">
+      <h3 class="sheet__name">Guia pedagógico</h3>
+      <div class="sheet__body" data-in>
+        <p>Trinta páginas que explicam o porquê e o como: o que a LDB, as DCNEI e a BNCC pedem, o que dizem Hoffmann, Pikler, Wallon e Vygotsky, e o que observar em cada campo de experiência no Berçário e no Maternal.</p>
+        <ul><li>Marcos do desenvolvimento de 0 a 4 anos</li><li>Estrutura do relatório em seis blocos</li><li>Situações delicadas e checklist final</li></ul>
+      </div>
+      <figure class="sheet__pic"><img src="assets/guia-campo-eo.webp" width="893" height="1263" alt="Página do guia sobre o campo O eu, o outro e o nós, com o que observar no Berçário e no Maternal." loading="lazy" decoding="async"></figure>
+    </article>
+    <article class="sheet" style="--n:1;--c:#DCF2EB;--k:#2FA587">
+      <h3 class="sheet__name">Banco de frases BNCC</h3>
+      <div class="sheet__body" data-in>
+        <p>Os 61 objetivos de aprendizagem de 0 a 3 anos, cada um com frases em três níveis (já demonstra, em desenvolvimento, iniciando) e o próximo passo da equipe. É só trocar o nome e acrescentar o que você viu.</p>
+        <ul><li>299 frases e sugestões prontas</li><li>Abertura, rotina, desfralde e fechamento</li><li>Em Word, Google Docs e PDF</li></ul>
+      </div>
+      <figure class="sheet__pic"><img src="assets/banco-cards.webp" width="893" height="1263" alt="Página do banco de frases com o objetivo EI01EO01 e as frases dos três níveis." loading="lazy" decoding="async"></figure>
+    </article>
+    <article class="sheet" style="--n:2;--c:#DFEBF9;--k:#3F86D6">
+      <h3 class="sheet__name">Modelos editáveis no Canva</h3>
+      <div class="sheet__body" data-in>
+        <p>Relatórios diagramados para Berçário, Maternal I e Maternal II, com espaço para foto e orientação em cada bloco. Importe no Canva gratuito, duplique a página para cada criança e baixe em PDF.</p>
+        <ul><li>Três exemplos completos preenchidos</li><li>Carta à família e relatório da turma</li><li>Mini-história para o portfólio</li></ul>
+      </div>
+      <figure class="sheet__pic"><img src="assets/modelo-helena.webp" width="893" height="1263" alt="Modelo de relatório preenchido da Helena, do Berçário II, com foto e blocos coloridos." loading="lazy" decoding="async"></figure>
+    </article>
+    <article class="sheet" style="--n:3;--c:#FCF0D4;--k:#C98A0F">
+      <h3 class="sheet__name">Fichas de observação</h3>
+      <div class="sheet__body" data-in>
+        <p>O relatório bom nasce do registro do dia a dia. Sete fichas para observar cinco crianças por dia em cinco minutos, organizar por campo e chegar ao fim do semestre com material de sobra.</p>
+        <ul><li>Registro diário e rodízio da turma</li><li>Cuidados, conquistas e marcos</li><li>Entrevista de acolhimento da família</li></ul>
+      </div>
+      <figure class="sheet__pic"><img src="assets/ficha-1.webp" width="893" height="1263" alt="Ficha 1, registro diário das crianças-foco, com espaços para cena, fala e campos." loading="lazy" decoding="async"></figure>
+    </article>
+  </div>
+</section>
+
+<!-- ===================== O SEMESTRE ===================== -->
+<section class="moments" id="semestre" aria-labelledby="t-sem">
+  <div class="wrap">
+    <div class="moments__top">
+      <h2 id="t-sem" data-in>Um semestre com o kit</h2>
+      <div class="moments__nav"><button type="button" data-dir="-1" aria-label="Momento anterior">←</button><button type="button" data-dir="1" aria-label="Próximo momento">→</button></div>
+    </div>
+    <div class="bar" aria-hidden="true"><i id="bar"></i></div>
+  </div>
+  <div class="row" id="row">
+    <article class="moment" style="--gap:96px"><h3>Na primeira semana</h3><p>A entrevista de acolhimento conta como a criança dorme, come e se acalma. Já é o primeiro bloco do relatório.</p><figure><img src="assets/ficha-6.webp" width="893" height="1263" alt="Ficha de entrevista de acolhimento da família." loading="lazy" decoding="async"></figure></article>
+    <article class="moment" style="--gap:140px"><h3>Todo dia, cinco minutos</h3><p>Cinco crianças-foco por dia. Uma cena, uma fala, os campos marcados. Em três dias, a turma toda.</p><figure><img src="assets/ficha-1.webp" width="893" height="1263" alt="Ficha de registro diário das crianças-foco." loading="lazy" decoding="async"></figure></article>
+    <article class="moment" style="--gap:80px"><h3>Uma vez por mês</h3><p>Os registros vão para a ficha individual, organizados pelos cinco campos de experiência.</p><figure><img src="assets/ficha-3.webp" width="893" height="1263" alt="Ficha individual organizada pelos cinco campos de experiência." loading="lazy" decoding="async"></figure></article>
+    <article class="moment" style="--gap:124px"><h3>Antes de escrever</h3><p>O roteiro separa a melhor cena e a melhor fala de cada bloco. Nada de página em branco.</p><figure><img src="assets/ficha-7.webp" width="893" height="1263" alt="Roteiro para montar o relatório em seis blocos." loading="lazy" decoding="async"></figure></article>
+    <article class="moment" style="--gap:88px"><h3>Na hora de escrever</h3><p>O banco de frases costura o texto: escolha o nível, troque o nome, acrescente o que você viu.</p><figure><img src="assets/banco-cards.webp" width="893" height="1263" alt="Cartões do banco de frases com os três níveis." loading="lazy" decoding="async"></figure></article>
+    <article class="moment" style="--gap:132px"><h3>No Canva</h3><p>O texto entra no modelo da turma, com a foto da criança. Duplique a página e repita para as outras.</p><figure><img src="assets/modelo-bercario.webp" width="893" height="1263" alt="Modelo em branco do Berçário com orientações em cada bloco." loading="lazy" decoding="async"></figure></article>
+    <article class="moment" style="--gap:100px"><h3>Na entrega às famílias</h3><p>Relatório para a escola e uma carta afetuosa para a família, que leem com emoção.</p><figure><img src="assets/modelo-carta.webp" width="893" height="1263" alt="Carta à família de exemplo, com espaço para foto." loading="lazy" decoding="async"></figure></article>
+  </div>
+</section>
+
+<!-- ===================== PALAVRAS ===================== -->
+<section class="words" aria-labelledby="t-words">
+  <div class="wrap words__grid">
+    <div class="words__side"><h2 id="t-words" data-in>Palavras que respeitam</h2>
+    <p class="words__lead" data-in style="--i:1">Coordenação e famílias percebem quando o texto rotula. O kit troca cada rótulo por uma descrição verdadeira.</p></div>
+    <div class="pairs">
+      <div class="pair" data-in><del>Fulano é agressivo.</del><p>Em situações de disputa, Fulano ainda usa o corpo para se expressar; a equipe tem oferecido palavras e alternativas.</p></div>
+      <div class="pair" data-in style="--i:1"><del>Fulano não sabe falar.</del><p>Fulano se comunica por gestos, olhares e algumas palavras, e compreende bem o que lhe é dito.</p></div>
+      <div class="pair" data-in style="--i:2"><del>Fulano é muito chorão.</del><p>Fulano expressa suas emoções com intensidade e tem encontrado no adulto de referência o acolhimento de que precisa.</p></div>
+      <div class="pair" data-in style="--i:3"><del>Fulano ainda usa fralda.</del><p>Fulano tem demonstrado os primeiros sinais de interesse pelo banheiro; o desfralde será construído com a família, no tempo da criança.</p></div>
+      <p class="words__note" data-in>E mais: como escrever sobre <b>mordidas, choro na despedida, criança que ainda não fala ou não anda, faltas e sinais de atenção</b>, sem rótulos e sem diagnóstico.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TUDO O QUE VEM ===================== -->
+<section class="contents" aria-labelledby="t-cont">
+  <div class="wrap contents__grid">
+    <div class="preview">
+      <h2 id="t-cont" data-in>Tudo o que vem no kit</h2>
+      <p data-in style="--i:1">Cada item da lista mostra a página de verdade do kit.</p>
+      <div class="preview__frame" id="frame" aria-hidden="true"></div>
+    </div>
+    <div class="menu" data-in>
+      <h3>Kit Relatórios da Creche</h3>
+      <p class="menu__note">Berçário · Maternal I · Maternal II</p>
+      <div class="menu__group" style="--k:#EF6F57"><h4>Guia pedagógico</h4><ul>
+        <li data-img="guia-capa"><button type="button"><span class="it">Guia completo</span><span class="qt">30 págs.</span><span class="ds">Do porquê avaliar ao checklist de entrega</span></button></li>
+        <li data-img="guia-marcos"><button type="button"><span class="it">Marcos do desenvolvimento</span><span class="qt">0 a 4 anos</span><span class="ds">Movimento, linguagem, socioemocional e exploração</span></button></li>
+        <li data-img="guia-campo-cg"><button type="button"><span class="it">O que observar em cada campo</span><span class="qt">5 campos</span><span class="ds">No Berçário e no Maternal, com exemplo de registro</span></button></li>
+        <li data-img="guia-estrutura"><button type="button"><span class="it">Estrutura do relatório</span><span class="qt">6 blocos</span><span class="ds">Garante os cinco campos sem virar lista</span></button></li>
+        <li data-img="guia-troque"><button type="button"><span class="it">Troque isto por isto</span><span class="qt">14 trocas</span><span class="ds">Rótulos que viram descrições respeitosas</span></button></li>
+        <li data-img="guia-delicadas"><button type="button"><span class="it">Situações delicadas</span><span class="qt">8 casos</span><span class="ds">Mordida, despedida, fala, desfralde, inclusão</span></button></li>
+      </ul></div>
+      <div class="menu__group" style="--k:#2FA587"><h4>Banco de frases BNCC</h4><ul>
+        <li data-img="banco-cards"><button type="button"><span class="it">Frases por objetivo</span><span class="qt">61 objetivos</span><span class="ds">Três níveis e o próximo passo da equipe</span></button></li>
+        <li data-img="banco-capa"><button type="button"><span class="it">Total de frases e sugestões</span><span class="qt">299</span><span class="ds">Abertura, rotina, delicadas, fechamento</span></button></li>
+        <li data-img="modelo-ana"><button type="button"><span class="it">Relatórios-exemplo completos</span><span class="qt">3 turmas</span><span class="ds">Mais carta à família e relatório da turma</span></button></li>
+      </ul></div>
+      <div class="menu__group" style="--k:#3F86D6"><h4>Modelos editáveis no Canva</h4><ul>
+        <li data-img="modelo-bercario"><button type="button"><span class="it">Modelos em branco</span><span class="qt">3 turmas</span><span class="ds">Berçário, Maternal I e Maternal II, com orientação</span></button></li>
+        <li data-img="modelo-helena"><button type="button"><span class="it">Exemplos preenchidos</span><span class="qt">3</span><span class="ds">Helena, Davi e Ana Luísa</span></button></li>
+        <li data-img="modelo-carta"><button type="button"><span class="it">Carta à família</span><span class="qt">modelo + exemplo</span><span class="ds">Uma página afetuosa, com foto</span></button></li>
+        <li data-img="modelo-mini"><button type="button"><span class="it">Mini-história</span><span class="qt">1</span><span class="ds">Fotos e narrativa para o portfólio</span></button></li>
+      </ul></div>
+      <div class="menu__group" style="--k:#C98A0F"><h4>Fichas de observação</h4><ul>
+        <li data-img="ficha-1"><button type="button"><span class="it">Registro diário</span><span class="qt">ficha 1</span><span class="ds">Cena, fala e campos de cada criança-foco</span></button></li>
+        <li data-img="ficha-3"><button type="button"><span class="it">Ficha individual por campo</span><span class="qt">ficha 3</span><span class="ds">O relatório nasce daqui</span></button></li>
+        <li data-img="ficha-6"><button type="button"><span class="it">Entrevista com a família</span><span class="qt">ficha 6</span><span class="ds">Onze perguntas de acolhimento</span></button></li>
+        <li data-img="ficha-7"><button type="button"><span class="it">Roteiro do relatório</span><span class="qt">ficha 7</span><span class="ds">Mais rodízio, cuidados e conquistas: 7 fichas</span></button></li>
+      </ul></div>
+      <p class="menu__end">Canva · Word · Google Docs · PDF<span>Acesso imediato após a compra</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PREÇO ===================== -->
+<section class="price" id="preco" aria-labelledby="t-price">
+  <div class="wrap price__grid">
+    <div class="price__side">
+      <h2 id="t-price" data-in>Seu kit completo</h2>
+      <figure data-in style="--i:1"><img src="assets/barefooted-crop.jpg" width="1100" height="1000" alt="Gravura de Mary Cassatt: uma mulher sentada segura um bebê no colo." loading="lazy" decoding="async"><figcaption>Mary Cassatt, The Barefooted Child, 1896–98</figcaption></figure>
+    </div>
+    <div class="price__list">
+      <div class="pgroup" data-in>
+        <h3>O que você recebe</h3>
+        <div class="prow"><div><b>Guia pedagógico</b><small>30 páginas de fundamento, observação e escrita</small></div><span class="v">incluso</span></div>
+        <div class="prow"><div><b>Banco de frases BNCC</b><small>299 frases para os 61 objetivos de 0 a 3 anos</small></div><span class="v">incluso</span></div>
+        <div class="prow"><div><b>Modelos editáveis no Canva</b><small>3 turmas, 3 exemplos, carta à família, mini-história</small></div><span class="v">incluso</span></div>
+        <div class="prow"><div><b>Fichas de observação</b><small>7 fichas para o dia a dia, para imprimir ou editar</small></div><span class="v">incluso</span></div>
+        <div class="prow"><div><b>Versões em PDF e Word</b><small>Para imprimir, apresentar ou escrever no computador</small></div><span class="v">incluso</span></div>
+      </div>
+      <div class="total" data-in>
+        <div class="total__line"><span>Pagamento único</span><b><small>R$</small>37<small>,00</small></b></div>
+        <a class="btn" id="comprar" href="#checkout">Quero meu kit agora <span class="arrow" aria-hidden="true">→</span></a>
+        <div class="total__fine"><span>Acesso imediato</span><span>Pix ou cartão</span><span>Sem mensalidade</span></div>
+      </div>
+      <div class="guarantee" data-in>
+        <svg class="carimbo" viewBox="0 0 200 200" role="img" aria-label="Carimbo: garantia de 7 dias">
+          <defs>
+            <!-- textura de tinta falhada, como carimbo de borracha -->
+            <filter id="tinta" x="-5%" y="-5%" width="110%" height="110%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="7" result="ruido"/>
+              <feColorMatrix in="ruido" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.5 1.55" result="falhas"/>
+              <feComposite in="SourceGraphic" in2="falhas" operator="in"/>
+            </filter>
+            <path id="arcoCima" d="M 30 100 A 70 70 0 0 1 170 100"/>
+            <path id="arcoBaixo" d="M 26 100 A 74 74 0 0 0 174 100"/>
+          </defs>
+          <g filter="url(#tinta)">
+            <circle cx="100" cy="100" r="94" fill="none" stroke="currentColor" stroke-width="8"/>
+            <circle cx="100" cy="100" r="84" fill="none" stroke="currentColor" stroke-width="2.5"/>
+            <circle cx="100" cy="100" r="52" fill="none" stroke="currentColor" stroke-width="3"/>
+            <text class="arco"><textPath href="#arcoCima" startOffset="50%" text-anchor="middle">GARANTIA DE SATISFAÇÃO</textPath></text>
+            <text class="arco"><textPath href="#arcoBaixo" startOffset="50%" text-anchor="middle">SEU DINHEIRO DE VOLTA</textPath></text>
+            <text x="100" y="114" text-anchor="middle" font-size="58">7</text>
+            <text x="100" y="136" text-anchor="middle" font-size="18" letter-spacing="3">DIAS</text>
+          </g>
+        </svg>
+        <div>
+          <h3>Garantia de 7 dias</h3>
+          <p>Se o kit não for para você, peça o reembolso pela própria plataforma de pagamento e receba 100% do valor de volta. Sem perguntas.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== DÚVIDAS ===================== -->
+<section class="faq" id="duvidas" aria-labelledby="t-faq">
+  <div class="faq__inner">
+    <h2 id="t-faq" data-in>Dúvidas frequentes</h2>
+    <p class="faq__hint" data-in>Toque nas abas do fichário.</p>
+    <div class="fich" role="tablist" aria-label="Dúvidas frequentes" data-in>
+      <div class="fich__card is-on" style="--c:#EEE7F8;--i:0">
+        <button class="fich__tab" type="button" role="tab" id="ft0" aria-controls="fp0" aria-selected="true" tabindex="0">Canva</button>
+        <div class="fich__body" role="tabpanel" id="fp0" aria-labelledby="ft0"><h3>Preciso pagar o Canva?</h3><p>Não. A versão gratuita do Canva importa os arquivos do kit: clique em "Criar design", depois em "Importar arquivo", e escolha o modelo. As fontes usadas são gratuitas e já estão no Canva.</p></div>
+      </div>
+      <div class="fich__card" style="--c:#DCF2EB;--i:1">
+        <button class="fich__tab" type="button" role="tab" id="ft1" aria-controls="fp1" aria-selected="false" tabindex="-1">BNCC</button>
+        <div class="fich__body" role="tabpanel" id="fp1" aria-labelledby="ft1" hidden><h3>Está alinhado à BNCC?</h3><p>Sim. O banco de frases cobre os 61 objetivos de aprendizagem das faixas de bebês (EI01) e crianças bem pequenas (EI02), com os códigos oficiais, e o guia traz a base legal da LDB e das Diretrizes Curriculares.</p></div>
+      </div>
+      <div class="fich__card" style="--c:#FDE7E2;--i:2">
+        <button class="fich__tab" type="button" role="tab" id="ft2" aria-controls="fp2" aria-selected="false" tabindex="-1">Turmas</button>
+        <div class="fich__body" role="tabpanel" id="fp2" aria-labelledby="ft2" hidden><h3>Serve para a Pré-escola?</h3><p>O kit é feito para a creche: Berçário, Maternal I e Maternal II (0 a 3 anos e 11 meses). Essa especialização é o que permite frases certas para bebês que ainda não falam ou não andam. Para a Pré-escola, ele não é o mais indicado.</p></div>
+      </div>
+      <div class="fich__card" style="--c:#DFEBF9;--i:3">
+        <button class="fich__tab" type="button" role="tab" id="ft3" aria-controls="fp3" aria-selected="false" tabindex="-1">Rede</button>
+        <div class="fich__body" role="tabpanel" id="fp3" aria-labelledby="ft3" hidden><h3>E se minha escola tiver um modelo próprio?</h3><p>O banco de frases e o guia funcionam com qualquer modelo: copie as frases para o documento da sua rede. Os modelos do Canva também podem ter títulos, cores e campos alterados.</p></div>
+      </div>
+      <div class="fich__card" style="--c:#FCF0D4;--i:4">
+        <button class="fich__tab" type="button" role="tab" id="ft4" aria-controls="fp4" aria-selected="false" tabindex="-1">Acesso</button>
+        <div class="fich__body" role="tabpanel" id="fp4" aria-labelledby="ft4" hidden><h3>Como recebo o kit?</h3><p>Logo após a confirmação do pagamento, você recebe por e-mail o acesso à área de membros, com todos os arquivos para baixar. No Pix, a liberação é imediata.</p></div>
+      </div>
+      <div class="fich__card" style="--c:#E4F3EE;--i:5">
+        <button class="fich__tab" type="button" role="tab" id="ft5" aria-controls="fp5" aria-selected="false" tabindex="-1">Word</button>
+        <div class="fich__body" role="tabpanel" id="fp5" aria-labelledby="ft5" hidden><h3>Posso usar no Word?</h3><p>Sim, há versões em Word dos modelos e das fichas, além do banco de frases. Recomendamos o Canva para os relatórios entregues às famílias, porque é onde eles ficam com o acabamento completo.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FECHAMENTO ===================== -->
+<section class="close" aria-labelledby="t-close">
+  <div class="wrap">
+    <h2 id="t-close" data-in>Seu relatório<br> começa hoje</h2>
+    <p data-in style="--i:1">Frases prontas, modelos bonitos e o fundamento que a coordenação espera. Pagamento único, acesso imediato.</p>
+    <a class="btn" href="#preco" data-in style="--i:2">Quero o kit por R$ 37,00 <span class="arrow" aria-hidden="true">→</span></a>
+  </div>
+</section>
+</main>
+
+<footer class="back">
+  <div class="postcard">
+    <div class="postcard__msg">
+      <h2>Boas observações!</h2>
+      <p>Cada relatório é a história de uma criança contada por quem a acompanhou de perto. Este kit existe para que essa história seja verdadeira, bonita e escrita sem noites em claro.</p>
+    </div>
+    <div class="postcard__addr">
+      <span class="stamp" aria-hidden="true"><img src="assets/barefooted-crop.jpg" width="1100" height="1000" alt="" loading="lazy"></span>
+      <a href="#preco">Comprar o kit</a>
+      <a href="#semestre">Um semestre com o kit</a>
+      <a href="#duvidas">Dúvidas frequentes</a>
+      <a href="#kit">O que vem no kit</a>
+    </div>
+    <p class="credits">Imagem: "The Barefooted Child" (1896–98), de Mary Cassatt, domínio público (CC0), via Art Institute of Chicago. As demais imagens são páginas do próprio kit.</p>
+    <p class="imprint">© 2026 Kit Relatórios da Creche · Material de apoio pedagógico · Proibida a revenda</p>
+  </div>
+</footer>
+
+<div class="buybar" id="buybar"><a class="btn" href="#preco">Quero o kit por R$ 37,00 <span class="arrow" aria-hidden="true">→</span></a></div>
+
+<script>
+// Link do checkout: troque pelo link da Kiwify quando o produto estiver criado.
+const CHECKOUT_URL = 'https://pay.kiwify.com.br/KyJ30Z5';
+if (CHECKOUT_URL) document.querySelectorAll('a[href="#checkout"]').forEach(a => a.href = CHECKOUT_URL);
+
+// ---------- Entradas das seções ----------
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target); } }), { rootMargin:'0px 0px -10% 0px', threshold:0.08 });
+document.querySelectorAll('[data-in]').forEach(el => io.observe(el));
+addEventListener('load', () => setTimeout(() => document.querySelectorAll('[data-in]').forEach(el => { const r = el.getBoundingClientRect(); if (r.top < innerHeight && r.bottom > 0) el.classList.add('is-in'); }), 1800));
+
+// ---------- Gravura com deslocamento lento ao rolar ----------
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const art = document.querySelector('.price__side figure img'), artBox = document.querySelector('.price__side figure');
+function drift(){ if (reduce || !art) return; const r = artBox.getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight) return; const p = (innerHeight - r.top) / (innerHeight + r.height); art.style.transform = `scale(1.12) translate3d(0,${(-p * 6 + 3).toFixed(2)}%,0)`; }
+addEventListener('scroll', () => requestAnimationFrame(drift), { passive:true }); drift();
+
+// ---------- Linha de momentos ----------
+const row = document.getElementById('row'), bar = document.getElementById('bar');
+function prog(){ const max = row.scrollWidth - row.clientWidth; const v = max > 0 ? row.scrollLeft / max : 0; bar.style.setProperty('--p', (14 + v * 86) + '%'); }
+row.addEventListener('scroll', prog, { passive:true }); prog();
+document.querySelectorAll('.moments__nav button').forEach(b => b.addEventListener('click', () => row.scrollBy({ left: Number(b.dataset.dir) * 322, behavior: reduce ? 'auto' : 'smooth' })));
+
+// ---------- Lista com prévia da página (assinatura) ----------
+const frame = document.getElementById('frame');
+const items = [...document.querySelectorAll('.menu li[data-img]')];
+const imgs = {};
+items.forEach(li => {
+  const k = li.dataset.img;
+  if (!imgs[k]) { const im = new Image(); im.src = `assets/${k}.webp`; im.alt = ''; im.width = 893; im.height = 1263; im.decoding = 'async'; frame.appendChild(im); imgs[k] = im; }
+  const th = new Image(); th.className = 'thumb'; th.src = `assets/${k}.webp`; th.alt = ''; th.loading = 'lazy'; li.querySelector('button').prepend(th);
+  const on = () => { items.forEach(x => x.classList.toggle('is-on', x === li)); Object.values(imgs).forEach(im => im.classList.toggle('is-on', im === imgs[k])); };
+  li.addEventListener('mouseenter', on); li.querySelector('button').addEventListener('focus', on); li.querySelector('button').addEventListener('click', on);
+});
+if (items[0]) items[0].dispatchEvent(new Event('mouseenter'));
+
+// ---------- Fichário de dúvidas: a aba escolhida vem para a frente ----------
+const fichTabs = [...document.querySelectorAll('.fich__tab')];
+function abrirFicha(t, foco){
+  fichTabs.forEach(x => {
+    const on = x === t, card = x.parentElement, body = card.querySelector('.fich__body');
+    card.classList.toggle('is-on', on); x.setAttribute('aria-selected', String(on)); x.tabIndex = on ? 0 : -1; body.hidden = !on;
+  });
+  if (foco) t.focus();
+}
+fichTabs.forEach((t, i) => {
+  t.addEventListener('click', () => abrirFicha(t));
+  t.addEventListener('keydown', e => {
+    const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+    if (d) { e.preventDefault(); abrirFicha(fichTabs[(i + d + fichTabs.length) % fichTabs.length], true); }
+  });
+});
+
+// ---------- Barra de compra no celular (some na seção de preço) ----------
+const buybar = document.getElementById('buybar'), hero = document.querySelector('.hero'), price = document.getElementById('preco'), closing = document.querySelector('.close');
+let pastHero = false, inPrice = false, inClose = false;
+const upd = () => buybar.classList.toggle('is-on', pastHero && !inPrice && !inClose);
+new IntersectionObserver(([e]) => { inClose = e.isIntersecting; upd(); }).observe(closing);
+new IntersectionObserver(([e]) => { pastHero = !e.isIntersecting; upd(); }).observe(hero);
+new IntersectionObserver(([e]) => { inPrice = e.isIntersecting; upd(); }).observe(price);
+</script>
+</body>
+</html>

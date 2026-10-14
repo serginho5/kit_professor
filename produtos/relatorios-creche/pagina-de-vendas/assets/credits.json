@@ -1,0 +1,24 @@
+[
+ {
+  "file": "assets/the-barefooted-child.jpg",
+  "media": "image",
+  "ref": "aic:61081",
+  "title": "The Barefooted Child",
+  "creator": "Mary Cassatt",
+  "creatorUrl": null,
+  "date": "1896–98",
+  "license": "public domain (CC0)",
+  "licenseCode": "cc0",
+  "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "creditRequired": false,
+  "page": "https://www.artic.edu/artworks/61081",
+  "via": "Art Institute of Chicago",
+  "image": "https://www.artic.edu/iiif/2/9e8a5c54-b8da-95b1-d992-6664a727065f/full/1600,/0/default.jpg",
+  "width": 1600,
+  "height": 1116,
+  "bytes": 394431,
+  "credit": "\"The Barefooted Child\" by Mary Cassatt, 1896–98, public domain (CC0), via Art Institute of Chicago",
+  "notes": [],
+  "saved": "2026-10-14T15:59:11.961Z"
+ }
+]
