@@ -14,3 +14,8 @@ produtos/*/pagina-de-vendas/.taste-skill/
 # Pacotes gerados para upload na Kiwify
 produtos/_para-kiwify/
 produtos/relatorios-creche/_build/nul*
+
+# Materiais locais (não versionar)
+produtos/turma-em-dia/
+produtos/relatorios-creche/marketing/
+produtos/*/capa_*.jpg
