@@ -19,3 +19,6 @@ produtos/relatorios-creche/_build/nul*
 produtos/turma-em-dia/
 produtos/relatorios-creche/marketing/
 produtos/*/capa_*.jpg
+
+# Build do Dieta Fácil (fonte em serginho5/dieta_facil; publicado por deploy/publicar.sh de lá)
+sites/dietafacil/
