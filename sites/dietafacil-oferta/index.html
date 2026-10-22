@@ -1,0 +1,1164 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dieta Fácil — receitas e hábitos para quem usa caneta</title>
+<meta name="description" content="O app de receitas com proteína e hábitos de 30 dias para quem usa caneta emagrecedora. Receitas de 5 minutos, um desafio por dia e seu progresso num app só.">
+<meta name="theme-color" content="#4E7D22">
+<meta property="og:title" content="Dieta Fácil — coma pouco, coma certo">
+<meta property="og:description" content="Receitas com proteína prontas em minutos, um hábito por dia e seu progresso num app só. Feito para a rotina de quem usa caneta emagrecedora.">
+<meta property="og:image" content="img/df-bolinho-caneca.jpg">
+<link rel="icon" href="img/favicon-48.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --verde: #4E7D22;
+  --verde-2: #6FA23A;
+  --verde-escuro: #2F5212;
+  --laranja: #F08A3C;
+  --ink: #1E2B16;
+  --muted: #4D5A45;
+  --fundo: #F7FAF3;
+  --tinta: #EAF2E0;
+  --creme: #FFF1DE;
+  --papel: #FFFFFF;
+  --borda: #E3EBDA;
+  --raio: 20px;
+  --margem: clamp(20px, 4vw, 56px);
+  --t-display: clamp(44px, 5.5vw, 88px);
+  --t-h2: clamp(30px, 3.4vw, 50px);
+  --t-lead: clamp(19px, 1.5vw, 22px);
+  --t-body: 18px;
+  --t-small: 15px;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--fundo); color: var(--ink); font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: var(--t-body); line-height: 1.55; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img { display: block; max-width: 100%; height: auto; }
+figure { margin: 0; }
+a { color: var(--verde); }
+h1, h2, h3 { margin: 0; font-weight: 700; letter-spacing: -0.03em; line-height: 1.02; }
+h1 { font-size: var(--t-display); color: var(--verde); }
+h2 { font-size: var(--t-h2); line-height: 1.06; }
+h3 { font-size: 21px; letter-spacing: -0.01em; line-height: 1.25; font-weight: 600; }
+p { margin: 0; }
+::selection { background: var(--verde); color: #fff; }
+:focus-visible { outline: 3px solid var(--laranja); outline-offset: 3px; }
+
+/* Botão: um formato só, pílula cheia */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 58px; padding: 0 30px; border-radius: 999px; background: var(--verde); color: #fff; font: 600 18px/1.2 'Poppins', sans-serif; text-decoration: none; border: 0; cursor: pointer; transition: transform .2s var(--ease), background-color .2s; }
+.btn:hover { background: var(--verde-escuro); transform: translateY(-2px); }
+.btn:active { transform: translateY(1px) scale(.98); }
+.btn .seta { transition: transform .25s var(--ease); }
+.btn:hover .seta { transform: translateX(4px); }
+.btn.claro { background: #fff; color: var(--verde-escuro); }
+.btn.claro:hover { background: var(--creme); }
+.garantias { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 16px; font-size: var(--t-small); color: var(--muted); }
+.garantias span { display: inline-flex; align-items: center; gap: 6px; }
+.garantias svg { flex: none; }
+
+/* Barra do topo */
+.topo { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px var(--margem); background: var(--fundo); }
+.topo .marca img { height: 40px; width: auto; }
+.topo nav { display: flex; align-items: center; gap: 28px; font-size: var(--t-small); }
+.topo nav a:not(.btn) { color: var(--ink); text-decoration: none; }
+.topo nav a:not(.btn):hover { color: var(--verde); }
+.topo .btn { min-height: 44px; padding: 0 20px; font-size: 15px; }
+
+/* ===== Palco: coluna de leitura + celular fixo ===== */
+.palco { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.leitura { padding: 0 var(--margem) 80px; }
+.cena { position: sticky; top: 68px; height: calc(100svh - 68px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; background: var(--tinta); overflow: hidden; }
+.cena-dica { flex: none; margin: 0; text-align: center; font-size: 14px; color: var(--muted); }
+
+.hero { min-height: calc(100svh - 64px); display: flex; flex-direction: column; justify-content: center; padding: 40px 0 64px; }
+.hero h1 span { display: block; white-space: nowrap; }
+.hero .apoio { margin-top: 28px; font-size: var(--t-lead); max-width: 30ch; color: var(--ink); }
+.hero .acao { margin-top: 36px; }
+.hero-fotos { display: flex; gap: 12px; margin-top: 48px; align-items: center; }
+.hero-fotos img { width: 72px; height: 72px; object-fit: cover; border-radius: 50%; }
+.hero-fotos p { font-size: var(--t-small); color: var(--muted); max-width: 22ch; line-height: 1.4; }
+
+.dor { padding: 120px 0 140px; max-width: 34ch; }
+.dor p { font-size: var(--t-lead); line-height: 1.5; color: var(--muted); }
+.dor p + p { margin-top: 1.1em; }
+.dor p.forte { color: var(--ink); font-weight: 500; }
+.dor p.virada { color: var(--verde); font-weight: 600; }
+
+.como h2 { max-width: 14ch; }
+.passo { min-height: 82svh; display: flex; flex-direction: column; justify-content: center; padding: 48px 0; max-width: 540px; }
+.passo h3 { font-size: clamp(26px, 2.3vw, 34px); letter-spacing: -0.02em; line-height: 1.12; font-weight: 700; color: var(--muted); transition: color .4s; }
+.passo.ativo h3 { color: var(--ink); }
+.passo p { margin-top: 16px; font-size: var(--t-body); }
+.passo .toque { margin-top: 14px; font-size: var(--t-small); color: var(--verde); font-weight: 600; }
+.passo .slot { display: none; }
+.como-fim { padding-top: 24px; }
+
+/* ===== Celular (mockup do app) ===== */
+.fone { width: 312px; height: 650px; border-radius: 48px; background: var(--ink); padding: 11px; flex: none; position: relative; }
+.fone::before { content: ''; position: absolute; top: 20px; left: 50%; width: 92px; height: 24px; margin-left: -46px; border-radius: 20px; background: var(--ink); z-index: 5; }
+/* o celular encolhe para caber na altura da tela (--esc é calculado no script) */
+.cena .fone { --esc: 1; transform: scale(var(--esc)); margin: calc(325px * (var(--esc) - 1)) 0; }
+.fone-tela { position: relative; height: 100%; border-radius: 38px; overflow: hidden; background: #F7FAF3; }
+.tela { position: absolute; inset: 0; padding: 50px 16px 72px; display: flex; flex-direction: column; gap: 10px; opacity: 0; visibility: hidden; transition: opacity .7s var(--ease), visibility 0s .7s; font-size: 13px; line-height: 1.35; color: #1E2B16; text-align: left; }
+.tela.ativa { opacity: 1; visibility: visible; transition: opacity .7s var(--ease), visibility 0s; }
+.slot .tela { opacity: 1; visibility: visible; }
+.ui-card { background: #fff; border-radius: 18px; padding: 12px 14px; }
+.ui-entre { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.ui-tit { font-weight: 600; font-size: 15px; }
+.ui-mudo { color: #4D5A45; }
+.ui-verde { color: #4E7D22; }
+.ui-etq { background: #FFF1DE; color: #9A5212; border-radius: 99px; padding: 2px 9px; font-size: 13px; font-weight: 600; }
+.ui-h { font-size: 22px; font-weight: 700; color: #4E7D22; letter-spacing: -0.02em; line-height: 1.15; }
+.ui-barra { height: 8px; border-radius: 9px; background: #EEF3E8; overflow: hidden; margin-top: 5px; }
+.ui-barra i { display: block; height: 100%; border-radius: 9px; background: #6FA23A; transition: width .6s var(--ease); }
+.ui-barra.am i { background: #E8B13A; }
+.ui-nav { position: absolute; left: 0; right: 0; bottom: 0; height: 62px; background: #fff; display: grid; grid-template-columns: repeat(5, 1fr); align-items: center; text-align: center; font-size: 13px; color: #4D5A45; padding-bottom: 6px; }
+.ui-nav span { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.ui-nav span.on { color: #4E7D22; font-weight: 600; }
+.ui-chip { display: inline-flex; align-items: center; gap: 5px; border-radius: 99px; padding: 6px 12px; background: #fff; font-size: 13px; font-weight: 500; }
+.ui-chip.on { background: #3F6B1A; color: #fff; }
+.ui-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.ui-btn { background: #4E7D22; color: #fff; border-radius: 14px; text-align: center; font-weight: 600; padding: 12px; font-size: 14px; }
+.ui-topo-ola { display: flex; align-items: center; gap: 10px; }
+.ui-avatar { width: 40px; height: 40px; border-radius: 50%; background: #4E7D22; color: #fff; display: grid; place-items: center; font-weight: 700; font-size: 16px; flex: none; }
+
+.refs { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 8px; }
+.ref { background: none; border: 0; padding: 0; font: inherit; color: inherit; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 5px; }
+.ref i { width: 34px; height: 34px; border-radius: 50%; border: 3px solid #E3EBDA; background: #fff; display: grid; place-items: center; transition: background-color .25s, border-color .25s, transform .25s var(--ease); }
+.ref i svg { opacity: 0; transition: opacity .2s; }
+.ref.feito i { background: #6FA23A; border-color: #6FA23A; }
+.ref.feito i svg { opacity: 1; }
+.ref:active i { transform: scale(.88); }
+.ref small { font-size: 13px; color: #5F6B57; line-height: 1.2; text-align: center; }
+.ref.feito small b { color: #1E2B16; }
+.ui-desafio { background: #4E7D22; color: #fff; border-radius: 18px; padding: 14px; }
+.ui-desafio b { display: block; font-size: 16px; line-height: 1.2; margin: 2px 0 6px; }
+.ui-desafio .ui-mini-btn { display: inline-block; margin-top: 8px; background: #fff; color: #4E7D22; font-weight: 600; border-radius: 10px; padding: 6px 12px; }
+.ui-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.ui-rec { background: #fff; border-radius: 14px; padding: 6px; }
+.ui-rec img { width: 100%; height: 66px; object-fit: cover; border-radius: 10px; }
+.ui-rec b { display: block; font-size: 13px; line-height: 1.2; margin: 5px 2px 2px; }
+.ui-rec span { font-size: 13px; color: #4E7D22; font-weight: 600; margin: 0 2px; }
+.ui-passos { display: flex; gap: 5px; }
+.ui-passos i { flex: 1; height: 5px; border-radius: 9px; background: #4E7D22; }
+.ui-passos i.off { background: #E3EBDA; }
+.ui-rec-topo { margin: -50px -16px 0; height: 220px; position: relative; }
+.ui-rec-topo img { width: 100%; height: 100%; object-fit: cover; }
+.ui-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.ui-stats div { background: #fff; border-radius: 12px; padding: 8px 4px; text-align: center; font-size: 13px; color: #5F6B57; line-height: 1.2; }
+.ui-stats b { display: block; color: #1E2B16; font-size: 15px; }
+.ui-stats div.on { background: #3F6B1A; color: #fff; }
+.ui-stats div.on b { color: #fff; }
+.ui-ingr { background: #fff; border-radius: 14px; padding: 2px 12px; }
+.ui-ingr div { display: flex; justify-content: space-between; padding: 7px 0; }
+.ui-ingr div + div { border-top: 1px solid #EEF3E8; } /* taste-skill-ignore: divisória real da tela do app */
+.ui-fase { background: #fff; border-radius: 16px; padding: 10px 12px; display: flex; align-items: center; gap: 10px; }
+.ui-fase .n { width: 38px; height: 38px; border-radius: 12px; background: #EEF5E6; display: grid; place-items: center; font-weight: 700; color: #4E7D22; flex: none; }
+.ui-fase.atual { outline: 2px solid #4E7D22; flex-direction: column; align-items: stretch; }
+.ui-dias { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+.ui-dias i { height: 28px; border-radius: 8px; background: #EEF3E8; display: grid; place-items: center; font-style: normal; font-size: 13px; color: #5F6B57; }
+.ui-dias i.ok { background: #6FA23A; color: #fff; }
+.ui-dias i.hoje { background: #fff; outline: 2px solid #4E7D22; color: #4E7D22; font-weight: 700; }
+.ui-check { display: flex; gap: 8px; align-items: center; }
+.ui-check i { width: 16px; height: 16px; border-radius: 50%; background: #6FA23A; flex: none; }
+.ui-check i.vazio { background: #fff; border: 2px solid #C9D6BC; }
+.ui-check s { color: #5F6B57; }
+.ui-num3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.ui-num3 div { background: #F3F7EE; border-radius: 12px; padding: 8px 4px; text-align: center; font-size: 13px; color: #5F6B57; line-height: 1.2; }
+.ui-num3 b { display: block; font-size: 16px; color: #1E2B16; }
+.ui-anel { width: 48px; height: 48px; flex: none; }
+
+/* ===== Dia difícil (escolha → resposta) ===== */
+.dificil { display: grid; grid-template-columns: 1fr 1fr; min-height: 92svh; }
+.dificil-esq { background: var(--verde-escuro); color: #fff; padding: 120px var(--margem) 64px; display: flex; flex-direction: column; }
+.dificil-esq h2 { color: #fff; }
+.dificil-esq .apoio { margin-top: 24px; font-size: var(--t-lead); color: #E4EFD6; max-width: 32ch; }
+.escolhas { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 36px; }
+.escolha { min-height: 52px; padding: 0 22px; border-radius: 999px; border: 0; background: rgba(255,255,255,.12); color: #fff; font: 600 17px 'Poppins', sans-serif; cursor: pointer; transition: background-color .2s, transform .2s var(--ease); }
+.escolha:hover { background: rgba(255,255,255,.22); }
+.escolha:active { transform: scale(.96); }
+.escolha[aria-pressed="true"] { background: #fff; color: var(--verde-escuro); }
+.dificil-esq .fecho { margin-top: auto; padding-top: 48px; font-size: var(--t-small); color: #CFE0BC; max-width: 40ch; }
+.dificil-dir { background: var(--fundo); padding: 120px var(--margem) 64px; }
+.resposta { max-width: 560px; }
+.resposta h3 { font-size: clamp(28px, 2.4vw, 36px); font-weight: 700; letter-spacing: -0.02em; color: var(--verde); line-height: 1.1; }
+.resposta .sub { margin-top: 14px; }
+.resposta ul { margin: 24px 0 0; padding: 0; list-style: none; }
+.resposta li { padding-left: 28px; position: relative; margin-top: 10px; }
+.resposta li::before { content: ''; position: absolute; left: 4px; top: .55em; width: 10px; height: 10px; border-radius: 50%; background: var(--verde-2); }
+.resposta .descem { margin-top: 32px; font-weight: 600; }
+.mini-recs { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 14px; }
+.mini-rec { display: flex; gap: 14px; align-items: center; }
+.mini-rec img { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; flex: none; }
+.mini-rec b { display: block; font-size: 15px; line-height: 1.25; font-weight: 600; }
+.mini-rec span { font-size: 14px; color: var(--muted); }
+.resposta .alerta { margin-top: 24px; font-size: var(--t-small); color: var(--muted); }
+.troca { animation: troca .5s var(--ease); }
+@keyframes troca { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+/* ===== Receitas (faixa arrastável) ===== */
+.receitas { padding: 160px 0 140px; }
+.receitas-cab { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; padding: 0 var(--margem); flex-wrap: wrap; }
+.receitas-cab h2 { max-width: 16ch; }
+.receitas-cab p { max-width: 34ch; color: var(--muted); }
+.faixa { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x proximity; padding: 40px var(--margem) 8px; scrollbar-width: none; cursor: grab; }
+.faixa::-webkit-scrollbar { display: none; }
+.faixa.arrastando { cursor: grabbing; scroll-snap-type: none; }
+.mod { flex: none; height: 62svh; min-height: 420px; max-height: 620px; scroll-snap-align: start; display: flex; flex-direction: column; gap: 12px; }
+.mod.alto { width: calc(62svh * .75); min-width: 315px; max-width: 465px; }
+.mod.par { width: calc(62svh * .62); min-width: 260px; max-width: 384px; }
+.mod.largo { width: calc(62svh * 1.4); min-width: 560px; max-width: 868px; }
+.foto { position: relative; flex: 1; min-height: 0; border-radius: var(--raio); overflow: hidden; background: var(--tinta); }
+.foto img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); pointer-events: none; }
+.foto:hover img { transform: scale(1.04); }
+.foto figcaption { position: absolute; left: 10px; bottom: 10px; right: 10px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.foto figcaption b { background: #fff; color: var(--ink); border-radius: 999px; padding: 6px 14px; font-size: 15px; font-weight: 600; }
+.foto figcaption span { background: var(--verde); color: #fff; border-radius: 999px; padding: 6px 12px; font-size: 14px; font-weight: 500; }
+.numeros { display: flex; flex-wrap: wrap; gap: 32px 64px; padding: 56px var(--margem) 0; }
+.numeros div { font-size: var(--t-small); color: var(--muted); max-width: 16ch; line-height: 1.35; }
+.numeros b { display: block; font-size: clamp(40px, 4vw, 60px); line-height: 1; color: var(--verde); letter-spacing: -0.03em; margin-bottom: 6px; }
+
+/* ===== Objeções (prova pequena ao lado do texto) ===== */
+.objecoes { background: var(--papel); padding: 150px var(--margem) 140px; }
+.objecoes-int { max-width: 1040px; margin: 0 0 0 clamp(0px, 12vw, 200px); }
+.objecoes h2 { max-width: 15ch; }
+.objecoes .apoio { margin-top: 18px; max-width: 46ch; color: var(--muted); }
+.obj { display: grid; grid-template-columns: 380px minmax(0, 460px); gap: 36px; margin-top: 104px; align-items: start; }
+.obj:first-of-type { margin-top: 72px; }
+.prova { background: var(--fundo); border-radius: var(--raio); padding: 22px; min-height: 140px; display: flex; flex-direction: column; justify-content: center; gap: 10px; font-size: 14px; }
+.prova.foto-prova { padding: 0; overflow: hidden; height: 220px; }
+.prova.foto-prova img { width: 100%; height: 100%; object-fit: cover; }
+.obj h3 { font-size: clamp(22px, 1.9vw, 27px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.18; }
+.obj p { margin-top: 12px; }
+.obj p + p { margin-top: 10px; color: var(--muted); }
+
+/* ===== Jornada: a folha impressa ===== */
+.jornada { background: var(--verde); padding: 140px 10px; }
+.folha { max-width: 680px; margin: 0 auto; background: var(--papel); padding: 80px 64px 72px; text-align: center;
+  /* taste-skill-ignore: máscara do recorte ondulado, não é preenchimento */
+  --rec: radial-gradient(circle at 12px 0, transparent 11px, #000 12px) top / 24px 51% repeat-x, radial-gradient(circle at 12px 100%, transparent 11px, #000 12px) bottom / 24px 51% repeat-x;
+  -webkit-mask: var(--rec); mask: var(--rec); }
+.folha h2 { color: var(--verde); }
+.folha .nota { margin: 16px auto 0; max-width: 36ch; color: var(--muted); }
+.grupo { margin-top: 60px; }
+.grupo h3 { font-size: 23px; font-weight: 700; color: var(--ink); }
+.grupo .quando { font-size: var(--t-small); color: var(--muted); margin-top: 2px; }
+.grupo ol { list-style: none; margin: 22px auto 0; padding: 0; max-width: 460px; text-align: left; }
+.grupo li { display: flex; justify-content: space-between; gap: 20px; padding: 7px 0; font-size: 17px; }
+.grupo li span { font-size: var(--t-small); color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; padding-top: 2px; }
+.folha .rodape-folha { margin-top: 56px; font-size: var(--t-small); color: var(--muted); }
+
+/* ===== Para quem é ===== */
+.paraquem { display: grid; grid-template-columns: 1fr 1fr; background: var(--creme); }
+.paraquem > div { padding: 140px var(--margem) 120px; }
+.paraquem > div + div { background: #F7EBD8; }
+.paraquem h2 { font-size: clamp(28px, 2.8vw, 42px); max-width: 14ch; }
+.paraquem ul { list-style: none; padding: 0; margin: 36px 0 0; max-width: 44ch; }
+.paraquem li { display: flex; gap: 14px; margin-top: 18px; }
+.paraquem li svg { flex: none; margin-top: 3px; }
+
+/* ===== Oferta (preço como cardápio) ===== */
+.oferta { padding: 170px var(--margem) 150px; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 64px; }
+.oferta-esq h2 { max-width: 9ch; }
+.oferta-esq img { width: 78%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--raio); margin-top: 40px; }
+.itens { list-style: none; margin: 0; padding: 0; }
+.itens li { display: flex; justify-content: space-between; gap: 24px; padding: 14px 0; }
+.itens li > div b { display: block; font-size: 19px; font-weight: 600; }
+.itens li > div span { display: block; font-size: 16px; color: var(--muted); max-width: 44ch; }
+.itens li > em { font-style: normal; font-size: 16px; color: var(--verde); font-weight: 600; white-space: nowrap; padding-top: 3px; }
+.total { margin-top: 40px; background: var(--tinta); border-radius: var(--raio); padding: 36px; display: grid; grid-template-columns: 1fr auto; gap: 24px 40px; align-items: center; }
+.total .preco-lin { font-size: var(--t-small); color: var(--muted); margin-bottom: 14px; }
+.total .preco { font-size: clamp(52px, 5.4vw, 80px); font-weight: 700; letter-spacing: -0.04em; color: var(--verde); line-height: 1; margin: 6px 0; font-variant-numeric: tabular-nums; }
+.total .preco small { font-size: .38em; letter-spacing: 0; vertical-align: .9em; margin-right: 4px; }
+.total .comp { font-size: 16px; color: var(--ink); max-width: 34ch; }
+.total .garantias { grid-column: 1 / -1; margin-top: 0; }
+.garantia { margin-top: 24px; display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: center; background: var(--creme); border-radius: var(--raio); padding: 28px 36px; }
+.selo { width: 136px; height: 136px; color: var(--verde); transform: rotate(-10deg); flex: none; }
+.garantia h3 { font-size: 22px; font-weight: 700; }
+.garantia p { margin-top: 6px; color: var(--ink); max-width: 62ch; }
+
+/* ===== Dúvidas ===== */
+.duvidas { background: var(--tinta); display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 64px; padding: 0 var(--margem); }
+.duvidas-esq { padding: 140px 0 120px; }
+.fatos { margin-top: 28px; display: flex; flex-direction: column; gap: 8px; font-size: 17px; }
+.fatos span { display: flex; gap: 10px; align-items: center; }
+details { margin-top: 26px; }
+details:first-of-type { margin-top: 44px; }
+summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; font-size: 19px; font-weight: 600; line-height: 1.35; min-height: 44px; padding-top: 4px; }
+summary::-webkit-details-marker { display: none; }
+summary .chev { flex: none; width: 14px; height: 14px; margin-top: 6px; position: relative; transition: transform .3s var(--ease); }
+summary .chev::before, summary .chev::after { content: ''; position: absolute; top: 5px; width: 9px; height: 2.5px; border-radius: 2px; background: var(--verde); }
+summary .chev::before { left: 0; transform: rotate(45deg); }
+summary .chev::after { right: 0; transform: rotate(-45deg); }
+details[open] summary .chev { transform: rotate(180deg); }
+summary:hover { color: var(--verde); }
+details p { margin-top: 8px; color: var(--muted); max-width: 52ch; font-size: 17px; }
+.duvidas-esq .btn { margin-top: 48px; }
+.duvidas-dir { position: relative; padding-bottom: 80px; }
+.duvidas-dir .alta { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 0 0 var(--raio) var(--raio); }
+.duvidas-dir .quad { position: absolute; left: -40px; bottom: 40px; width: 34%; aspect-ratio: 1; object-fit: cover; border-radius: var(--raio); border: 8px solid var(--tinta); }
+.respira { overflow: hidden; border-radius: 0 0 var(--raio) var(--raio); }
+.respira img { animation: respira 18s ease-in-out infinite alternate; }
+@keyframes respira { from { transform: scale(1); } to { transform: scale(1.07); } }
+
+/* ===== Fechamento ===== */
+.fecha { padding: 30svh var(--margem) 20svh; }
+.fecha p { font-size: clamp(22px, 2vw, 30px); line-height: 1.35; max-width: 30ch; font-weight: 500; }
+.fecha p span { color: var(--verde); }
+.fecha .btn { margin-top: 32px; }
+
+/* ===== Rodapé ===== */
+.rodape { position: relative; min-height: 100svh; color: #fff; overflow: hidden; display: flex; flex-direction: column; }
+.rodape > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(.45); }
+.rodape > * { position: relative; }
+.rodape-topo { display: flex; justify-content: space-between; gap: 32px; flex-wrap: wrap; padding: 40px var(--margem); font-size: 16px; }
+.rodape-topo nav { display: flex; flex-direction: column; gap: 6px; }
+.rodape a { color: #fff; }
+.rodape-topo .contato { text-align: right; max-width: 30ch; }
+.rodape-base { margin-top: auto; padding: 0 var(--margem) 32px; }
+.rodape-nome { font-size: clamp(64px, 16.5vw, 300px); font-weight: 700; letter-spacing: -0.055em; line-height: .86; white-space: nowrap; }
+.rodape-nome span { color: #FFC08A; }
+.legal { margin-top: 28px; font-size: 13px; line-height: 1.5; color: #E8EEE2; max-width: 75ch; }
+.legal + .legal { margin-top: 8px; }
+.hub { display: inline-flex; align-items: center; gap: 10px; margin-top: 20px; font-size: 14px; }
+.hub img { height: 28px; width: auto; background: #fff; border-radius: 8px; padding: 4px 8px; }
+
+/* Barra de compra no celular */
+.compra-fixa { display: none; }
+
+/* Entradas */
+.js .rev { opacity: 0; transform: translateY(24px); transition: opacity .8s var(--ease), transform .8s var(--ease); transition-delay: var(--d, 0ms); }
+.js .rev.visivel { opacity: 1; transform: none; }
+
+/* ===== Celular e tablet ===== */
+@media (max-width: 960px) {
+  .topo nav a:not(.btn) { display: none; }
+  .topo .marca img { height: 34px; }
+  .palco { display: block; }
+  .js .cena { display: none; }
+  .cena { height: auto; position: static; padding: 48px 0; }
+  .hero { min-height: 0; padding: 28px 0 0; }
+  .hero h1 { font-size: clamp(46px, 13.5vw, 72px); }
+  .hero .apoio { margin-top: 20px; }
+  .hero .acao { margin-top: 28px; }
+  .hero .btn { width: 100%; }
+  .hero-fotos { margin-top: 28px; }
+  .js .passo .slot, .js .hero .slot { display: flex; justify-content: center; padding: 36px 0 8px; margin: 0 calc(var(--margem) * -1); background: var(--tinta); border-radius: var(--raio); }
+  .js .hero .slot { margin-top: 40px; }
+  .dor { padding: 96px 0 96px; max-width: 78%; }
+  .dor p { font-size: 18px; }
+  .passo { min-height: 0; padding: 40px 0; max-width: none; }
+  .passo h3 { color: var(--ink); }
+  .dificil { grid-template-columns: 1fr; min-height: 0; }
+  .dificil-esq { padding: 96px var(--margem) 48px; }
+  .dificil-esq .fecho { padding-top: 32px; }
+  .dificil-dir { padding: 48px var(--margem) 72px; }
+  .mini-recs { grid-template-columns: 1fr; }
+  .receitas { padding: 112px 0 96px; }
+  .faixa { gap: 8px; padding-top: 32px; }
+  .mod { height: 62svh; min-height: 380px; }
+  .mod.alto { width: 72vw; min-width: 0; }
+  .mod.par { width: 64vw; min-width: 0; }
+  .mod.largo { width: 88vw; min-width: 0; height: 46svh; min-height: 300px; align-self: center; }
+  .numeros { gap: 28px 32px; }
+  .numeros div { flex: 1 1 40%; }
+  .objecoes { padding: 112px var(--margem) 96px; }
+  .objecoes-int { margin: 0; }
+  .obj { grid-template-columns: 1fr; gap: 18px; margin-top: 64px; }
+  .obj:first-of-type { margin-top: 48px; }
+  .jornada { padding: 96px 10px; }
+  .folha { padding: 64px 24px 56px; }
+  .grupo li { font-size: 16px; }
+  .paraquem { grid-template-columns: 1fr; }
+  .paraquem > div { padding: 96px var(--margem) 80px; }
+  .oferta { grid-template-columns: 1fr; gap: 0; padding: 112px var(--margem) 96px; }
+  .oferta-esq img { width: 60%; margin: 28px 0 36px; }
+  .itens li > div b { font-size: 17px; }
+  .total { grid-template-columns: 1fr; padding: 28px 22px; }
+  .total .btn { width: 100%; }
+  .garantia { grid-template-columns: 1fr; padding: 28px 22px; }
+  .duvidas { grid-template-columns: 1fr; gap: 0; }
+  .duvidas-dir { order: -1; padding: 0 0 48px; margin: 0 calc(var(--margem) * -1); }
+  .duvidas-dir .alta { aspect-ratio: 4 / 5; border-radius: 0; }
+  .respira { border-radius: 0; }
+  .duvidas-dir .quad { left: auto; right: var(--margem); bottom: 0; width: 38%; }
+  .duvidas-esq { padding: 24px 0 96px; }
+  .duvidas-esq .btn { width: 100%; }
+  .fecha { padding: 20svh var(--margem) 16svh; }
+  .rodape { min-height: 88svh; }
+  .rodape-topo .contato { text-align: left; }
+  .rodape-base { padding-bottom: 96px; }
+  .compra-fixa { display: flex; position: fixed; z-index: 40; left: 0; right: 0; bottom: 0; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px)); background: var(--papel); transform: translateY(110%); transition: transform .35s var(--ease); }
+  .compra-fixa.mostra { transform: none; }
+  .compra-fixa p { font-size: 14px; line-height: 1.25; color: var(--muted); }
+  .compra-fixa p b { display: block; color: var(--ink); font-size: 17px; }
+  .compra-fixa .btn { min-height: 48px; padding: 0 22px; font-size: 16px; }
+}
+@media (max-width: 380px) {
+  .fone { transform: scale(.92); margin: -26px 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .rev { opacity: 1; transform: none; transition: none; }
+  .tela, .tela.ativa { transition: none; }
+  .respira img, .troca { animation: none; }
+  .btn, .btn .seta, .foto img { transition: none; }
+}
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<header class="topo">
+  <a class="marca" href="#topo" aria-label="Dieta Fácil, início"><img src="img/dieta-facil-logo-horizontal-colorida.svg" alt="Dieta Fácil" width="137" height="40"></a>
+  <nav aria-label="Seções">
+    <a href="#como">Como funciona</a>
+    <a href="#receitas">Receitas</a>
+    <a href="#oferta">Preço</a>
+    <a href="#duvidas">Dúvidas</a>
+    <a class="btn js-comprar" href="#oferta">Quero o meu</a>
+  </nav>
+</header>
+
+<main id="topo">
+<div class="palco">
+  <div class="leitura">
+
+    <section class="hero" data-tela="inicio" aria-labelledby="titulo">
+      <h1 id="titulo" class="rev"><span>Coma pouco.</span> <span>Coma certo.</span></h1>
+      <p class="apoio rev" style="--d:90ms">O app de receitas e hábitos para quem usa caneta emagrecedora e não sabe mais o que comer: 43 receitas com proteína, muitas prontas em 5 minutos, e um hábito novo por dia durante 30 dias.</p>
+      <div class="acao rev" style="--d:180ms">
+        <a class="btn js-comprar" href="#oferta">Quero começar hoje <span class="seta" aria-hidden="true">→</span></a>
+        <div class="garantias">
+          <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4E7D22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Pagamento único de <b class="js-preco">R$&nbsp;37</b></span>
+          <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4E7D22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>7 dias de garantia</span>
+          <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4E7D22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Android e iPhone</span>
+        </div>
+      </div>
+      <div class="hero-fotos rev" style="--d:260ms">
+        <img src="img/bolinho-caneca.jpg" alt="Bolinho de caneca com whey" width="72" height="72">
+        <img src="img/shake-morango.jpg" alt="Shake proteico de morango" width="72" height="72">
+        <p>Bolinho de caneca: 5 minutos no micro-ondas, cerca de 30 g de proteína.</p>
+      </div>
+      <div class="slot"></div>
+    </section>
+
+    <section class="dor" aria-label="Por que o Dieta Fácil existe">
+      <p class="forte rev">A caneta fez a fome sumir. Só que ninguém te contou o que colocar no prato quando ela some.</p>
+      <p class="rev">Aí o dia vira um café de manhã, meia bolacha à tarde e, à noite, cansada, o que tiver na geladeira. A balança desce. Mas a disposição vai embora junto, e fica aquela sensação de estar emagrecendo do jeito errado.</p>
+      <p class="rev">Emagrecer comendo quase nada tem um preço: quando falta proteína, o corpo pode gastar músculo junto com a gordura.</p>
+      <p class="rev">E tem o medo que pouca gente fala em voz alta: o que acontece quando a caneta acabar? Se nada mudou na rotina, a fome volta, e os hábitos antigos voltam com ela.</p>
+      <p class="virada rev">O Dieta Fácil existe para a caneta não fazer o trabalho sozinha.</p>
+    </section>
+
+    <section class="como" id="como" aria-labelledby="como-tit">
+      <h2 id="como-tit" class="rev">Como funciona no seu dia</h2>
+
+      <div class="passo" data-tela="rotina">
+        <h3 class="rev">Em 1 minuto, o app monta a sua rotina.</h3>
+        <p class="rev" style="--d:80ms">Você conta seus horários, o que não come (lactose, glúten, carne, ovo) e o que mais quer agora. Ele sugere uma meta inicial de proteína e só mostra receitas que fazem sentido para você.</p>
+        <div class="slot"></div>
+      </div>
+
+      <div class="passo" data-tela="inicio">
+        <h3 class="rev">Você abre e já sabe o que comer.</h3>
+        <p class="rev" style="--d:80ms">Café, lanche, almoço e jantar escolhidos para hoje. Fez? Toca e marca. A proteína, a água e as fibras vão somando sozinhas, sem contar caloria e sem planilha.</p>
+        <p class="toque rev" style="--d:140ms">Experimente: toque nas bolinhas do celular.</p>
+        <div class="slot"></div>
+      </div>
+
+      <div class="passo" data-tela="receita">
+        <h3 class="rev">Faz em 5 minutos, com o que tem em casa.</h3>
+        <p class="rev" style="--d:80ms">Ingredientes de mercado comum, passo a passo curto e sem termo difícil. Porções pequenas, pensadas para quem come pouco, mas com a proteína que o corpo precisa.</p>
+        <div class="slot"></div>
+      </div>
+
+      <div class="passo" data-tela="jornada">
+        <h3 class="rev">Um hábito novo por dia. Só um.</h3>
+        <p class="rev" style="--d:80ms">Beber água ao acordar. Deixar o lanche pronto. Colocar proteína no café. São 30 desafios pequenos em 4 fases, e cada fase concluída libera a próxima. É assim que a rotina muda sem sofrimento.</p>
+        <div class="slot"></div>
+      </div>
+
+      <div class="passo" data-tela="progresso">
+        <h3 class="rev">E você vê o seu corpo responder.</h3>
+        <p class="rev" style="--d:80ms">Peso, cintura e fotos de antes e depois num gráfico simples. Ver a linha descendo é o que faz você continuar nos dias em que dá vontade de largar. Tudo fica guardado só no seu celular.</p>
+        <div class="slot"></div>
+      </div>
+
+      <div class="como-fim rev">
+        <a class="btn js-comprar" href="#oferta">Quero o Dieta Fácil <span class="seta" aria-hidden="true">→</span></a>
+      </div>
+    </section>
+  </div>
+
+  <aside class="cena" aria-label="Telas do aplicativo">
+    <div class="fone" data-ui>
+      <div class="fone-tela" id="telas">
+
+        <!-- Rotina (cadastro) -->
+        <div class="tela" data-id="rotina">
+          <div class="ui-entre" style="margin-top:6px"><div class="ui-passos" style="flex:1"><i></i><i></i><i></i></div><span class="ui-mudo">3 de 3</span></div>
+          <div class="ui-h" style="margin-top:8px">Algo que você não come?</div>
+          <div class="ui-mudo">Assim só aparecem receitas que fazem sentido para você.</div>
+          <div class="ui-chips" style="margin-top:4px">
+            <span class="ui-chip on"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Sem lactose</span><span class="ui-chip">Sem glúten</span><span class="ui-chip">Vegetariana</span><span class="ui-chip">Sem ovo</span><span class="ui-chip on"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Sem açúcar</span><span class="ui-chip">Nenhuma</span>
+          </div>
+          <div class="ui-card" style="margin-top:6px">
+            <div class="ui-mudo" style="font-weight:600">Seus horários</div>
+            <div class="ui-entre" style="margin-top:6px"><span>Café da manhã</span><b class="ui-verde">07:00</b></div>
+            <div class="ui-entre" style="margin-top:4px"><span>Almoço</span><b class="ui-verde">12:30</b></div>
+            <div class="ui-entre" style="margin-top:4px"><span>Lanche da tarde</span><b class="ui-verde">16:00</b></div>
+            <div class="ui-entre" style="margin-top:4px"><span>Jantar</span><b class="ui-verde">19:30</b></div>
+          </div>
+          <div class="ui-card">
+            <div class="ui-mudo" style="font-weight:600">Sua meta inicial de proteína</div>
+            <div style="margin-top:2px"><b style="font-size:30px;color:#4E7D22;letter-spacing:-.02em">90 g</b> <span class="ui-mudo">por dia</span></div>
+          </div>
+          <div class="ui-btn" style="margin-top:auto">Montar minha rotina</div>
+        </div>
+
+        <!-- Início -->
+        <div class="tela ativa" data-id="inicio">
+          <div class="ui-entre">
+            <div class="ui-topo-ola"><span class="ui-avatar">A</span><div><b style="font-size:17px">Oi, Ana</b><div class="ui-mudo">Dia 3 do desafio de 7 dias</div></div></div>
+          </div>
+          <div class="ui-card">
+            <div class="ui-entre"><span class="ui-tit">Meu dia</span><span class="ui-etq js-feitos">2 de 4 feitos</span></div>
+            <div class="refs">
+              <button class="ref feito" type="button" data-p="24" aria-pressed="true" aria-label="Café da manhã"><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></i><small>Café<br><b>feito</b></small></button>
+              <button class="ref feito" type="button" data-p="24" aria-pressed="true" aria-label="Almoço"><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></i><small>Almoço<br><b>feito</b></small></button>
+              <button class="ref" type="button" data-p="30" aria-pressed="false" aria-label="Lanche da tarde"><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></i><small>Lanche<br><b>16:00</b></small></button>
+              <button class="ref" type="button" data-p="26" aria-pressed="false" aria-label="Jantar"><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></i><small>Jantar<br><b>19:30</b></small></button>
+            </div>
+          </div>
+          <div class="ui-card">
+            <div class="ui-entre"><span class="ui-tit">Metas de hoje</span><span class="ui-verde" style="font-weight:600">Ajustar</span></div>
+            <div class="ui-entre" style="margin-top:6px"><b>Proteína</b><span class="ui-mudo js-prot">48 de 90 g</span></div>
+            <div class="ui-barra"><i class="js-prot-barra" style="width:53%"></i></div>
+            <div class="ui-entre" style="margin-top:8px"><b>Água</b><span class="ui-mudo">1,2 de 2 L</span></div>
+            <div class="ui-barra"><i style="width:60%"></i></div>
+            <div class="ui-entre" style="margin-top:8px"><b>Fibras</b><span class="ui-mudo">12 de 25 g</span></div>
+            <div class="ui-barra am"><i style="width:48%"></i></div>
+          </div>
+          <div class="ui-desafio">
+            <span style="opacity:.85">Desafio de hoje</span>
+            <b>Coloque uma proteína no café da manhã</b>
+            <span style="opacity:.9">Ovo, iogurte ou um shake com whey já contam.</span><br>
+            <span class="ui-mini-btn">Marcar como feito</span>
+          </div>
+          <div class="ui-cards">
+            <div class="ui-rec"><img src="img/iogurte-whey-aveia.jpg" alt="" width="140" height="66"><b>Iogurte com whey e aveia</b><span>3 min</span></div>
+            <div class="ui-rec"><img src="img/bolinho-caneca.jpg" alt="" width="140" height="66"><b>Bolinho de caneca</b><span>5 min</span></div>
+          </div>
+          <div class="ui-nav" aria-hidden="true"><span class="on"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4E7D22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg></span><span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6B7663" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h14v16H5z"/><path d="M9 4v16"/></svg></span><span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6B7663" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4h12l-2 4 2 4H5"/></svg></span><span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6B7663" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg></span><span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6B7663" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg></span></div>
+        </div>
+
+        <!-- Receita -->
+        <div class="tela" data-id="receita">
+          <div class="ui-rec-topo"><img src="img/df-bolinho-caneca.jpg" alt="" width="290" height="220"></div>
+          <div class="ui-chips"><span class="ui-chip" style="background:#EEF5E6;color:#3F6B1A">Com whey</span><span class="ui-chip" style="background:#FFF1DE;color:#9A5212">Micro-ondas</span></div>
+          <div class="ui-h">Bolinho de caneca com whey</div>
+          <div class="ui-stats">
+            <div><b>5 min</b>preparo</div><div class="on"><b>≈ 30 g</b>proteína</div><div><b>5</b>itens</div><div><b>1</b>porção</div>
+          </div>
+          <div class="ui-ingr">
+            <div><span>Ovo</span><span class="ui-mudo">1 unidade</span></div>
+            <div><span>Whey</span><span class="ui-mudo">30 g</span></div>
+            <div><span>Aveia em flocos</span><span class="ui-mudo">2 col. sopa</span></div>
+            <div><span>Leite</span><span class="ui-mudo">3 col. sopa</span></div>
+          </div>
+          <div class="ui-entre" style="position:absolute;left:0;right:0;bottom:0;background:#fff;padding:12px 16px 18px"><div><span class="ui-mudo">Soma na meta</span><br><b class="ui-verde" style="font-size:16px">+30 g proteína</b></div><span class="ui-btn" style="padding:10px 16px">Fiz esta receita</span></div>
+        </div>
+
+        <!-- Jornada -->
+        <div class="tela" data-id="jornada">
+          <div class="ui-h" style="font-size:24px">Sua jornada</div>
+          <div class="ui-mudo">Cada fase libera a próxima. Pequenos passos que viram hábito.</div>
+          <div class="ui-fase atual">
+            <div style="display:flex;gap:10px;align-items:center"><span class="n">7</span><div style="flex:1"><b>Primeiros passos</b><div class="ui-mudo">7 dias, um hábito por dia</div></div></div>
+            <div class="ui-dias"><i class="ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg></i><i class="ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg></i><i class="hoje">3</i><i>4</i><i>5</i><i>6</i><i>7</i></div>
+          </div>
+          <div class="ui-fase"><span class="n">14</span><div><b>Ritmo</b><div class="ui-mudo">Libera ao concluir os 7 dias</div></div></div>
+          <div class="ui-fase"><span class="n">21</span><div><b>Constância</b><div class="ui-mudo">Libera ao concluir os 14 dias</div></div></div>
+          <div class="ui-fase"><span class="n">30</span><div><b>Novo estilo de vida</b><div class="ui-mudo">Libera ao concluir os 21 dias</div></div></div>
+          <b style="font-size:15px;margin-top:4px">Hábitos desta fase</b>
+          <div class="ui-check"><i></i><s>Beba um copo de água ao acordar</s></div>
+          <div class="ui-check"><i></i><s>Deixe um lanche pronto</s></div>
+          <div class="ui-check"><i class="vazio"></i><b class="ui-verde">Hoje: proteína no café</b></div>
+          <div class="ui-nav" aria-hidden="true"><span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6B7663" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg></span><span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6B7663" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h14v16H5z"/><path d="M9 4v16"/></svg></span><span class="on"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4E7D22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4h12l-2 4 2 4H5"/></svg></span><span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6B7663" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg></span><span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6B7663" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg></span></div>
+        </div>
+
+        <!-- Progresso -->
+        <div class="tela" data-id="progresso">
+          <div class="ui-h" style="font-size:24px">Meu progresso</div>
+          <div class="ui-card">
+            <div style="display:flex;gap:12px;align-items:center">
+              <svg class="ui-anel" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20" fill="none" stroke="#EEF3E8" stroke-width="5"/><circle cx="24" cy="24" r="20" fill="none" stroke="#6FA23A" stroke-width="5" stroke-linecap="round" stroke-dasharray="90 126" transform="rotate(-90 24 24)"/><text x="24" y="29" text-anchor="middle" font-size="13" font-weight="700" fill="#1E2B16" font-family="Poppins, sans-serif">5/7</text></svg>
+              <div><b style="font-size:16px">Semana firme</b><div class="ui-mudo">Desafio cumprido em 5 dos últimos 7 dias.</div></div>
+            </div>
+            <div class="ui-num3" style="margin-top:10px"><div><b>78,4 kg</b>peso</div><div><b>−2,6 kg</b>desde o início</div><div><b>−3 cm</b>cintura</div></div>
+          </div>
+          <div class="ui-card">
+            <div class="ui-entre"><span class="ui-tit">Peso</span><span class="ui-mudo">6 pesagens</span></div>
+            <svg viewBox="0 0 260 110" width="100%" aria-hidden="true" style="margin-top:6px">
+              <path d="M10 22 L58 34 L106 42 L154 64 L202 72 L250 92" fill="none" stroke="#4E7D22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              <g fill="#4E7D22"><circle cx="10" cy="22" r="4"/><circle cx="58" cy="34" r="4"/><circle cx="106" cy="42" r="4"/><circle cx="154" cy="64" r="4"/><circle cx="202" cy="72" r="4"/><circle cx="250" cy="92" r="5.5"/></g>
+            </svg>
+          </div>
+          <div class="ui-card">
+            <div class="ui-entre"><span class="ui-tit">Fotos de evolução</span><span class="ui-verde" style="font-weight:600">Adicionar</span></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px">
+              <div style="background:#EADFD1;border-radius:12px;height:64px;display:grid;place-items:center" style="color:#3F3A33">Início</div>
+              <div style="background:#D6E8C2;border-radius:12px;height:64px;display:grid;place-items:center;color:#2F5212;font-weight:600">Hoje</div>
+            </div>
+            <div class="ui-mudo" style="margin-top:8px">Suas fotos ficam só neste celular.</div>
+          </div>
+          <div class="ui-nav" aria-hidden="true"><span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6B7663" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg></span><span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6B7663" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h14v16H5z"/><path d="M9 4v16"/></svg></span><span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6B7663" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4h12l-2 4 2 4H5"/></svg></span><span class="on"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4E7D22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg></span><span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6B7663" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg></span></div>
+        </div>
+
+      </div>
+    </div>
+    <p class="cena-dica">Telas reais do app, com dados de exemplo.</p>
+  </aside>
+</div>
+
+<section class="dificil" id="dia-dificil" aria-labelledby="dificil-tit">
+  <div class="dificil-esq">
+    <h2 id="dificil-tit" class="rev">Dia difícil? Tem plano.</h2>
+    <p class="apoio rev" style="--d:80ms">Tem dia que a caneta pesa: o enjoo vem, a fome some ou o tempo acaba. O app tem uma tela só para esses dias. Escolha como você está hoje:</p>
+    <div class="escolhas rev" style="--d:160ms" role="group" aria-label="Como você está hoje">
+      <button class="escolha" type="button" data-dia="sem-fome" aria-pressed="true">Sem fome</button>
+      <button class="escolha" type="button" data-dia="enjoada" aria-pressed="false">Enjoada</button>
+      <button class="escolha" type="button" data-dia="sem-tempo" aria-pressed="false">Sem tempo</button>
+    </div>
+    <p class="fecho rev">É exatamente o que aparece no app, do jeito que está aqui. Em vez de pular a refeição, você come o que desce bem.</p>
+  </div>
+  <div class="dificil-dir">
+    <div class="resposta" id="resposta" aria-live="polite">
+      <h3>Sem fome hoje? Normal.</h3>
+      <p class="sub">Quando o apetite some, o segredo é comer pouco, mas com proteína. Coma devagar e pare quando estiver satisfeita.</p>
+      <ul>
+        <li>Divida a refeição em 2 ou 3 porções pequenas ao longo do dia.</li>
+        <li>Líquidos e cremosos descem mais fácil: shake, iogurte, sopa.</li>
+        <li>Beba água entre as refeições, não durante.</li>
+      </ul>
+      <p class="descem">Descem fácil</p>
+      <div class="mini-recs">
+        <div class="mini-rec"><img src="img/shake-morango.jpg" alt="" width="64" height="64"><div><b>Shake proteico de morango</b><span>2 min · ≈ 31 g de proteína</span></div></div>
+        <div class="mini-rec"><img src="img/iogurte-whey-aveia.jpg" alt="" width="64" height="64"><div><b>Iogurte com whey e aveia</b><span>3 min · ≈ 33 g de proteína</span></div></div>
+        <div class="mini-rec"><img src="img/mousse-proteica.jpg" alt="" width="64" height="64"><div><b>Mousse de chocolate com whey</b><span>5 min · ≈ 30 g de proteína</span></div></div>
+        <div class="mini-rec"><img src="img/sopa-abobora-frango.jpg" alt="" width="64" height="64"><div><b>Creme de abóbora com frango</b><span>20 min · ≈ 26 g de proteína</span></div></div>
+      </div>
+      <p class="alerta">Se a falta de apetite durar vários dias ou você não conseguir se hidratar, converse com seu médico.</p>
+    </div>
+  </div>
+</section>
+
+<section class="receitas" id="receitas" aria-labelledby="rec-tit">
+  <div class="receitas-cab">
+    <h2 id="rec-tit" class="rev">43 receitas para quem come pouco</h2>
+    <p class="rev" style="--d:80ms">Porção pequena, muita proteína e quase nada de louça. Arraste para o lado e veja algumas.</p>
+  </div>
+  <div class="faixa" id="faixa" tabindex="0" aria-label="Fotos de receitas do app, role para o lado">
+    <figure class="mod alto foto"><img src="img/df-bolinho-caneca.jpg" alt="Bolinho de caneca com whey e morangos" width="900" height="900"><figcaption><b>Bolinho de caneca</b><span>5 min · ≈ 30 g</span></figcaption></figure>
+    <div class="mod par">
+      <figure class="foto"><img src="img/df-shake-morango.jpg" alt="Shake proteico de morango" width="900" height="900" loading="lazy"><figcaption><b>Shake de morango</b><span>2 min</span></figcaption></figure>
+      <figure class="foto"><img src="img/pizza-frigideira-frango.jpg" alt="Pizza de frigideira de frango" width="640" height="640" loading="lazy"><figcaption><b>Pizza de frigideira</b><span>≈ 39 g</span></figcaption></figure>
+    </div>
+    <figure class="mod largo foto"><img src="img/df-omelete-legumes.jpg" alt="Omelete de legumes" width="900" height="900" loading="lazy"><figcaption><b>Omelete de legumes</b><span>12 min · ≈ 23 g</span></figcaption></figure>
+    <div class="mod par">
+      <figure class="foto"><img src="img/df-mousse-proteica.jpg" alt="Mousse de chocolate com whey" width="900" height="900" loading="lazy"><figcaption><b>Mousse com whey</b><span>5 min</span></figcaption></figure>
+      <figure class="foto"><img src="img/strogonoff-light.jpg" alt="Strogonoff light de frango" width="640" height="640" loading="lazy"><figcaption><b>Strogonoff light</b><span>≈ 34 g</span></figcaption></figure>
+    </div>
+    <figure class="mod alto foto"><img src="img/df-iogurte-whey-aveia.jpg" alt="Iogurte com whey, aveia e frutas" width="900" height="900" loading="lazy"><figcaption><b>Iogurte com whey e aveia</b><span>3 min · sem fogão</span></figcaption></figure>
+    <figure class="mod largo foto"><img src="img/tilapia-airfryer.jpg" alt="Tilápia na airfryer com salada" width="640" height="640" loading="lazy"><figcaption><b>Tilápia na airfryer</b><span>15 min · ≈ 31 g</span></figcaption></figure>
+    <div class="mod par">
+      <figure class="foto"><img src="img/brigadeiro-whey.jpg" alt="Brigadeiro de whey" width="640" height="640" loading="lazy"><figcaption><b>Brigadeiro de whey</b><span>sem fogão</span></figcaption></figure>
+      <figure class="foto"><img src="img/salada-grao-bico-atum.jpg" alt="Salada de grão-de-bico e atum" width="640" height="640" loading="lazy"><figcaption><b>Grão-de-bico e atum</b><span>10 min</span></figcaption></figure>
+    </div>
+    <figure class="mod alto foto"><img src="img/overnight-oats.jpg" alt="Overnight oats proteico" width="640" height="640" loading="lazy"><figcaption><b>Overnight oats</b><span>pronto na geladeira</span></figcaption></figure>
+  </div>
+  <div class="numeros">
+    <div class="rev"><b>24</b>receitas prontas em até 10 minutos</div>
+    <div class="rev" style="--d:70ms"><b>25</b>sem fogão: micro-ondas, liquidificador ou geladeira</div>
+    <div class="rev" style="--d:140ms"><b>26</b>sem whey, para quem não tem ou não gosta</div>
+    <div class="rev" style="--d:210ms"><b>28</b>sem carne, frango ou peixe</div>
+  </div>
+</section>
+
+<section class="objecoes" aria-labelledby="obj-tit">
+  <div class="objecoes-int">
+    <h2 id="obj-tit" class="rev">Talvez você esteja pensando…</h2>
+    <p class="apoio rev" style="--d:80ms">São as mesmas dúvidas de quase toda mulher antes de começar. Vamos a elas, com sinceridade.</p>
+
+    <div class="obj">
+      <div class="prova rev" data-ui>
+        <div class="mini-rec" style="background:#fff"><img src="img/shake-morango.jpg" alt="" width="64" height="64"><div><b>Shake proteico de morango</b><span>2 min · ≈ 31 g de proteína</span></div></div>
+        <div class="mini-rec" style="background:#fff"><img src="img/sopa-abobora-frango.jpg" alt="" width="64" height="64"><div><b>Creme de abóbora com frango</b><span>≈ 26 g de proteína</span></div></div>
+      </div>
+      <div class="rev" style="--d:80ms">
+        <h3>“Eu mal sinto fome. Para que um app de dieta?”</h3>
+        <p>É justamente para isso. Quando você come pouco, cada colherada precisa valer. O app troca o prato cheio por porções pequenas e cheias de proteína: um shake, um creme, um iogurte.</p>
+        <p>Não é para comer mais. É para comer o pouco do jeito certo.</p>
+      </div>
+    </div>
+
+    <div class="obj">
+      <div class="prova rev" data-ui>
+        <div class="ui-chips"><span class="ui-chip on">Até 10 min</span><span class="ui-chip" style="background:#fff">Sem fogão</span><span class="ui-chip" style="background:#fff">Micro-ondas</span><span class="ui-chip" style="background:#fff">Para levar</span></div>
+        <div style="font-size:15px"><b style="color:#4E7D22">15 receitas</b> ficam prontas em 5 minutos ou menos.</div>
+      </div>
+      <div class="rev" style="--d:80ms">
+        <h3>“Não tenho tempo nem paciência para cozinhar.”</h3>
+        <p>Nem precisa. Tem bolinho de caneca no micro-ondas, shake no liquidificador e lanche que você monta na noite anterior e leva na bolsa.</p>
+        <p>Para os dias corridos, filtre por “até 10 min” ou “sem fogão” e escolha.</p>
+      </div>
+    </div>
+
+    <div class="obj">
+      <div class="prova rev" data-ui>
+        <b style="font-size:15px">Primeiros passos</b>
+        <div class="ui-dias"><i class="ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg></i><i class="ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg></i><i class="ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg></i><i class="ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg></i><i class="hoje">5</i><i>6</i><i>7</i></div>
+        <div style="color:#4D5A45">Um desafio por dia. Errou um? O próximo continua lá.</div>
+      </div>
+      <div class="rev" style="--d:80ms">
+        <h3>“Já tentei dieta e desisti na segunda semana.”</h3>
+        <p>Porque dieta pede tudo de uma vez. O Dieta Fácil pede uma coisa por dia: hoje, um copo d’água ao acordar. Amanhã, deixar o lanche pronto. Pequeno o bastante para caber no dia mais cansativo.</p>
+        <p>Não tem cardápio proibido nem culpa. Tem constância, um passo de cada vez.</p>
+      </div>
+    </div>
+
+    <div class="obj">
+      <div class="prova rev" data-ui>
+        <div class="ui-fase" style="background:#fff"><span class="n">30</span><div><b>Novo estilo de vida</b><div class="ui-mudo">Autonomia para seguir sozinha</div></div></div>
+        <div style="color:#4D5A45">A última fase é feita para você não precisar mais do app para saber o que comer.</div>
+      </div>
+      <div class="rev" style="--d:80ms">
+        <h3>“E quando eu parar a caneta?”</h3>
+        <p>Essa é a pergunta mais importante, e é por isso que o app existe. A caneta ajuda com a fome. Quem segura o resultado depois são os seus hábitos.</p>
+        <p>Em 30 dias você aprende a montar o prato, a ter proteína à mão e a se planejar. Isso fica com você quando a caneta sair.</p>
+      </div>
+    </div>
+
+    <div class="obj">
+      <div class="prova rev" data-ui>
+        <div class="ui-chips"><span class="ui-chip on"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Sem lactose</span><span class="ui-chip on"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Sem glúten</span><span class="ui-chip" style="background:#fff">Vegetariana</span><span class="ui-chip" style="background:#fff">Sem ovo</span></div>
+        <div style="color:#4D5A45">Não gosta de algo? Escreva, e ele some do seu cardápio.</div>
+      </div>
+      <div class="rev" style="--d:80ms">
+        <h3>“Tenho restrição. Não vai servir para mim.”</h3>
+        <p>Você marca o que não come logo no começo (lactose, glúten, carne, ovo) e o app esconde o que não serve. Também dá para tirar ingredientes que você simplesmente não gosta.</p>
+      </div>
+    </div>
+
+    <div class="obj">
+      <div class="prova rev" data-ui>
+        <div style="display:flex;gap:10px;align-items:center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4E7D22" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><b style="font-size:16px">Fica salvo só neste celular</b></div>
+        <div style="color:#4D5A45">Peso, medidas, fotos e diário. Ninguém da equipe vê. Você baixa ou apaga quando quiser.</div>
+      </div>
+      <div class="rev" style="--d:80ms">
+        <h3>“Minhas fotos e meu peso vão parar na internet?”</h3>
+        <p>Não. Seguindo a LGPD, tudo o que é seu fica guardado no seu próprio celular. O servidor só sabe o seu e-mail, para confirmar a compra.</p>
+      </div>
+    </div>
+
+    <div class="obj">
+      <div class="prova rev" data-ui>
+        <div style="background:#fff;border-radius:14px;padding:14px;display:flex;gap:10px;align-items:center;justify-content:center;font-weight:600;font-size:16px"><svg width="20" height="20" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.6 5.4 2.6 13.2l7.9 6.2C12.4 13.6 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.6c-.5 2.9-2.2 5.4-4.7 7l7.6 5.9c4.4-4.1 7-10.1 7-17.4z"/><path fill="#FBBC05" d="M10.5 28.6c-.5-1.4-.8-3-.8-4.6s.3-3.2.8-4.6l-7.9-6.2C1 16.5 0 20.1 0 24s1 7.5 2.6 10.8l7.9-6.2z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.6-5.9c-2.1 1.4-4.9 2.3-8.3 2.3-6.3 0-11.6-4.1-13.5-9.8l-7.9 6.2C6.6 42.6 14.6 48 24 48z"/></svg>Continuar com Google</div>
+        <div style="color:#4D5A45">Sem senha e sem cadastro. Um toque e você entra.</div>
+      </div>
+      <div class="rev" style="--d:80ms">
+        <h3>“Não sou boa com tecnologia.”</h3>
+        <p>Se você usa o WhatsApp, você usa o Dieta Fácil. Entra com um toque na sua conta Google, sem criar senha. O próprio app mostra como colocar o ícone na tela inicial do celular.</p>
+      </div>
+    </div>
+
+    <div class="obj">
+      <div class="prova foto-prova rev"><img src="img/salada-grao-bico-atum.jpg" alt="Salada de grão-de-bico e atum" width="640" height="640" loading="lazy"></div>
+      <div class="rev" style="--d:80ms">
+        <h3>“Isso substitui a minha nutricionista?”</h3>
+        <p>Não, e a gente prefere ser honesto com você. O Dieta Fácil segue recomendações gerais de alimentação saudável e ajuda no dia a dia, entre uma consulta e outra. Se a sua nutricionista indicar outra meta de proteína, é só ajustar no app.</p>
+        <p>Ele também não orienta sobre o uso da caneta. Isso é sempre com o seu médico.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="jornada" aria-labelledby="jornada-tit">
+  <div class="folha rev">
+    <h2 id="jornada-tit">Seus 30 dias</h2>
+    <p class="nota">Um desafio por dia, pequeno o bastante para caber na rotina mais corrida. Esta é a lista completa.</p>
+
+    <div class="grupo">
+      <h3>Primeiros passos</h3><p class="quando">dias 1 a 7</p>
+      <ol>
+        <li>Beba um copo de água ao acordar <span>dia 1</span></li>
+        <li>Deixe um lanche pronto para amanhã <span>dia 2</span></li>
+        <li>Coloque uma proteína no café da manhã <span>dia 3</span></li>
+        <li>Faça o bolinho de caneca no lanche <span>dia 4</span></li>
+        <li>Coma devagar na refeição principal <span>dia 5</span></li>
+        <li>Metade do prato com legumes <span>dia 6</span></li>
+        <li>Registre seu peso e medidas <span>dia 7</span></li>
+      </ol>
+    </div>
+    <div class="grupo">
+      <h3>Ritmo</h3><p class="quando">dias 8 a 14</p>
+      <ol>
+        <li>Beba 1,5 litro de água <span>dia 8</span></li>
+        <li>Planeje o cardápio de amanhã <span>dia 9</span></li>
+        <li>Inclua uma fibra extra <span>dia 10</span></li>
+        <li>Caminhe 15 minutos <span>dia 11</span></li>
+        <li>Troque o doce da tarde <span>dia 12</span></li>
+        <li>Prepare o frango da semana <span>dia 13</span></li>
+        <li>Durma 7 horas <span>dia 14</span></li>
+      </ol>
+    </div>
+    <div class="grupo">
+      <h3>Constância</h3><p class="quando">dias 15 a 21</p>
+      <ol>
+        <li>Bata a meta de proteína do dia <span>dia 15</span></li>
+        <li>Leve um lanche na bolsa <span>dia 16</span></li>
+        <li>Duas refeições sem tela <span>dia 17</span></li>
+        <li>Experimente uma receita nova <span>dia 18</span></li>
+        <li>Caminhe 20 minutos <span>dia 19</span></li>
+        <li>Beba 2 litros de água <span>dia 20</span></li>
+        <li>Registre sua evolução <span>dia 21</span></li>
+      </ol>
+    </div>
+    <div class="grupo">
+      <h3>Novo estilo de vida</h3><p class="quando">dias 22 a 30</p>
+      <ol>
+        <li>Monte 3 marmitas <span>dia 22</span></li>
+        <li>Exercício de força leve <span>dia 23</span></li>
+        <li>Algo verde em cada refeição <span>dia 24</span></li>
+        <li>Observe sua fome <span>dia 25</span></li>
+        <li>Cozinhe para alguém <span>dia 26</span></li>
+        <li>Um dia completo do cardápio <span>dia 27</span></li>
+        <li>Caminhe 30 minutos <span>dia 28</span></li>
+        <li>Escreva 3 conquistas <span>dia 29</span></li>
+        <li>Feche o ciclo <span>dia 30</span></li>
+      </ol>
+    </div>
+    <p class="rodape-folha">Cada fase concluída libera a próxima.<br>No fim, a rotina é sua.</p>
+  </div>
+</section>
+
+<section class="paraquem" aria-label="Para quem é o Dieta Fácil">
+  <div>
+    <h2 class="rev">É para você se…</h2>
+    <ul>
+      <li class="rev"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4E7D22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>usa ou vai começar a caneta e não sabe o que comer agora que a fome mudou;</li>
+      <li class="rev"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4E7D22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>pula refeição porque “não desce nada” e depois se sente fraca;</li>
+      <li class="rev"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4E7D22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>quer emagrecer com disposição, e não às custas da sua saúde;</li>
+      <li class="rev"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4E7D22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>tem a rotina corrida e precisa de receita de minutos, não de horas;</li>
+      <li class="rev"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4E7D22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>quer hábitos que continuem quando a caneta acabar.</li>
+    </ul>
+  </div>
+  <div>
+    <h2 class="rev">Não é para você se…</h2>
+    <ul>
+      <li class="rev"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B23A3A" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>procura uma dieta milagrosa ou um cardápio de fome;</li>
+      <li class="rev"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B23A3A" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>quer trocar o acompanhamento do médico ou da nutricionista por um app;</li>
+      <li class="rev"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B23A3A" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>espera que a caneta resolva tudo sozinha, sem mudar nada na rotina.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="oferta" id="oferta" aria-labelledby="oferta-tit">
+  <div class="oferta-esq">
+    <h2 id="oferta-tit" class="rev">O que você leva hoje</h2>
+    <img class="rev" src="img/df-iogurte-whey-aveia.jpg" alt="Iogurte com whey, aveia e frutas vermelhas" width="900" height="900" loading="lazy">
+  </div>
+  <div>
+    <ul class="itens">
+      <li class="rev"><div><b>App Dieta Fácil</b><span>Para Android e iPhone. Fica na tela inicial e abre como um aplicativo.</span></div><em>incluso</em></li>
+      <li class="rev"><div><b>43 receitas com proteína</b><span>Com filtros por tempo, preparo e restrição, e foto de cada uma.</span></div><em>incluso</em></li>
+      <li class="rev"><div><b>Cardápio do dia montado para você</b><span>Café, almoço, lanche e jantar nos seus horários, respeitando o que você não come.</span></div><em>incluso</em></li>
+      <li class="rev"><div><b>Jornada de 30 dias</b><span>30 desafios em 4 fases, um hábito pequeno por dia.</span></div><em>incluso</em></li>
+      <li class="rev"><div><b>Tela “Dia difícil”</b><span>O que comer nos dias sem fome, com enjoo ou sem tempo.</span></div><em>incluso</em></li>
+      <li class="rev"><div><b>Metas de proteína, água e fibras</b><span>Somam sozinhas a cada receita que você marca.</span></div><em>incluso</em></li>
+      <li class="rev"><div><b>Lembretes no celular</b><span>Água e refeições nos horários da sua rotina.</span></div><em>incluso</em></li>
+      <li class="rev"><div><b>Seu progresso, só seu</b><span>Peso, medidas, gráfico e fotos de antes e depois guardados no seu aparelho.</span></div><em>incluso</em></li>
+    </ul>
+
+    <div class="total rev">
+      <div>
+        <p class="preco js-preco-grande"><small>R$</small>37</p>
+        <p class="preco-lin">por tudo isso, em pagamento único</p>
+        <p class="comp">Sem mensalidade. Custa menos que um pedido de delivery, e você usa todos os dias.</p>
+      </div>
+      <a class="btn js-comprar" href="#comprar">Quero o Dieta Fácil <span class="seta" aria-hidden="true">→</span></a>
+      <div class="garantias">
+        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4E7D22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Pix ou cartão</span>
+        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4E7D22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Compra segura pela Kiwify</span>
+        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4E7D22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Acesso liberado em minutos</span>
+      </div>
+    </div>
+
+    <div class="garantia rev">
+      <svg class="selo" viewBox="0 0 200 200" role="img" aria-label="Selo de garantia: 7 dias, 100% do seu dinheiro de volta">
+        <defs><path id="arco" d="M100 100 m-74 0 a74 74 0 1 1 148 0 a74 74 0 1 1 -148 0"/></defs>
+        <circle cx="100" cy="100" r="96" fill="none" stroke="currentColor" stroke-width="5"/>
+        <circle cx="100" cy="100" r="88" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="100" cy="100" r="58" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="3 4"/>
+        <text font-family="Poppins, sans-serif" font-size="13" font-weight="700" fill="currentColor"><textPath href="#arco" startOffset="0" textLength="458" lengthAdjust="spacing">GARANTIA INCONDICIONAL ★ SEU DINHEIRO DE VOLTA ★</textPath></text>
+        <text x="100" y="98" text-anchor="middle" font-family="Poppins, sans-serif" font-size="50" font-weight="700" fill="currentColor" letter-spacing="-2">7</text>
+        <text x="100" y="118" text-anchor="middle" font-family="Poppins, sans-serif" font-size="15" font-weight="700" fill="currentColor" letter-spacing="3">DIAS</text>
+        <text x="100" y="136" text-anchor="middle" font-family="Poppins, sans-serif" font-size="11" font-weight="600" fill="currentColor">100% de volta</text>
+      </svg>
+      <div>
+        <h3>Teste por 7 dias. O risco é todo nosso.</h3>
+        <p>Use o app, faça as receitas, comece os desafios. Se em 7 dias achar que não é para você, peça o reembolso pela Kiwify e devolvemos 100% do valor. Sem pergunta e sem burocracia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="duvidas" id="duvidas" aria-labelledby="duv-tit">
+  <div class="duvidas-esq">
+    <h2 id="duv-tit" class="rev">Ainda com dúvida?</h2>
+    <div class="fatos rev" style="--d:80ms">
+      <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4E7D22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Acesso liberado em minutos depois do pagamento</span>
+      <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4E7D22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Funciona no Android e no iPhone</span>
+      <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4E7D22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Suporte: <a href="mailto:contato@hubbioguia.com.br">contato@hubbioguia.com.br</a></span>
+    </div>
+
+    <details>
+      <summary>Como eu recebo o acesso?<span class="chev" aria-hidden="true"></span></summary>
+      <p>Depois do pagamento você recebe um e-mail com o link do app. Abra o link e toque em “Continuar com Google” usando o mesmo e-mail da compra. Pronto: o app já reconhece que você é cliente.</p>
+    </details>
+    <details>
+      <summary>Funciona no iPhone?<span class="chev" aria-hidden="true"></span></summary>
+      <p>Sim. No iPhone você abre pelo Safari e adiciona à tela de início; o app mostra o passo a passo. No Android, ele oferece a instalação sozinho. Nos dois, abre como um aplicativo normal.</p>
+    </details>
+    <details>
+      <summary>É assinatura? Vou pagar todo mês?<span class="chev" aria-hidden="true"></span></summary>
+      <p>Não. É um pagamento único. Nada de cobrança escondida no cartão.</p>
+    </details>
+    <details>
+      <summary>Preciso comprar whey?<span class="chev" aria-hidden="true"></span></summary>
+      <p>Não. 26 das 43 receitas não levam whey. Ele ajuda a bater a meta de proteína com pouca comida, mas é opcional. Dá para filtrar as receitas e ver só as que não usam.</p>
+    </details>
+    <details>
+      <summary>Serve para qualquer caneta?<span class="chev" aria-hidden="true"></span></summary>
+      <p>O app cuida da sua alimentação e dos seus hábitos, não do remédio. Ele foi pensado para a rotina de quem usa caneta emagrecedora (pouca fome, enjoo em alguns dias), mas não dá orientação sobre medicamento. Dose e uso são sempre com o seu médico.</p>
+    </details>
+    <details>
+      <summary>E se eu não uso caneta?<span class="chev" aria-hidden="true"></span></summary>
+      <p>As receitas e os hábitos servem para qualquer mulher adulta que queira comer melhor com pouco tempo. Só saiba que o foco é a rotina de quem come pouco.</p>
+    </details>
+    <details>
+      <summary>E se eu trocar de celular?<span class="chev" aria-hidden="true"></span></summary>
+      <p>Seu acesso continua: é só entrar com o mesmo Google. Como seus registros ficam no aparelho, use antes “Baixar meu progresso” no Perfil e depois restaure no celular novo.</p>
+    </details>
+    <details>
+      <summary>E se eu não gostar?<span class="chev" aria-hidden="true"></span></summary>
+      <p>Você tem 7 dias de garantia. Peça o reembolso pela própria Kiwify e recebe 100% de volta.</p>
+    </details>
+
+    <a class="btn js-comprar" href="#comprar">Quero começar hoje <span class="seta" aria-hidden="true">→</span></a>
+  </div>
+  <div class="duvidas-dir">
+    <div class="respira"><img class="alta" src="img/df-mousse-proteica.jpg" alt="Mousse de chocolate com whey" width="900" height="900" loading="lazy"></div>
+    <img class="quad" src="img/df-bolinho-caneca.jpg" alt="Bolinho de caneca com whey" width="900" height="900" loading="lazy">
+  </div>
+</section>
+
+<section class="fecha" aria-label="Comece agora">
+  <p class="rev">Daqui a 30 dias a caneta vai ter feito a parte dela. <span>Comece hoje a fazer a sua.</span></p>
+  <a class="btn js-comprar rev" style="--d:100ms" href="#comprar">Quero o Dieta Fácil por <span class="js-preco">R$&nbsp;37</span></a>
+</section>
+</main>
+
+<footer class="rodape">
+  <img src="img/df-omelete-legumes.jpg" alt="" width="900" height="900" loading="lazy">
+  <div class="rodape-topo">
+    <nav aria-label="Rodapé">
+      <a href="#como">Como funciona</a>
+      <a href="#receitas">Receitas</a>
+      <a href="#oferta">Preço e garantia</a>
+      <a href="#duvidas">Dúvidas</a>
+    </nav>
+    <div class="contato">
+      Suporte<br><a href="mailto:contato@hubbioguia.com.br">contato@hubbioguia.com.br</a>
+    </div>
+  </div>
+  <div class="rodape-base">
+    <p class="rodape-nome" aria-hidden="true">Dieta <span>Fácil</span></p>
+    <div class="hub">Um produto desenvolvido pela <img src="img/hub-bioguia.svg" alt="Hub BioGuia" width="124" height="28"></div>
+    <p class="legal">As receitas e dicas seguem recomendações gerais de alimentação saudável para adultos e não substituem o acompanhamento de nutricionista ou médico. O Dieta Fácil não orienta sobre o uso de medicamentos. Telas do app com dados de exemplo; resultados variam de pessoa para pessoa. Valores de proteína são aproximados.</p>
+    <p class="legal">Fotos: Pizza de frigideira por idovermani, Strogonoff por Key West Wedding Photography, Tilápia por ralph and jenny, Brigadeiro por rvacapinta, Grão-de-bico e atum por simpleprovisions, Overnight oats por Sebastiaan ter Burg, Creme de abóbora por Happy Tummy, Smoothie verde por Joanna Slodownik, Torrada com cottage por jeffreyw e Caldo com ovo por amlamster, todas via Flickr sob licença CC BY 2.0. Demais fotos: Dieta Fácil e Unsplash.</p>
+  </div>
+</footer>
+
+<div class="compra-fixa" id="compra-fixa" aria-hidden="true">
+  <p><b>Dieta Fácil</b>pagamento único de <span class="js-preco">R$&nbsp;37</span></p>
+  <a class="btn js-comprar" href="#comprar" tabindex="-1">Quero o meu</a>
+</div>
+
+<script>
+// ===== Configuração da oferta: troque aqui o link da Kiwify e o preço =====
+const LINK_COMPRA = 'https://pay.kiwify.com.br/V4k2r2f'
+const PRECO = 37
+
+;(function () {
+  // Link de compra e preço em todos os botões (mantém UTMs do anúncio)
+  const utm = location.search.slice(1)
+  const link = LINK_COMPRA + (utm ? (LINK_COMPRA.includes('?') ? '&' : '?') + utm : '')
+  document.querySelectorAll('.js-comprar').forEach((a) => {
+    if (a.closest('.topo') || a.closest('.hero')) return // esses levam até a oferta
+    a.href = link
+  })
+  const preco = 'R$ ' + PRECO.toLocaleString('pt-BR', { minimumFractionDigits: Number.isInteger(PRECO) ? 0 : 2 })
+  document.querySelectorAll('.js-preco').forEach((el) => { el.textContent = preco })
+  document.querySelectorAll('.js-preco-grande').forEach((el) => { el.innerHTML = '<small>R$</small>' + preco.replace('R$ ', '') })
+
+  const reduz = matchMedia('(prefers-reduced-motion: reduce)').matches
+  const celular = matchMedia('(max-width: 960px)')
+
+  // No celular, cada passo ganha o próprio mockup (cópia da tela do palco)
+  const telas = document.getElementById('telas')
+  function montarSlots () {
+    document.querySelectorAll('[data-tela] > .slot').forEach((slot) => {
+      if (slot.childElementCount) return
+      const id = slot.parentElement.dataset.tela
+      const fone = document.createElement('div')
+      fone.className = 'fone'
+      fone.setAttribute('data-ui', '')
+      fone.innerHTML = '<div class="fone-tela"></div>'
+      const tela = telas.querySelector('[data-id="' + id + '"]').cloneNode(true)
+      tela.classList.add('ativa')
+      fone.firstChild.appendChild(tela)
+      slot.appendChild(fone)
+    })
+  }
+  if (celular.matches) montarSlots()
+  celular.addEventListener('change', (e) => { if (e.matches) montarSlots() })
+
+  // No computador, o celular fixo troca de tela conforme a leitura avança
+  const passos = document.querySelectorAll('.leitura [data-tela]')
+  function mostrar (id) {
+    telas.querySelectorAll('.tela').forEach((t) => t.classList.toggle('ativa', t.dataset.id === id))
+  }
+  const io = new IntersectionObserver((entradas) => {
+    entradas.forEach((e) => {
+      if (!e.isIntersecting) return
+      passos.forEach((p) => p.classList.toggle('ativo', p === e.target))
+      mostrar(e.target.dataset.tela)
+    })
+  }, { rootMargin: '-45% 0px -45% 0px' })
+  passos.forEach((p) => io.observe(p))
+
+  // Celular do palco: escala para caber na altura disponível (notebooks com tela baixa)
+  const cena = document.querySelector('.cena')
+  const foneCena = cena.querySelector('.fone')
+  function ajustarFone () {
+    const livre = cena.clientHeight - 90 // espaço da legenda e respiro
+    foneCena.style.setProperty('--esc', Math.max(0.6, Math.min(1.08, livre / 650)).toFixed(3))
+  }
+  ajustarFone()
+  addEventListener('resize', ajustarFone)
+
+  // "Meu dia": tocar nas bolinhas marca a refeição e soma a proteína
+  document.addEventListener('click', (ev) => {
+    const b = ev.target.closest('.ref')
+    if (!b) return
+    const card = b.closest('.tela')
+    b.classList.toggle('feito')
+    const feito = b.classList.contains('feito')
+    b.setAttribute('aria-pressed', feito)
+    b.querySelector('b').textContent = feito ? 'feito' : (b.dataset.h || b.querySelector('b').textContent)
+    const refs = card.querySelectorAll('.ref')
+    const feitos = card.querySelectorAll('.ref.feito')
+    const prot = [...feitos].reduce((s, r) => s + Number(r.dataset.p), 0)
+    card.querySelector('.js-feitos').textContent = feitos.length + ' de ' + refs.length + ' feitos'
+    card.querySelector('.js-prot').textContent = prot + ' de 90 g'
+    card.querySelector('.js-prot-barra').style.width = Math.min(100, Math.round(prot / 90 * 100)) + '%'
+  })
+  document.querySelectorAll('.ref').forEach((r) => { if (!r.classList.contains('feito')) r.dataset.h = r.querySelector('b').textContent })
+
+  // Dia difícil: o mesmo conteúdo da tela do app
+  const RECS = {
+    'shake': ['shake-morango.jpg', 'Shake proteico de morango', '2 min · ≈ 31 g de proteína'],
+    'iogurte': ['iogurte-whey-aveia.jpg', 'Iogurte com whey e aveia', '3 min · ≈ 33 g de proteína'],
+    'mousse': ['mousse-proteica.jpg', 'Mousse de chocolate com whey', '5 min · ≈ 30 g de proteína'],
+    'sopa': ['sopa-abobora-frango.jpg', 'Creme de abóbora com frango', '20 min · ≈ 26 g de proteína'],
+    'picole': ['mousse-proteica.jpg', 'Picolé de iogurte com whey', 'geladeira · ≈ 9 g de proteína'],
+    'smoothie': ['smoothie-verde.jpg', 'Smoothie verde com iogurte', '3 min · ≈ 18 g de proteína'],
+    'torrada': ['torrada-cottage-tomate.jpg', 'Torrada com cottage e tomate', '4 min · ≈ 17 g de proteína'],
+    'caldo': ['caldo-ovo-poche.jpg', 'Caldo de legumes com ovo pochê', '15 min · ≈ 15 g de proteína'],
+    'cafe': ['shake-morango.jpg', 'Café proteico gelado', '2 min · ≈ 29 g de proteína'],
+    'bolinho': ['bolinho-caneca.jpg', 'Bolinho de caneca com whey', '5 min · ≈ 30 g de proteína'],
+    'snack': ['para-levar.jpg', 'Snack box de proteína', '5 min · ≈ 20 g de proteína'],
+    'wrap': ['refeicao-rapida.jpg', 'Wrap de frango desfiado', '5 min · ≈ 30 g de proteína'],
+  }
+  const DIAS = {
+    'sem-fome': {
+      titulo: 'Sem fome hoje? Normal.',
+      sub: 'Quando o apetite some, o segredo é comer pouco, mas com proteína. Coma devagar e pare quando estiver satisfeita.',
+      dicas: ['Divida a refeição em 2 ou 3 porções pequenas ao longo do dia.', 'Líquidos e cremosos descem mais fácil: shake, iogurte, sopa.', 'Beba água entre as refeições, não durante.'],
+      recs: ['shake', 'iogurte', 'mousse', 'sopa'],
+      alerta: 'Se a falta de apetite durar vários dias ou você não conseguir se hidratar, converse com seu médico.',
+    },
+    'enjoada': {
+      titulo: 'Enjoo? Vá com calma.',
+      sub: 'Comidas frias, secas e sem cheiro forte costumam ser mais bem toleradas. Coma pequenas porções.',
+      dicas: ['Prefira alimentos frios ou em temperatura ambiente.', 'Evite frituras e comidas muito gordurosas hoje.', 'Beba líquidos em pequenos goles ao longo do dia.', 'Coma devagar e não deite logo após comer.'],
+      recs: ['picole', 'smoothie', 'torrada', 'caldo'],
+      alerta: 'Se o enjoo vier com vômitos frequentes, dor forte ou se você não conseguir beber líquidos, procure seu médico.',
+    },
+    'sem-tempo': {
+      titulo: 'Sem tempo? Tem solução.',
+      sub: 'Receitas de até 5 minutos e opções que você leva na bolsa. Melhor algo simples do que pular.',
+      dicas: ['Tenha sempre ovos cozidos e iogurte na geladeira.', 'Um shake com whey resolve uma refeição em 2 minutos.', 'No fim de semana, prepare o frango desfiado da semana.'],
+      recs: ['cafe', 'bolinho', 'snack', 'wrap'],
+      alerta: '',
+    },
+  }
+  const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]))
+  const resposta = document.getElementById('resposta')
+  document.querySelectorAll('.escolha').forEach((b) => b.addEventListener('click', () => {
+    document.querySelectorAll('.escolha').forEach((x) => x.setAttribute('aria-pressed', x === b))
+    const d = DIAS[b.dataset.dia]
+    resposta.innerHTML =
+      '<h3>' + esc(d.titulo) + '</h3><p class="sub">' + esc(d.sub) + '</p><ul>' +
+      d.dicas.map((t) => '<li>' + esc(t) + '</li>').join('') + '</ul><p class="descem">Descem fácil</p><div class="mini-recs">' +
+      d.recs.map((k) => { const r = RECS[k]; return '<div class="mini-rec"><img src="img/' + r[0] + '" alt="" width="64" height="64"><div><b>' + esc(r[1]) + '</b><span>' + esc(r[2]) + '</span></div></div>' }).join('') +
+      '</div>' + (d.alerta ? '<p class="alerta">' + esc(d.alerta) + '</p>' : '')
+    if (!reduz) { resposta.classList.remove('troca'); void resposta.offsetWidth; resposta.classList.add('troca') }
+  }))
+
+  // Faixa de receitas: arrastar com o mouse
+  const faixa = document.getElementById('faixa')
+  let x0 = 0, s0 = 0, arrastando = false
+  faixa.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') return; arrastando = true; x0 = e.clientX; s0 = faixa.scrollLeft; faixa.classList.add('arrastando') })
+  addEventListener('pointermove', (e) => { if (arrastando) faixa.scrollLeft = s0 - (e.clientX - x0) })
+  addEventListener('pointerup', () => { arrastando = false; faixa.classList.remove('arrastando') })
+
+  // Entradas ao rolar
+  const revs = document.querySelectorAll('.rev')
+  if (reduz || !('IntersectionObserver' in window)) revs.forEach((el) => el.classList.add('visivel'))
+  else {
+    const ioRev = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visivel'); ioRev.unobserve(e.target) } }), { rootMargin: '0px 0px -8% 0px' })
+    revs.forEach((el) => ioRev.observe(el))
+  }
+
+  // Barra de compra no celular: aparece depois do topo e some na oferta
+  const barra = document.getElementById('compra-fixa')
+  const hero = document.querySelector('.hero .acao')
+  const oferta = document.getElementById('oferta')
+  let passouHero = false, naOferta = false
+  const atualizar = () => { const m = passouHero && !naOferta; barra.classList.toggle('mostra', m); barra.setAttribute('aria-hidden', !m); barra.querySelector('a').tabIndex = m ? 0 : -1 }
+  new IntersectionObserver(([e]) => { passouHero = !e.isIntersecting && e.boundingClientRect.top < 0; atualizar() }).observe(hero)
+  new IntersectionObserver(([e]) => { naOferta = e.isIntersecting; atualizar() }).observe(oferta)
+})()
+</script>
+</body>
+</html>
