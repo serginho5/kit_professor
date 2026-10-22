@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Apps de receitas da Hub BioGuia: Dieta Fácil, para quem usa caneta emagrecedora, e QChef, que transforma o que você tem em casa em receita.">
+<meta property="og:title" content="Hub BioGuia">
+<meta property="og:description" content="Dieta Fácil e QChef: receitas práticas, passo a passo, no celular.">
+<meta property="og:image" content="https://appnovidades.com.br/qchef-oferta/img/frango-empanado-airfryer-g.webp">
+<meta name="theme-color" content="#FFF4EC">
+<title>Hub BioGuia</title>
+<link rel="icon" href="favicon-48.png">
+<style>
+@font-face { font-family: Montserrat; src: url(/qchef-oferta/fontes/Montserrat-Bold.woff2) format('woff2'); font-weight: 700; font-display: swap; }
+@font-face { font-family: Montserrat; src: url(/qchef-oferta/fontes/Montserrat-ExtraBold.woff2) format('woff2'); font-weight: 800 900; font-display: swap; }
+@font-face { font-family: Nunito; src: url(/qchef-oferta/fontes/NunitoSans.woff2) format('woff2'); font-weight: 200 1000; font-display: swap; }
+/* Layout: one narrow column, brand header + one card per product (same structure as the Turma em Dia links page) */
+:root {
+  --paper: #FFF4EC;
+  --card: #FFFFFF;
+  --ink: #2A1530;
+  --ink-soft: #6B5866;
+  --plum: #6A1048;
+  --magenta: #C2264F;
+  --orange: #F7941D;
+  --df: #4E7D22;
+  --df-deep: #2F5212;
+  --qc: #F47A1F;
+  --qc-deep: #C2440A;
+  --line: #F1DDD0;
+  --display: Montserrat, "Trebuchet MS", system-ui, sans-serif;
+  --body: Nunito, "Segoe UI", system-ui, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); background: var(--paper); }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 40px 72px;
+  min-height: 100vh; min-height: 100dvh;
+  position: relative;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+.dots { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+.dots i { position: absolute; border-radius: 50%; display: block; }
+.dots i:nth-child(1) { width: 120px; height: 120px; background: var(--orange); top: -40px; right: -30px; }
+.dots i:nth-child(2) { width: 70px; height: 70px; background: var(--magenta); top: 200px; left: -28px; }
+.dots i:nth-child(3) { width: 150px; height: 150px; background: var(--df); bottom: -100px; left: -40px; opacity: .9; }
+.dots i:nth-child(4) { width: 46px; height: 46px; background: var(--plum); bottom: 120px; right: 6%; }
+main { position: relative; z-index: 1; max-width: 460px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+header { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; }
+.logo { width: 230px; height: auto; display: block; }
+.lead { margin: 0; color: var(--ink-soft); font-weight: 700; max-width: 32ch; text-wrap: balance; }
+.chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 4px; }
+.chip { font-family: var(--display); font-weight: 700; font-size: .78rem; color: #fff; padding: 4px 12px; border-radius: 999px; }
+.chip.c1 { background: var(--df); } .chip.c2 { background: var(--qc); } .chip.c3 { background: var(--magenta); } .chip.c4 { background: var(--plum); }
+
+.kits { display: flex; flex-direction: column; gap: 16px; }
+.kit {
+  display: grid; grid-template-columns: 92px 1fr; gap: 16px; align-items: center;
+  background: var(--card); border-radius: 22px; padding: 16px; text-decoration: none; color: inherit;
+  box-shadow: 0 2px 0 var(--line), 0 12px 28px rgba(42, 21, 48, .08);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.kit:hover { transform: translateY(-2px); box-shadow: 0 2px 0 var(--line), 0 16px 32px rgba(42, 21, 48, .14); }
+.kit:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.kit img { width: 92px; height: 120px; object-fit: cover; border-radius: 12px; display: block; }
+.kit .txt { min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.tag { font-family: var(--body); font-weight: 800; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; }
+.kit.df .tag { color: var(--df-deep); } .kit.qc .tag { color: var(--qc-deep); }
+.kit h2 { font-family: var(--display); font-weight: 800; font-size: 1.25rem; line-height: 1.15; letter-spacing: -.02em; margin: 0; text-wrap: balance; }
+.kit p { margin: 0; color: var(--ink-soft); font-size: .92rem; font-weight: 600; line-height: 1.4; }
+.go {
+  align-self: flex-start; margin-top: 4px; font-family: var(--display); font-weight: 700; font-size: .95rem;
+  color: #fff; padding: 8px 16px; border-radius: 999px; display: inline-flex; gap: 6px; align-items: center;
+}
+.kit.df .go { background: var(--df); } .kit.qc .go { background: var(--qc-deep); }
+.kit:hover .go { filter: brightness(.95); }
+
+footer { text-align: center; color: var(--ink-soft); font-size: .85rem; font-weight: 700; display: flex; flex-direction: column; gap: 4px; }
+footer b { font-family: var(--display); font-weight: 700; color: var(--ink); }
+
+@media (max-width: 380px) {
+  .kit { grid-template-columns: 72px 1fr; gap: 12px; }
+  .kit img { width: 72px; height: 96px; }
+  .logo { width: 200px; }
+}
+@media (prefers-reduced-motion: reduce) { .kit { transition: none; } .kit:hover { transform: none; } }
+</style>
+</head>
+<body>
+
+<div class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<main>
+  <header>
+    <img class="logo" src="hub-bioguia.svg" width="230" height="52" alt="Hub BioGuia">
+    <p class="lead">Apps de receitas práticas, com passo a passo, direto no celular</p>
+    <div class="chips"><span class="chip c1">Receitas</span><span class="chip c2">Airfryer</span><span class="chip c3">Hábitos</span><span class="chip c4">Saúde</span></div>
+  </header>
+
+  <section class="kits" aria-label="Nossos apps">
+    <a class="kit df" href="/dietafacil-oferta/" data-pagina>
+      <img src="/dietafacil-oferta/img/panqueca-proteica.jpg" width="92" height="120" alt="">
+      <div class="txt">
+        <span class="tag">Para quem usa caneta</span>
+        <h2>Dieta Fácil</h2>
+        <p>Receitas com proteína em 5 minutos e um desafio de hábitos por dia, durante 30 dias.</p>
+        <span class="go">Conhecer o app →</span>
+      </div>
+    </a>
+    <a class="kit qc" href="/qchef-oferta/" data-pagina>
+      <img src="/qchef-oferta/img/frango-empanado-airfryer-g.webp" width="92" height="120" alt="">
+      <div class="txt">
+        <span class="tag">Receita com o que tem</span>
+        <h2>QChef</h2>
+        <p>Diga o que tem na geladeira e receba a receita para airfryer, micro-ondas, fogão ou forno.</p>
+        <span class="go">Conhecer o app →</span>
+      </div>
+    </a>
+  </section>
+
+  <footer>
+    <b>Hub BioGuia</b>
+    <span>Pagamento pela Kiwify</span>
+  </footer>
+</main>
+
+<script>
+// Marca a origem (link da bio) e repassa os parâmetros da campanha para as páginas dos apps
+(function () {
+  var q = new URLSearchParams(location.search), extra = new URLSearchParams({ utm_source: 'instagram', utm_medium: 'bio' })
+  q.forEach(function (v, k) { if (/^(utm_|src|sck|fbclid|gclid)/.test(k)) extra.set(k, v) })
+  document.querySelectorAll('[data-pagina]').forEach(function (a) {
+    var u = new URL(a.href, location.href); extra.forEach(function (v, k) { u.searchParams.set(k, v) }); a.href = u
+  })
+})()
+</script>
+</body>
+</html>
