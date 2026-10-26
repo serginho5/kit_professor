@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Sinais Vitais · VSL 01</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700;800&display=block" rel="stylesheet">
+<link rel="stylesheet" href="lib/celular.css">
+<style>
+/* Palco vertical 1080×1920. Manchete em y≈200, visual entre 520 e 1400, fala em y≈1440. */
+:root { --bg: #0b1a1f; --painel: #050c0e; --borda: #1d2b30; --verde: #3ee6b0; --vermelho: #e53935; --vermelho-f: #d32f2f; --ambar: #f2a516; --suave: #a9bcc0; }
+* { margin: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--bg); }
+#palco { position: relative; width: 1080px; height: 1920px; overflow: hidden; font-family: 'Work Sans', sans-serif; color: #fff; }
+.cena { position: absolute; inset: 0; overflow: hidden; display: none; background: var(--bg); }
+#manchete { position: absolute; left: 70px; right: 70px; top: 190px; font-family: Anton, sans-serif; font-size: 96px; line-height: .98; text-transform: uppercase; letter-spacing: .005em; z-index: 40; text-wrap: balance; }
+#manchete span { display: inline-block; }
+#fala { position: absolute; left: 70px; right: 70px; top: 1440px; text-align: center; font-size: 46px; font-weight: 600; line-height: 1.32; z-index: 40; }
+#fala .caixa { display: inline; padding: 6px 16px; border-radius: 12px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+#fala .w { opacity: .42; }
+#fala .w.on { opacity: 1; }
+.abs { position: absolute; }
+.etq { position: absolute; padding: 14px 30px; border-radius: 999px; font-size: 42px; font-weight: 700; white-space: nowrap; z-index: 6; background: #fff; color: var(--bg); }
+.etq.verm { background: var(--vermelho-f); color: #fff; }
+.etq.verde { background: var(--verde); color: #04201a; }
+
+/* monitor */
+.monitor { position: absolute; background: var(--painel); border: 14px solid var(--borda); border-radius: 28px; overflow: hidden; }
+.monitor svg { position: absolute; left: 0; top: 0; }
+.mon-rot { position: absolute; font-weight: 700; letter-spacing: .12em; font-size: 26px; color: #8fb7ad; }
+.mon-num { position: absolute; font-family: Anton, sans-serif; font-size: 170px; line-height: 1; font-variant-numeric: tabular-nums; }
+
+/* cena 1 */
+#rua { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; filter: grayscale(1) brightness(.42) contrast(1.1); }
+#c1 .veu { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11,26,31,.92) 0%, rgba(11,26,31,.35) 40%, rgba(11,26,31,.55) 70%, rgba(11,26,31,.95) 100%); }
+#c1 .alarme { position: absolute; inset: 0; background: radial-gradient(70% 50% at 50% 55%, rgba(229,57,53,.35), rgba(229,57,53,0)); }
+/* giroflex em cima do monitor (só na abertura) */
+#feixes { position: absolute; inset: 0; mix-blend-mode: screen; pointer-events: none; }
+#sirene { position: absolute; left: 460px; top: 520px; width: 160px; height: 130px; z-index: 5; }
+#sirene svg { position: absolute; left: 0; top: 0; }
+#brilho { position: absolute; left: -90px; top: -110px; width: 340px; height: 320px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255,70,60,.85), rgba(255,40,40,.35) 45%, rgba(255,40,40,0)); }
+
+/* cena 2: celular (cores neutras) */
+.fone { background: #0f1b1f; }
+.fone::before { background: #0f1b1f; }
+.vidro, .tela { background: #f4f6f7; color: #13212a; font-family: 'Work Sans', sans-serif; }
+.busca { display: flex; align-items: center; gap: 8px; background: #fff; border-radius: 99px; padding: 10px 14px; border: 1.5px solid #dfe5e8; font-size: 13px; }
+.mapa { height: 120px; border-radius: 16px; background: linear-gradient(135deg, #dfe9e4 0%, #e9eef0 60%, #dde6ea 100%); position: relative; overflow: hidden; }
+.mapa i { position: absolute; width: 16px; height: 16px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: #c62828; }
+.mapa b { position: absolute; left: 0; right: 0; height: 9px; background: #fff; opacity: .9; }
+.res { background: #fff; border-radius: 14px; padding: 10px 12px; border: 1.5px solid #e3e9ec; }
+.res b { display: block; font-size: 14px; }
+.res small { display: block; color: #55666e; font-size: 11.5px; margin-top: 2px; }
+.res .est { color: #e8a317; font-weight: 700; }
+.res .ab { color: #1d8a5c; font-weight: 600; }
+.res.top { border-color: #1d8a5c; box-shadow: 0 0 0 2px rgba(29,138,92,.25); }
+.perfil-top { display: flex; gap: 12px; align-items: center; }
+.avatar-loja { width: 62px; height: 62px; border-radius: 50%; background: linear-gradient(135deg, #f2a516, #e53935); flex: none; display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 22px; }
+.nums { display: flex; gap: 14px; font-size: 11px; color: #55666e; }
+.nums b { display: block; font-size: 15px; color: #13212a; }
+.bio { font-size: 12.5px; line-height: 1.4; }
+.btn-zap { background: #1d8a5c; color: #fff; border-radius: 12px; text-align: center; font-weight: 700; padding: 11px; font-size: 14px; }
+.grade { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
+.grade i { aspect-ratio: 1; border-radius: 4px; }
+.zap-top { position: absolute; left: 0; right: 0; top: 0; height: 92px; background: #1d6b4f; color: #fff; padding: 52px 14px 0; font-weight: 700; font-size: 15px; display: flex; gap: 10px; align-items: center; }
+.zap-top i { width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, #f2a516, #e53935); }
+.zap-fundo { position: absolute; inset: 92px 0 0 0; background: #ece5dd; padding: 16px 12px; display: flex; flex-direction: column; gap: 10px; }
+.msg { max-width: 78%; padding: 8px 11px; border-radius: 12px; font-size: 13px; line-height: 1.35; }
+.msg small { display: block; text-align: right; font-size: 10px; color: #6b7a80; margin-top: 3px; }
+.msg.cli { background: #fff; align-self: flex-start; }
+.msg.loja { background: #d7f7c5; align-self: flex-end; }
+.digitando { align-self: flex-end; background: #d7f7c5; border-radius: 12px; padding: 9px 12px; display: flex; gap: 4px; }
+.digitando i { width: 7px; height: 7px; border-radius: 50%; background: #6b7a80; }
+.dedo { background: rgba(11,26,31,.35); }
+.onda { border-color: rgba(29,138,92,.9); }
+#rapido { z-index: 7; }
+
+/* cena 3: check-up */
+#chk { left: 70px; top: 540px; width: 940px; height: 850px; padding: 34px 36px; }
+#chk .topo { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; }
+#chk .topo b { font-family: Anton, sans-serif; font-size: 56px; letter-spacing: .02em; color: var(--verde); }
+#chk .topo span { font-size: 32px; color: #8fb7ad; font-weight: 600; }
+.vital { display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: center; background: #0b1a18; border-radius: 12px; padding: 22px 24px; margin-bottom: 14px; }
+.vital .nome { display: block; color: var(--verde); font-weight: 700; font-size: 26px; letter-spacing: .04em; text-transform: uppercase; margin-bottom: 4px; }
+.vital .q { font-size: 36px; line-height: 1.2; color: #e9fbf5; font-weight: 500; }
+.opts { display: flex; gap: 10px; }
+.opt { min-width: 110px; padding: 14px 0; text-align: center; border: 3px solid #23463f; border-radius: 10px; font-weight: 700; font-size: 32px; color: #cdeee4; }
+.opt.sim.on { background: var(--verde); border-color: var(--verde); color: #04201a; }
+.opt.nao.on { background: var(--vermelho-f); border-color: var(--vermelho-f); color: #fff; }
+#estado { margin-top: 10px; border-radius: 12px; padding: 22px 26px; background: #0f2622; display: flex; justify-content: space-between; align-items: center; }
+#estado b { font-family: Anton, sans-serif; font-size: 64px; letter-spacing: .02em; }
+#estado span { font-size: 30px; color: #f2fffb; font-weight: 600; text-align: right; }
+
+/* cena 4: o guia */
+.pag { position: absolute; width: 380px; height: 537px; border-radius: 10px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,.55); background: #fff; }
+.pag img { width: 100%; height: 100%; object-fit: cover; display: block; }
+#capa4 { position: absolute; width: 400px; height: 716px; border-radius: 14px; overflow: hidden; box-shadow: 0 40px 80px rgba(0,0,0,.6); z-index: 4; }
+#capa4 img { width: 100%; height: 100%; object-fit: cover; }
+.pilula { position: absolute; left: 560px; width: 450px; padding: 22px 26px; border-radius: 14px; background: #12262c; border-left: 10px solid var(--verde); font-size: 36px; font-weight: 700; z-index: 5; }
+.pilula small { display: block; font-size: 22px; color: var(--verde); letter-spacing: .1em; font-weight: 700; }
+
+/* cena 5: exame dos 5 sinais */
+#exame { left: 70px; top: 560px; width: 940px; height: 740px; padding: 30px 34px; }
+#exame .topo { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 18px; }
+#exame .topo b { font-family: Anton, sans-serif; font-size: 52px; letter-spacing: .02em; color: var(--verde); }
+#exame .topo span { font-size: 28px; color: #8fb7ad; font-weight: 600; }
+.sv { display: grid; grid-template-columns: 1fr 250px; gap: 16px; align-items: center; background: #0b1a18; border-radius: 12px; padding: 18px 22px; margin-bottom: 12px; }
+.sv .nome { font-size: 34px; font-weight: 700; color: #e9fbf5; }
+.sv .barra { height: 14px; border-radius: 8px; background: #16302b; margin-top: 10px; overflow: hidden; }
+.sv .barra i { display: block; height: 100%; width: 0; border-radius: 8px; }
+.sv .st { text-align: center; padding: 14px 0; border-radius: 10px; font-weight: 800; font-size: 28px; letter-spacing: .04em; border: 3px solid #23463f; color: #5d7a80; }
+#scan { position: absolute; left: 0; right: 0; height: 6px; background: var(--verde); box-shadow: 0 0 24px 6px rgba(62,230,176,.55); z-index: 3; }
+
+/* cena 6: o guia na palma da mão */
+#fone6 { left: 360px; top: 470px; transform-origin: 50% 0; }
+#fone6 .tela { background: #fff; }
+#fone6 .tela img { width: 100%; height: 100%; object-fit: cover; display: block; }
+#g-pag img { object-fit: contain !important; object-position: top !important; padding-top: 34px; }
+#botao { position: absolute; left: 110px; right: 110px; top: 1270px; height: 130px; border-radius: 6px; background: var(--vermelho-f); display: grid; place-items: center; font-weight: 800; font-size: 50px; letter-spacing: .01em; z-index: 3; }
+#anel { position: absolute; left: 110px; right: 110px; top: 1270px; height: 130px; border-radius: 6px; z-index: 2; }
+#c6 .dedo { width: 90px; height: 90px; margin: -45px 0 0 -45px; border-width: 5px; background: rgba(255,255,255,.25); }
+#c6 .onda { width: 90px; height: 90px; margin: -45px 0 0 -45px; border-width: 5px; border-color: rgba(255,255,255,.9); }
+
+/* cena 7: a decisão */
+#mon7 { left: 70px; top: 540px; width: 940px; height: 520px; }
+#flash7 { position: absolute; inset: 0; background: #fff; z-index: 30; pointer-events: none; }
+#capa7 { position: absolute; left: 110px; top: 1090px; width: 170px; height: 304px; border-radius: 8px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,.6); }
+#capa7 img { width: 100%; height: 100%; object-fit: cover; }
+#botao7 { position: absolute; left: 320px; right: 110px; top: 1170px; height: 130px; border-radius: 6px; background: var(--vermelho-f); display: grid; place-items: center; font-weight: 800; font-size: 44px; z-index: 3; text-align: center; line-height: 1.1; }
+#anel7 { position: absolute; left: 320px; right: 110px; top: 1170px; height: 130px; border-radius: 6px; z-index: 2; }
+</style>
+</head>
+<body>
+<div id="palco">
+  <div id="manchete"></div>
+  <div id="fala"></div>
+
+  <!-- CENA 1: rua vazia + monitor perdendo o pulso -->
+  <div class="cena" id="c1">
+    <img id="rua" src="img/a-black-and-white-photo-of-a.jpg" alt="">
+    <div class="veu"></div><div class="alarme" id="alarme1"></div>
+    <div id="feixes"></div>
+    <div class="monitor" id="mon1" style="left:90px;top:640px;width:900px;height:560px">
+      <svg id="ecg1" width="872" height="532"></svg>
+      <div class="mon-rot" style="left:34px;top:26px">PULSO DA EMPRESA</div>
+      <div class="mon-rot" style="right:34px;top:26px" id="rot1">VENDAS / DIA</div>
+      <div class="mon-num" id="num1" style="right:34px;bottom:20px">82</div>
+    </div>
+    <div id="sirene">
+      <div id="brilho"></div>
+      <svg width="160" height="130" viewBox="0 0 160 130">
+        <defs>
+          <linearGradient id="vidroG" x1="0" x2="1"><stop offset="0" stop-color="#7a0d0d"/><stop offset=".5" stop-color="#e53935"/><stop offset="1" stop-color="#7a0d0d"/></linearGradient>
+          <clipPath id="cupula"><path d="M22 100V58a58 50 0 0 1 116 0v42z"/></clipPath>
+        </defs>
+        <path d="M22 100V58a58 50 0 0 1 116 0v42z" fill="url(#vidroG)" opacity=".92"/>
+        <g clip-path="url(#cupula)"><ellipse id="refletor" cx="80" cy="66" rx="22" ry="36" fill="#fff4f2"/></g>
+        <path d="M34 54a46 38 0 0 1 40-30" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width="5" stroke-linecap="round"/>
+        <rect x="12" y="98" width="136" height="24" rx="5" fill="#2a3438"/>
+        <rect x="12" y="98" width="136" height="6" rx="3" fill="#4a575c"/>
+      </svg>
+    </div>
+    <div class="etq verm" id="tag1">BALCÃO VAZIO</div>
+  </div>
+
+  <!-- CENA 2: o cliente pesquisa, olha o perfil e chama no WhatsApp de outro -->
+  <div class="cena" id="c2">
+    <div class="fone" id="fone"><div class="vidro">
+      <div class="tela" id="s-busca"><div class="rolo">
+        <div class="busca"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#55666e" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><span id="digita"></span></div>
+        <div class="mapa"><b style="top:40px"></b><b style="top:84px;transform:rotate(-8deg)"></b><i style="left:70px;top:30px"></i><i style="left:170px;top:62px;background:#1d8a5c"></i><i style="left:220px;top:22px"></i></div>
+        <div class="res top"><b>Bella Moda</b><small><span class="est">4,8 ★★★★★</span> (312) · <span class="ab">Aberto agora</span></small><small>Responde em minutos no WhatsApp</small></div>
+        <div class="res"><b>Ateliê Centro</b><small><span class="est">4,6 ★★★★★</span> (98) · <span class="ab">Aberto agora</span></small></div>
+        <div class="res"><b>Loja da Esquina</b><small>Sem avaliações · Horário não informado</small></div>
+      </div></div>
+      <div class="tela" id="s-perfil"><div class="rolo">
+        <div class="perfil-top"><div class="avatar-loja">BM</div><div class="nums"><div><b>284</b>posts</div><div><b>12,4 mil</b>seguidores</div></div></div>
+        <div class="bio"><b>Bella Moda · Moda feminina</b><br>Peças novas toda semana. Entrega no bairro.<br>Peça pelo WhatsApp, respondemos na hora.</div>
+        <div class="btn-zap">Chamar no WhatsApp</div>
+        <div class="grade"><i style="background:#e7b9a8"></i><i style="background:#c9d6cf"></i><i style="background:#f1d7c4"></i><i style="background:#b9c7d8"></i><i style="background:#e8c9d4"></i><i style="background:#d6d1bb"></i><i style="background:#c7d9c0"></i><i style="background:#e9d2b5"></i><i style="background:#cdc3dd"></i></div>
+      </div></div>
+      <div class="tela" id="s-zap">
+        <div class="zap-top"><i></i>Bella Moda</div>
+        <div class="zap-fundo">
+          <div class="msg cli" id="m1">Oi! Tem esse vestido no M?<small>14:02</small></div>
+          <div class="digitando" id="dig"><i></i><i></i><i></i></div>
+          <div class="msg loja" id="m2">Temos sim! Separo para você e entrego hoje.<small>14:03</small></div>
+        </div>
+      </div>
+      <div class="onda" id="onda"></div><div class="dedo" id="dedo"></div>
+    </div></div>
+    <div class="etq verde" id="rapido">respondeu em 1 min</div>
+  </div>
+
+  <!-- CENA 3: check-up -->
+  <div class="cena" id="c3">
+    <div class="monitor" id="chk">
+      <div class="topo"><b>CHECK-UP</b><span id="cont">0/3 em dia</span></div>
+      <div class="vital" id="v1"><div><span class="nome">Ser encontrado</span><span class="q">Aparece no Google?</span></div><div class="opts"><div class="opt sim">Sim</div><div class="opt nao">Não</div></div></div>
+      <div class="vital" id="v2"><div><span class="nome">Passar confiança</span><span class="q">Bio leva ao WhatsApp?</span></div><div class="opts"><div class="opt sim">Sim</div><div class="opt nao">Não</div></div></div>
+      <div class="vital" id="v3"><div><span class="nome">Atender bem</span><span class="q">Responde em menos de 1h?</span></div><div class="opts"><div class="opt sim">Sim</div><div class="opt nao">Não</div></div></div>
+      <div id="estado"><b id="est-nome">AGUARDANDO</b><span id="est-txt">responda as<br>três perguntas</span></div>
+    </div>
+  </div>
+
+  <!-- CENA 4: o guia -->
+  <div class="cena" id="c4">
+    <div class="pag" id="p1"><img src="img/pagina-checkup.jpg" alt=""></div>
+    <div class="pag" id="p2"><img src="img/pagina-prontuario.jpg" alt=""></div>
+    <div class="pag" id="p3"><img src="img/pagina-receita-google.jpg" alt=""></div>
+    <div class="pag" id="p4"><img src="img/pagina-receita-mensagens.jpg" alt=""></div>
+    <div id="capa4"><img src="img/capa-sinais-vitais.jpg" alt=""></div>
+    <div class="etq" id="tag22">22 páginas</div>
+    <div class="etq verde" id="tagPasso">passo a passo</div>
+    <div class="pilula" id="vt1"><small>01</small>Ser encontrado</div>
+    <div class="pilula" id="vt2"><small>02</small>Passar confiança</div>
+    <div class="pilula" id="vt3"><small>03</small>Engajar</div>
+    <div class="pilula" id="vt4"><small>04</small>Atender bem</div>
+    <div class="pilula" id="vt5"><small>05</small>Organizar o processo</div>
+  </div>
+
+  <!-- CENA 5: o exame mostra onde dói -->
+  <div class="cena" id="c5">
+    <div class="monitor" id="exame">
+      <div class="topo"><b>RESULTADO DO EXAME</b><span id="lidos">0/5 lidos</span></div>
+      <div id="linhas5"></div>
+      <div id="scan"></div>
+    </div>
+  </div>
+
+  <!-- CENA 6: o guia na palma da mão -->
+  <div class="cena" id="c6">
+    <div class="fone" id="fone6"><div class="vidro">
+      <div class="tela" id="g-capa"><img src="img/capa-sinais-vitais.jpg" alt=""></div>
+      <div class="tela" id="g-pag"><img src="img/pagina-checkup.jpg" alt="" style="object-position:top"></div>
+    </div></div>
+    <div id="anel"></div>
+    <div id="botao">FAZER MEU CHECK-UP</div>
+    <div class="onda" id="onda6"></div><div class="dedo" id="dedo6"></div>
+  </div>
+
+  <!-- CENA 7: a decisão -->
+  <div class="cena" id="c7">
+    <div class="monitor" id="mon7">
+      <svg id="ecg7" width="912" height="492"></svg>
+      <div class="mon-rot" style="left:34px;top:26px">PULSO DA EMPRESA</div>
+      <div class="mon-num" id="num7" style="right:34px;bottom:20px">34</div>
+    </div>
+    <div id="capa7"><img src="img/capa-sinais-vitais.jpg" alt=""></div>
+    <div id="anel7"></div>
+    <div id="botao7">FAZER MEU<br>CHECK-UP AGORA</div>
+    <div id="flash7"></div>
+  </div>
+</div>
+
+<script src="tempos.js"></script>
+<script src="intro.js"></script>
+<script>
+// abertura sem fala (monitor zerando): empurra toda a narração para depois dela
+;(function () {
+  const D = window.INTRO_CFG.intro, T = window.TEMPOS
+  T.duracao += D
+  for (const c of T.cenas) {
+    c.ini += D; c.fim += D
+    for (const x of c.trechos) { x.t0 += D; x.t1 += D }
+    for (const x of c.palavras) { x.t0 += D; x.t1 += D }
+  }
+})()
+</script>
+<script src="lib/base.js"></script>
+<script src="lib/celular.js"></script>
+<script>
+// ---------- eletrocardiograma ----------
+// forma de um batimento (fase 0–1): onda P, QRS e onda T
+function batimento (f) {
+  const g = (c, l) => Math.exp(-(((f - c) / l) ** 2))
+  return 0.12 * g(0.12, 0.03) - 0.15 * g(0.27, 0.008) + 1 * g(0.3, 0.01) - 0.28 * g(0.325, 0.01) + 0.25 * g(0.55, 0.05)
+}
+// fase acumulada de um ritmo que muda com o tempo (tabela feita uma vez, passo de 1/120 s)
+function tabelaFase (bpm, ate) {
+  const passo = 1 / 120, fase = [0]
+  for (let i = 1; i <= ate / passo; i++) fase.push(fase[i - 1] + bpm(i * passo) / 60 * passo)
+  return (t) => { const k = limitar(t, 0, ate) / passo, i = Math.floor(k); return lerp(fase[i], fase[Math.min(i + 1, fase.length - 1)], k - i) }
+}
+// desenha a varredura: o lado direito é "agora", a tela mostra os últimos "janela" segundos
+function ecg (svgId, t, fase, { w, h, janela = 3, amp = 1, cor = '#3ee6b0', espessura = 5 }) {
+  let d = ''
+  for (let x = 0; x <= w; x += 4) {
+    const ts = t - (w - x) / w * janela
+    const y = h * 0.62 - batimento(fase(ts) % 1) * h * 0.5 * amp
+    d += (x ? 'L' : 'M') + x + ' ' + y.toFixed(1)
+  }
+  const grade = Array.from({ length: Math.ceil(w / 60) }, (_, i) => `<path d="M${i * 60} 0V${h}" stroke="#0f2a26" stroke-width="2"/>`).join('') +
+    Array.from({ length: Math.ceil(h / 60) }, (_, i) => `<path d="M0 ${i * 60}H${w}" stroke="#0f2a26" stroke-width="2"/>`).join('')
+  $(svgId).innerHTML = grade + `<path d="${d}" fill="none" stroke="${cor}" stroke-width="${espessura}" stroke-linejoin="round" stroke-linecap="round"/>` +
+    `<circle cx="${w}" cy="${(h * 0.62 - batimento(fase(t) % 1) * h * 0.5 * amp).toFixed(1)}" r="${espessura * 1.8}" fill="${cor}"/>`
+}
+const mistura = (a, b, p) => { const h = (c) => [1, 3, 5].map((i) => parseInt(c.slice(i, i + 2), 16)); const x = h(a), y = h(b); return `rgb(${x.map((v, i) => Math.round(lerp(v, y[i], p))).join(',')})` }
+
+// ---------- CENA 1 ----------
+const C1 = CENA.c1
+// abertura: batidas cada vez mais lentas e fracas, linha reta (som contínuo) e, depois de
+// "aparelhos", um batimento fraco. Os instantes vêm de intro.js, os mesmos dos bipes do áudio.
+const IC = window.INTRO_CFG
+const BATIDAS1 = [...IC.batidas.map((t, i) => ({ t, amp: [1, 0.8, 0.6, 0.42][i] })), ...IC.posBatidas.map((t) => ({ t, amp: 0.3 }))]
+const sinal1 = (ts) => BATIDAS1.reduce((s, b) => { const f = (ts - b.t) / 0.8 + 0.3; return f >= 0 && f < 1 ? s + batimento(f) * b.amp : s }, 0)
+function cena1 (t) {
+  css('rua', { transform: `scale(${lerp(1.14, 1.02, outCubic(prog(t, 0, C1.fim)))})` })
+  const ent = outCubic(prog(t, 0, 0.5))
+  css('mon1', { transform: `scale(${lerp(0.94, 1, ent)})`, opacity: ent })
+  const reta = t >= IC.reta[0] && !IC.posBatidas.some((b) => t >= b)
+  const alerta = prog(t, IC.batidas[1], 1.4)
+  const cor = mistura('#3ee6b0', '#e53935', alerta)
+  // traço do monitor
+  const w = 872, h = 532
+  let d = ''
+  for (let x = 0; x <= w; x += 4) {
+    const ts = t - (w - x) / w * 3
+    d += (x ? 'L' : 'M') + x + ' ' + (h * 0.62 - sinal1(ts) * h * 0.5).toFixed(1)
+  }
+  const grade = Array.from({ length: 15 }, (_, i) => `<path d="M${i * 60} 0V${h}" stroke="#0f2a26" stroke-width="2"/>`).join('') + Array.from({ length: 9 }, (_, i) => `<path d="M0 ${i * 60}H${w}" stroke="#0f2a26" stroke-width="2"/>`).join('')
+  $('ecg1').innerHTML = grade + `<path d="${d}" fill="none" stroke="${cor}" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>` +
+    `<circle cx="${w}" cy="${(h * 0.62 - sinal1(t) * h * 0.5).toFixed(1)}" r="9" fill="${cor}"/>`
+  // número: cai a cada batida, zera na linha reta e volta fraco depois de "aparelhos"
+  let n = 72
+  IC.batidas.forEach((b, i) => { if (t >= b + 0.1) n = IC.valores[i] })
+  if (t >= IC.reta[0]) n = 0
+  if (IC.posBatidas.some((b) => t >= b + 0.1)) n = 28
+  $('num1').textContent = n
+  css('num1', { color: cor, transform: `scale(${1 + 0.06 * BATIDAS1.reduce((s, b) => s + pulso(t, b.t, 0.25), 0)})`, transformOrigin: '100% 100%' })
+  $('rot1').textContent = reta ? 'SEM PULSO' : 'VENDAS / DIA'
+  css('rot1', { color: reta ? (Math.floor(t * 3) % 2 ? '#ff5252' : '#ff8a80') : alerta > 0.5 ? '#ff8a80' : '#8fb7ad' })
+  // alarme: pisca em cada batida e fica pulsando enquanto a linha está reta
+  const flash = BATIDAS1.reduce((s, b) => s + pulso(t, b.t, 0.35), 0) * alerta * 0.6
+  css('alarme1', { opacity: reta ? 0.55 + 0.35 * Math.sin(t * 7) : Math.max(flash, prog(t, IC.reta[0], 0.3) * 0.25) })
+  pop('tag1', t, W('c1', 'balcão'), 600, 560, -4)
+  // giroflex: gira 1,4 volta/s e some quando o primeiro título aparece
+  const giro = 1 - prog(t, C1.ini - 0.1, 0.35)
+  const a = t * 1.4 * 360
+  const frente = Math.cos(a * Math.PI / 180)                 // 1 = refletor virado para a câmera
+  css('sirene', { opacity: giro * ent, display: giro > 0 ? 'block' : 'none' })
+  $('refletor').setAttribute('cx', (80 + 46 * Math.sin(a * Math.PI / 180)).toFixed(1))
+  $('refletor').setAttribute('rx', (8 + 16 * Math.max(0, frente)).toFixed(1))
+  $('refletor').setAttribute('opacity', (0.35 + 0.65 * Math.max(0, frente)).toFixed(2))
+  css('brilho', { opacity: 0.25 + 0.75 * Math.max(0, frente) ** 2, transform: `scale(${0.8 + 0.4 * Math.max(0, frente)})` })
+  // dois feixes opostos varrendo a tela a partir da sirene
+  const fx = `conic-gradient(from ${(a % 360).toFixed(1)}deg at 540px 585px, rgba(255,45,45,0) 0deg, rgba(255,45,45,.5) 14deg, rgba(255,45,45,0) 34deg, rgba(255,45,45,0) 180deg, rgba(255,45,45,.5) 194deg, rgba(255,45,45,0) 214deg, rgba(255,45,45,0) 360deg)`
+  css('feixes', { background: fx, opacity: giro * ent, display: giro > 0 ? 'block' : 'none' })
+}
+
+// ---------- CENA 2 ----------
+const C2 = CENA.c2
+const toques2 = () => [{ t: W('c2', 'olha') + 0.15, x: 145, y: 168 }, { t: W('c2', 'compra') + 0.1, x: 145, y: 236 }]
+function cena2 (t) {
+  const s = outCubic(prog(t, C2.ini + 0.1, 0.8))
+  css('fone', { left: '316px', top: '470px', transform: `translateY(${lerp(1200, 0, s)}px) scale(1.45)` })
+  // digitação da busca a partir de "pesquisa"
+  const frase = 'loja de roupa perto de mim'
+  const n = Math.floor(limitar(prog(t, W('c2', 'pesquisa'), 1.1)) * frase.length)
+  $('digita').textContent = frase.slice(0, n) + (n < frase.length && Math.floor(t * 3) % 2 ? '|' : '')
+  const [k1, k2] = toques2()
+  navegar(t, [{ t: -1, tela: 's-busca' }, { t: k1.t + 0.12, tela: 's-perfil' }, { t: k2.t + 0.12, tela: 's-zap', modo: 'some' }])
+  dedo(t, 'dedo', 'onda', [k1, k2], W('c2', 'olha') - 0.6, k2.t + 0.6)
+  // conversa: cliente pergunta, loja digita e responde em "primeiro"
+  const tResp = W('c2', 'primeiro')
+  aparece('m1', t, k2.t + 0.3)
+  mostrar('dig', t >= k2.t + 0.7 && t < tResp, 'flex')
+  $('dig').querySelectorAll('i').forEach((d, i) => css(d, { opacity: 0.4 + 0.6 * pulso((t * 2 + i * 0.25) % 1, 0, 1) }))
+  mostrar('m2', t >= tResp)
+  aparece('m2', t, tResp)
+  pop('rapido', t, tResp + 0.25, 600, 1250, 3)
+  if (t < tResp + 0.2) css('rapido', { opacity: 0 })
+}
+
+// ---------- CENA 3 ----------
+const C3 = CENA.c3
+const RESP3 = ['sim', 'nao', 'nao']
+function cena3 (t) {
+  const ent = outCubic(prog(t, C3.ini + 0.1, 0.6))
+  css('chk', { transform: `translateY(${(1 - ent) * 160}px)`, opacity: ent })
+  let emDia = 0
+  for (let i = 0; i < 3; i++) {
+    const tq = TR('c3', i + 1), tr = TRfim('c3', i + 1) + 0.15
+    const row = $('v' + (i + 1))
+    const ativa = t >= tq && t < tr + 0.8
+    css(row, { opacity: lerp(0.35, 1, outCubic(prog(t, tq - 0.1, 0.35))), transform: `scale(${ativa ? 1.02 : 1})`, boxShadow: ativa ? 'inset 0 0 0 3px #3ee6b0' : 'none' })
+    const marcado = t >= tr
+    row.querySelector('.sim').classList.toggle('on', marcado && RESP3[i] === 'sim')
+    row.querySelector('.nao').classList.toggle('on', marcado && RESP3[i] === 'nao')
+    const b = row.querySelector(RESP3[i] === 'sim' ? '.sim' : '.nao')
+    css(b, { transform: `scale(${1 + 0.18 * pulso(t, tr, 0.3)})` })
+    if (marcado && RESP3[i] === 'sim') emDia++
+  }
+  $('cont').textContent = emDia + '/3 em dia'
+  const tFim = TRfim('c3', 3) + 0.25
+  const critico = t >= tFim
+  $('est-nome').textContent = critico ? 'ESTADO CRÍTICO' : 'AGUARDANDO'
+  $('est-txt').innerHTML = critico ? 'comece o tratamento<br>pelo sinal mais fraco' : 'responda as<br>três perguntas'
+  css('estado', { background: critico ? '#5a1414' : '#0f2622', transform: `scale(${1 + 0.05 * pulso(t, tFim, 0.35)})` })
+}
+
+// ---------- CENA 4 ----------
+const C4 = CENA.c4
+function cena4 (t) {
+  const tCapa = W('c4', 'sinais'), tGuia = W('c4', 'guia'), tPasso = W('c4', 'passo'), tCinco = W('c4', 'cinco')
+  const e = outBack(prog(t, C4.ini + 0.15, 0.6))
+  const vaiEsq = inOutCubic(prog(t, tCinco - 0.2, 0.6))
+  css('capa4', { left: lerp(340, 90, vaiEsq) + 'px', top: '600px', opacity: limitar(e * 2),
+    transform: `scale(${limitar(e, 0, 1.2) * lerp(1, 0.86, vaiEsq) * (1 + 0.1 * pulso(t, tCapa - 0.05, 0.35))}) rotate(${lerp(-12, -3, limitar(e))}deg)` })
+  // páginas em leque no "guia" e recolhem nos cinco sinais
+  const leque = outCubic(prog(t, tGuia, 0.7))
+  const pos = [[-1, -14], [-0.45, -6], [0.45, 6], [1, 14]]
+  ;['p1', 'p2', 'p3', 'p4'].forEach((id, i) => {
+    const [dx, rot] = pos[i]
+    const x = lerp(350, 350 + dx * 250, leque * (1 - vaiEsq)) + vaiEsq * 900
+    css(id, { left: x + 'px', top: '690px', opacity: limitar(leque * 2) * (1 - vaiEsq), transform: `rotate(${rot * leque}deg)` })
+  })
+  pop('tag22', t, W('c4', '22'), 600, 600, 4)
+  pop('tagPasso', t, tPasso, 120, 1220, -3)
+  const somem = 1 - prog(t, tCinco - 0.3, 0.3)
+  if (t > tCinco - 0.3) { css('tag22', { opacity: somem }); css('tagPasso', { opacity: somem }) }
+  for (let i = 0; i < 5; i++) {
+    const p = outCubic(prog(t, tCinco + 0.15 * i, 0.4))
+    css('vt' + (i + 1), { top: 600 + i * 150 + 'px', opacity: p, transform: `translateX(${(1 - p) * 120}px)` })
+  }
+}
+
+// ---------- CENA 5 ----------
+const C5 = CENA.c5
+// estado de cada sinal: em dia, atenção (dá para resolver sozinho) ou crítico (hora de pedir ajuda)
+const EXAME = [['Ser encontrado', 'ok', 0.85], ['Passar confiança', 'atencao', 0.5], ['Engajar', 'critico', 0.2], ['Atender bem', 'critico', 0.25], ['Organizar o processo', 'atencao', 0.45]]
+const COR5 = { ok: '#3ee6b0', atencao: '#f2a516', critico: '#e53935' }
+const ROT5 = { ok: 'EM DIA', atencao: 'ATENÇÃO', critico: 'CRÍTICO' }
+$('linhas5').innerHTML = EXAME.map(([n], i) => `<div class="sv" id="sv${i}"><div><div class="nome">${n}</div><div class="barra"><i></i></div></div><div class="st">—</div></div>`).join('')
+function cena5 (t) {
+  const ent = outCubic(prog(t, C5.ini + 0.1, 0.5))
+  css('exame', { transform: `translateY(${(1 - ent) * 160}px)`, opacity: ent })
+  const s0 = W('c5', 'descobre'), s1 = TRfim('c5', 0)
+  const scan = prog(t, s0, s1 - s0)
+  css('scan', { top: lerp(100, 690, scan) + 'px', opacity: scan > 0 && scan < 1 ? 1 : 0 })
+  const tSoz = W('c5', 'sozinho'), tAj = W('c5', 'ajuda')
+  let lidos = 0
+  EXAME.forEach(([, est, val], i) => {
+    const row = $('sv' + i), tl = s0 + (i + 0.6) / 5 * (s1 - s0)
+    const lido = t >= tl
+    if (lido) lidos++
+    const b = outCubic(prog(t, tl, 0.5))
+    css(row.querySelector('.barra i'), { width: b * val * 100 + '%', background: COR5[est] })
+    const st = row.querySelector('.st')
+    let rot = lido ? ROT5[est] : '—', fundo = 'transparent', borda = '#23463f', cor = '#5d7a80'
+    if (lido) { borda = COR5[est]; cor = COR5[est] }
+    if (est === 'atencao' && t >= tSoz) { rot = 'FAÇA SOZINHO'; fundo = COR5.atencao; cor = '#2a1a00' }
+    if (est === 'critico' && t >= tAj) { rot = 'PEÇA AJUDA'; fundo = COR5.critico; cor = '#fff' }
+    st.textContent = rot
+    css(st, { background: fundo, borderColor: borda, color: cor,
+      transform: `scale(${1 + 0.12 * pulso(t, est === 'atencao' ? tSoz : est === 'critico' ? tAj : tl, 0.3)})` })
+    const perde = est === 'critico' && t >= W('c5', 'perdendo')
+    css(row, { boxShadow: perde ? `inset 0 0 0 3px rgba(229,57,53,${0.5 + 0.5 * pulso((t * 1.2) % 1, 0, 1)})` : 'none' })
+  })
+  $('lidos').textContent = lidos + '/5 lidos'
+}
+
+// ---------- CENA 6 ----------
+const C6 = CENA.c6
+function cena6 (t) {
+  const tPalma = W('c6', 'palma'), tToque = W('c6', 'toque')
+  const s = outCubic(prog(t, C6.ini + 0.1, 0.8))
+  css('fone6', { transform: `translateY(${lerp(1100, 0, s)}px) rotate(${lerp(8, -3, s) + Math.sin(t * 1.4) * 0.8}deg) scale(1.15)` })
+  navegar(t, [{ t: -1, tela: 'g-capa' }, { t: tPalma + 0.3, tela: 'g-pag' }])
+  const b = outBack(prog(t, tToque - 0.4, 0.5))
+  css('botao', { opacity: limitar(b * 2), transform: `scale(${limitar(b, 0, 1.1) * (1 - 0.05 * pulso(t, tToque + 0.45, 0.2))})` })
+  const batida = (t * 0.9) % 1
+  css('anel', { opacity: b * (1 - batida) * 0.8, boxShadow: `0 0 0 ${batida * 34}px rgba(229,57,53,${0.6 * (1 - batida)})` })
+  dedo(t, 'dedo6', 'onda6', [{ t: tToque + 0.5, x: 540, y: 1335 }], tToque - 0.2, C6.fim)
+}
+
+// ---------- CENA 7 ----------
+const C7 = CENA.c7
+const tTire = () => W('c7', 'tire')
+const bpm7 = (t) => lerp(34, 82, inOutCubic(prog(t, tTire() + 0.2, 1.6)))
+const fase7 = tabelaFase(bpm7, C7.fim + 1)
+function cena7 (t) {
+  const ent = outCubic(prog(t, C7.ini + 0.1, 0.6))
+  const tT = tTire(), tCresc = W('c7', 'crescer')
+  const vida = prog(t, tT + 0.15, 0.6)
+  css('mon7', { transform: `translateY(${(1 - ent) * 160}px)`, opacity: ent, boxShadow: `0 0 ${60 * vida}px rgba(62,230,176,${0.35 * vida})` })
+  const cor = mistura('#e53935', '#3ee6b0', vida)
+  // a linha de base sobe depois do "crescer": o batimento vira gráfico de crescimento
+  const sobe = (ts) => inOutCubic(prog(ts, tCresc - 0.2, 2.2)) * 0.32
+  const w = 912, h = 492
+  let d = ''
+  for (let x = 0; x <= w; x += 4) {
+    const ts = t - (w - x) / w * 3
+    const amp = lerp(0.35, 1, prog(ts, tT + 0.15, 0.6))
+    const y = h * (0.66 - sobe(ts)) - batimento(fase7(ts) % 1) * h * 0.42 * amp
+    d += (x ? 'L' : 'M') + x + ' ' + y.toFixed(1)
+  }
+  const grade = Array.from({ length: 16 }, (_, i) => `<path d="M${i * 60} 0V${h}" stroke="#0f2a26" stroke-width="2"/>`).join('') + Array.from({ length: 9 }, (_, i) => `<path d="M0 ${i * 60}H${w}" stroke="#0f2a26" stroke-width="2"/>`).join('')
+  $('ecg7').innerHTML = grade + `<path d="${d}" fill="none" stroke="${cor}" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>`
+  $('num7').textContent = Math.round(bpm7(t))
+  css('num7', { color: cor })
+  css('flash7', { opacity: 0.85 * pulso(t, tT + 0.05, 0.35) })
+  // cartão final: capa + botão
+  const c = outBack(prog(t, tCresc, 0.5))
+  css('capa7', { opacity: limitar(c * 2), transform: `rotate(-5deg) scale(${limitar(c, 0, 1.1)})` })
+  css('botao7', { opacity: limitar(c * 2), transform: `scale(${limitar(c, 0, 1.1)})` })
+  const batida = (t * 0.9) % 1
+  css('anel7', { opacity: limitar(c) * (1 - batida) * 0.8, boxShadow: `0 0 0 ${batida * 34}px rgba(229,57,53,${0.6 * (1 - batida)})` })
+}
+
+montarVideo({
+  cenas: { c1: cena1, c2: cena2, c3: cena3, c4: cena4, c5: cena5, c6: cena6, c7: cena7 },
+  cores: { c1: '#ffffff', c2: '#ffffff', c3: '#ffffff', c4: '#ffffff', c5: '#ffffff', c6: '#ffffff', c7: '#ffffff' },
+  falaClara: ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7']
+})
+</script>
+</body>
+</html>

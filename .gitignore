@@ -28,3 +28,8 @@ sites/qchef/
 sites/qchef-oferta/
 sites/qchef-receita/
 sites/qchef-desafio/
+
+# Vídeos: narração, storyboard e prévias são gerados pelos scripts (voz.py, tempos.mjs, intro_audio.py, storyboard.mjs)
+produtos/*/criativos/*/narracao/
+produtos/*/criativos/*/storyboard/
+produtos/*/criativos/*/previa-*.mp3
