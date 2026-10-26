@@ -1,0 +1,684 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sinais Vitais · o guia para trazer sua empresa de volta à vida</title>
+<meta name="description" content="Sua empresa está respirando por aparelhos? E-book de 22 páginas com check-up, 5 sinais vitais, tratamento de 30 dias e modelos prontos. R$ 27,00.">
+<meta property="og:title" content="Sinais Vitais · Sua empresa está respirando por aparelhos?">
+<meta property="og:description" content="O guia completo para trazer o seu negócio de volta à vida. R$ 27,00.">
+<meta property="og:image" content="assets/capa-sinais-vitais.jpg">
+<meta name="theme-color" content="#0b1a1f">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton:wght@400&family=Work+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  /* ---------- tokens ---------- */
+  :root {
+    --bg: #0b1a1f;
+    --surface: #12262c;
+    --ink: #ffffff;
+    --muted: #a9bcc0;
+    --accent: #d32f2f;
+    --accent-strong: #b71c1c;
+    --accent-ink: #ffffff;
+    --field-1: #13343c; --field-1-ink: #ffffff;
+    --field-2: #ffffff; --field-2-ink: #0f1b1f; --field-2-muted: #4a5a5f;
+    --field-2-step: #eef3f4;
+    --monitor: #3ee6b0; --amber: #f2a516;
+
+    --display: "Anton", "Arial Narrow", sans-serif;
+    --text: "Work Sans", system-ui, sans-serif;
+    --step-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
+    --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+    --step-lead: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+    --step-head: clamp(2.5rem, 1.2rem + 5vw, 5.5rem);
+    --step-display: clamp(5rem, 17vw, 17rem);
+
+    --m: 20px;
+    --radius: 0px;
+    --gap-section: clamp(120px, 14vw, 200px);
+    --ease-out: cubic-bezier(.16,1,.3,1);
+    --ease-in-out: cubic-bezier(.65,0,.35,1);
+    --ease-soft: cubic-bezier(.22,.61,.36,1);
+    --t-press: 120ms; --t-hover: 200ms;
+  }
+  @media (max-width: 600px) { :root { --m: 16px; } }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--text); font-size: var(--step-body); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  img { display: block; max-width: 100%; height: auto; }
+  h1, h2, h3, p, ul, ol, figure, blockquote { margin: 0; }
+  ul, ol { padding: 0; list-style: none; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--monitor); outline-offset: 3px; }
+  ::selection { background: var(--accent); color: #fff; }
+  .display { font-family: var(--display); font-weight: 400; text-transform: uppercase; letter-spacing: -0.01em; line-height: 0.86; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .wrap { padding-inline: var(--m); }
+  .grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--m); }
+
+  /* ---------- botões ---------- */
+  .button { display: inline-flex; align-items: center; justify-content: center; gap: .5em; min-height: 56px; padding: 0 28px; border: 0; border-radius: var(--radius); background: var(--accent); color: var(--accent-ink); font: 600 var(--step-body)/1 var(--text); text-decoration: none; cursor: pointer; transition: transform var(--t-press) var(--ease-out), background-color var(--t-hover) ease, color var(--t-hover) ease; }
+  .button:active { transform: scale(.97); }
+  .button--dark { background: var(--accent); color: var(--accent-ink); }
+  /* pulso: um anel vermelho que se expande, como um batimento */
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(229,57,53,.6); } 70%, 100% { box-shadow: 0 0 0 16px rgba(229,57,53,0); } }
+  @media (prefers-reduced-motion: no-preference) {
+    .button, .plan__go { animation: pulse 2s var(--ease-out) infinite; }
+    .button:hover, .plan__go:hover { animation-play-state: paused; }
+  }
+  .link { text-decoration: underline; text-decoration-color: transparent; text-underline-offset: .2em; text-decoration-thickness: .07em; transition: text-decoration-color var(--t-hover) ease; }
+  @media (hover: hover) and (pointer: fine) {
+    .button:hover { background: var(--accent-strong); }
+    .button--dark:hover { background: var(--accent-strong); }
+    .link:hover { text-decoration-color: currentColor; }
+  }
+
+  /* ---------- navegação ---------- */
+  .nav { position: absolute; inset: 0 0 auto 0; z-index: 5; display: flex; justify-content: space-between; align-items: center; padding: 20px var(--m); }
+  .nav .wordmark { font-family: var(--display); font-size: var(--step-lead); letter-spacing: .01em; text-transform: uppercase; text-decoration: none; }
+  .nav .wordmark span { color: var(--accent); }
+  .nav ul { display: flex; gap: 28px; font-weight: 600; font-size: var(--step-small); }
+  .nav a { text-decoration: none; }
+  @media (max-width: 700px) { .nav ul li:not(:last-child) { display: none; } }
+
+  /* ---------- hero ---------- */
+  .hero { position: relative; height: 100svh; min-height: 680px; overflow: hidden; background: var(--bg); }
+  .hero__field { position: absolute; inset: 0 0 18% 0; background: var(--bg); }
+  .hero__band { position: absolute; inset: 82% 0 0 0; background: var(--field-1); display: flex; align-items: center; justify-content: space-between; gap: 32px; padding: 0 var(--m); z-index: 3; }
+  .hero__band p { max-width: 44ch; font-size: var(--step-body); line-height: 1.45; }
+  .hero__band p strong { color: var(--ink); font-weight: 600; }
+  .hero h1 { position: absolute; left: var(--m); top: 14%; z-index: 1; font-size: var(--step-display); line-height: .84; width: 62%; }
+  .hero__photo { position: absolute; z-index: 2; left: 52%; width: 30vw; aspect-ratio: 3 / 4; top: calc(82% - 30vw * 4 / 3 * .82); transform: rotate(5deg); }
+  .hero__photo .shutter { width: 100%; height: 100%; border-radius: 15vw 15vw 0 0; overflow: hidden; }
+  .hero__photo img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+  @media (max-width: 700px) {
+    /* a faixa cresce com o texto a partir do rodapé, para não vazar em celulares de tela baixa */
+    .hero { min-height: 640px; --band-h: 236px; }
+    .hero__field { inset: 0; }
+    .hero__band { inset: auto 0 0 0; min-height: var(--band-h); flex-direction: column; align-items: stretch; justify-content: center; gap: 12px; padding-block: 16px 20px; }
+    .hero__band p { font-size: var(--step-body); }
+    .hero__band .button { width: 100%; }
+    .hero h1 { top: 11%; font-size: 30vw; width: auto; }
+    .hero__photo { left: auto; right: 6vw; width: 58vw; top: auto; bottom: calc(var(--band-h) - 58vw * 4 / 3 * .12); transform: rotate(4deg); }
+    .hero__photo .shutter { border-radius: 29vw 29vw 0 0; }
+  }
+  @media (max-width: 700px) and (max-height: 760px) {
+    .hero h1 { font-size: 26vw; }
+    .hero__photo { width: 48vw; bottom: calc(var(--band-h) - 48vw * 4 / 3 * .12); }
+    .hero__photo .shutter { border-radius: 24vw 24vw 0 0; }
+  }
+
+  /* ---------- intro (declaração) ---------- */
+  .intro { position: relative; background: var(--field-2); color: var(--field-2-ink); min-height: 72svh; display: flex; align-items: center; padding: var(--gap-section) var(--m); overflow: hidden; }
+  .intro p { position: relative; z-index: 1; font-family: var(--text); font-weight: 600; font-size: clamp(1.5rem, 1rem + 1.6vw, 2.25rem); line-height: 1.25; max-width: 34ch; letter-spacing: -.01em; }
+  .intro .chip { position: absolute; z-index: 2; object-fit: cover; }
+  .intro .chip--a { width: 22vw; max-width: 360px; aspect-ratio: 4 / 5; right: 4vw; top: 14%; transform: rotate(4deg); }
+  .intro .chip--b { width: 13vw; max-width: 210px; aspect-ratio: 4 / 5; right: 24vw; bottom: 12%; transform: rotate(-5deg); filter: grayscale(1); }
+  .intro .credit { position: absolute; left: var(--m); bottom: 24px; font-size: var(--step-small); color: var(--field-2-muted); }
+  @media (max-width: 800px) {
+    .intro { flex-direction: column; align-items: flex-start; gap: 40px; padding-block: 96px; }
+    .intro p { font-size: var(--step-lead); }
+    .intro .chip { position: relative; }
+    .intro .chip--a { width: 62vw; right: auto; top: auto; align-self: flex-end; }
+    .intro .chip--b { display: none; }
+  }
+
+  /* ---------- check-up (o monitor) ---------- */
+  .checkup { background: var(--bg); padding: var(--gap-section) var(--m); }
+  .checkup__head { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: var(--m); align-items: end; margin-bottom: 56px; }
+  .checkup__head h2 { grid-column: 1 / 8; font-size: var(--step-head); line-height: .9; }
+  .checkup__head p { grid-column: 8 / 13; color: var(--muted); max-width: 42ch; }
+  .checkup__head p strong { color: var(--ink); font-weight: 600; }
+  .monitor { background: #050c0e; border: 12px solid #1d2b30; border-radius: 22px; color: #dff7ef; padding: clamp(18px, 3vw, 36px); display: grid; grid-template-columns: 1.35fr 1fr; gap: clamp(20px, 3vw, 40px); }
+  .monitor__top { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: center; }
+  .monitor__trace { height: 120px; border-radius: 6px; background: #071311; overflow: hidden; position: relative; }
+  .monitor__trace svg { position: absolute; left: 0; top: 0; height: 100%; width: 200%; }
+  @media (prefers-reduced-motion: no-preference) { .monitor__trace svg { animation: sweep var(--sweep, 6s) linear infinite; } }
+  @keyframes sweep { to { transform: translateX(-50%); } }
+  .monitor__trace path { fill: none; stroke: var(--monitor); stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; transition: stroke .4s ease; }
+  .monitor__readout { text-align: right; min-width: 170px; }
+  .monitor__readout .num { font-family: var(--display); font-size: var(--step-head); line-height: .9; color: var(--monitor); font-variant-numeric: tabular-nums; transition: color .4s ease; }
+  .monitor__readout .unit { font-size: var(--step-small); color: #8fb7ad; }
+  .vitals { display: grid; gap: 4px; }
+  .vital { display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: center; padding: 14px 16px; background: #0b1a18; border-radius: 6px; }
+  .vital__name { display: block; font-weight: 600; color: var(--monitor); font-size: var(--step-small); margin-bottom: 2px; }
+  .vital__q { font-size: var(--step-body); line-height: 1.35; color: #e9fbf5; }
+  .vital fieldset { border: 0; margin: 0; padding: 0; display: flex; gap: 6px; }
+  .vital legend { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .vital input { position: absolute; opacity: 0; pointer-events: none; }
+  .vital label.opt { display: inline-grid; place-items: center; min-width: 64px; min-height: 48px; padding: 0 14px; border: 2px solid #23463f; border-radius: 6px; font-weight: 600; font-size: var(--step-body); cursor: pointer; color: #cdeee4; transition: background-color var(--t-hover) ease, border-color var(--t-hover) ease, transform var(--t-press) var(--ease-out); }
+  .vital label.opt:active { transform: scale(.96); }
+  .vital input:focus-visible + label.opt { outline: 3px solid var(--monitor); outline-offset: 2px; }
+  .vital input.yes:checked + label.opt { background: var(--monitor); border-color: var(--monitor); color: #04201a; }
+  .vital input.no:checked + label.opt { background: var(--accent); border-color: var(--accent); color: #fff; }
+  @media (hover: hover) and (pointer: fine) { .vital label.opt:hover { border-color: var(--monitor); } }
+  .triage { border-radius: 8px; padding: clamp(20px, 2.4vw, 32px); background: #0f2622; display: flex; flex-direction: column; gap: 14px; transition: background-color .4s ease; }
+  .triage__state { font-family: var(--display); text-transform: uppercase; font-size: var(--step-head); line-height: .9; }
+  .triage__text { font-size: var(--step-body); line-height: 1.5; color: #f2fffb; }
+  .triage__text strong { font-weight: 600; }
+  .triage .button { align-self: flex-start; margin-top: auto; }
+  .triage[data-state="critico"] { background: #5a1414; }
+  .triage[data-state="observacao"] { background: #4d3608; }
+  .triage[data-state="saudavel"] { background: #0f3b31; }
+  .monitor noscript p { color: #f2fffb; }
+  @media (max-width: 900px) {
+    .checkup__head { display: block; }
+    .checkup__head h2 { margin-bottom: 20px; }
+    .monitor { grid-template-columns: 1fr; border-width: 8px; }
+    .monitor__trace { height: 90px; }
+    .monitor__readout { min-width: 0; }
+    .vital { grid-template-columns: 1fr; }
+    .vital fieldset { justify-content: stretch; }
+    .vital label.opt { flex: 1; }
+  }
+
+  /* ---------- vitrine: objeto na frente do texto ---------- */
+  .showcase { position: relative; background: var(--surface); padding: var(--gap-section) 0; overflow: hidden; }
+  .stack { padding-left: var(--m); white-space: nowrap; }
+  .stack .ghost, .stack h2 { display: block; font-family: var(--display); text-transform: uppercase; font-size: clamp(5rem, 12vw, 11.875rem); line-height: .88; letter-spacing: -.01em; font-weight: 400; }
+  .stack .ghost::before { content: attr(data-w); color: #3f5a61; }
+  .stack h2 { position: relative; z-index: 3; }
+  .stack h2 { color: var(--ink); }
+  .showcase__object { position: absolute; z-index: 2; right: 3vw; top: 24px; width: 38vw; max-width: 640px; }
+  .showcase__object img { width: 100%; transform: rotate(-4deg); }
+  .showcase__object figcaption { font-size: var(--step-small); line-height: 1.45; color: var(--muted); margin-top: 22px; max-width: 46ch; }
+  .showcase__facts { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: var(--m); padding: 72px var(--m) 0; }
+  .showcase__facts div { grid-column: 7 / 13; display: grid; gap: 18px; font-size: var(--step-lead); line-height: 1.4; }
+  .showcase__facts strong { color: var(--ink); font-weight: 600; }
+  .showcase__facts .muted { color: var(--muted); font-size: var(--step-body); }
+  @media (max-width: 800px) {
+    .stack .ghost, .stack h2 { font-size: 12.5vw; }
+    .showcase__object { position: relative; right: auto; top: auto; width: auto; margin: 40px var(--m) 0; }
+    .showcase__object img { transform: rotate(-3deg); }
+    .showcase__facts { display: block; padding-top: 48px; }
+    .showcase__facts div { font-size: var(--step-body); }
+  }
+
+  /* ---------- comparação em texto ---------- */
+  .compare { background: var(--field-2); color: var(--field-2-ink); padding: var(--gap-section) var(--m); }
+  .compare h2 { font-size: var(--step-head); line-height: .9; margin-bottom: 48px; max-width: 12ch; }
+  .ctable { display: grid; grid-template-columns: 5fr 2.33fr 2.33fr 2.33fr; position: relative; }
+  .ctable > div:not(.featured-bg) { min-height: 68px; padding: 14px 16px; display: flex; align-items: center; font-size: var(--step-body); line-height: 1.35; position: relative; z-index: 1; }
+  .ctable .row-b { background: var(--field-2-step); }
+  .ctable .cap { font-size: var(--step-lead); font-weight: 600; }
+  .ctable .colname { font-weight: 600; }
+  .ctable .feat { color: #fff; background: var(--accent) !important; font-weight: 600; }
+  .ctable .head.feat { margin-top: -24px; padding-top: 38px; }
+  @media (max-width: 860px) {
+    .ctable { display: block; }
+    .ctable .head { display: none; }
+    .ctable > div:not(.featured-bg) { display: block; min-height: 0; padding: 4px 16px; }
+    .ctable .cap { padding-top: 20px !important; }
+    .ctable [data-col]::before { content: attr(data-col) ": "; font-weight: 600; margin-right: .3em; }
+    .ctable .feat { background: var(--accent) !important; padding-block: 10px !important; margin-bottom: 16px; }
+  }
+
+  /* ---------- sequência de fotos (cortina) ---------- */
+  .lead-in { background: var(--bg); padding: var(--gap-section) var(--m) 0; }
+  .lead-in p { margin-left: 58%; max-width: 300px; font-size: var(--step-body); color: var(--ink); margin-bottom: -6.5em; position: relative; z-index: 4; }
+  .curtain { position: relative; height: 300svh; }
+  .curtain figure { position: sticky; top: 0; height: 100svh; overflow: hidden; }
+  .curtain img { width: 100%; height: 100%; object-fit: cover; }
+  .curtain figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 60px var(--m) 28px; background: linear-gradient(to top, rgba(0,0,0,.72), rgba(0,0,0,0)); /* taste-skill-ignore: scrim neutro sob texto em foto */ color: #fff; font-size: var(--step-body); line-height: 1.4; max-width: 100%; }
+  .curtain figcaption span { display: block; max-width: 34ch; }
+  .curtain .drift img { transform-origin: 50% 60%; }
+  @media (prefers-reduced-motion: no-preference) { .curtain .drift img { animation: drift 22s ease-in-out infinite alternate; } }
+  @keyframes drift { from { transform: scale(1.02); } to { transform: scale(1.1) translateY(-1.5%); } }
+  @media (max-width: 700px) {
+    .lead-in p { margin-left: 0; max-width: 60%; margin-bottom: -4.5em; }
+    .curtain figure { height: 88svh; }
+  }
+
+  /* ---------- do check-up à alta (muitos em um) ---------- */
+  .flow { background: var(--bg); padding: var(--gap-section) var(--m); }
+  .flow__head { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: var(--m); margin-bottom: 40px; }
+  .flow__head h2 { grid-column: 1 / 6; font-size: var(--step-head); line-height: .9; }
+  .flow__head p { grid-column: 1 / 6; margin-top: 20px; color: var(--muted); font-size: var(--step-body); max-width: 40ch; }
+  .flow__diagram { width: 100%; height: auto; display: block; }
+  .flow__steps { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: var(--m); margin-top: 40px; }
+  .flow__steps h3 { font-family: var(--text); font-weight: 600; font-size: var(--step-lead); margin-bottom: 8px; }
+  .flow__steps p { font-size: var(--step-body); color: var(--muted); max-width: 34ch; }
+  .flow__steps p strong { color: var(--ink); font-weight: 600; }
+  .flow__steps figure { margin-top: 24px; max-width: 260px; transform: rotate(-2deg); }
+  .flow__steps li:nth-child(2) figure { transform: rotate(2deg); }
+  .flow__diagram--v { display: none; }
+  @media (max-width: 760px) {
+    .flow__head { display: block; }
+    .flow__diagram--h { display: none; }
+    .flow__body { display: grid; grid-template-columns: 1fr 1.2fr; gap: 16px; }
+    .flow__diagram--v { display: block; }
+    .flow__steps { display: grid; grid-template-columns: 1fr; row-gap: 32px; margin-top: 0; }
+    .flow__steps figure { max-width: 140px; }
+  }
+
+  /* ---------- planos que sobem ---------- */
+  .plans { background: var(--field-2); color: var(--field-2-ink); padding: var(--gap-section) var(--m); }
+  .plans__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px 40px; margin-bottom: clamp(40px, 5vw, 64px); }
+  .plans h2 { max-width: 18ch; font-size: var(--step-head); line-height: .9; }
+  .plans__lead { max-width: 38ch; font-size: var(--step-body); line-height: 1.5; color: var(--field-2-muted); }
+  .plans__row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; align-items: end; }
+  .plan { display: flex; flex-direction: column; border-radius: var(--radius); }
+  .plan__body { padding: 28px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+  .plan h3 { font-family: var(--text); font-weight: 600; font-size: var(--step-lead); }
+  .plan .price { font-family: var(--display); font-size: clamp(2.5rem, 1.6rem + 2.4vw, 4.25rem); line-height: .95; margin: 6px 0 14px; overflow-wrap: anywhere; }
+  .plan .price-note { font-size: var(--step-small); font-weight: 600; margin: -10px 0 12px; opacity: .85; }
+  .plan ul { list-style: none; padding: 0; display: grid; gap: 10px; margin-top: 4px; }
+  .plan li { position: relative; padding-left: 22px; font-size: var(--step-body); line-height: 1.4; }
+  .plan li::before { content: ""; position: absolute; left: 0; top: .65em; width: 10px; height: 2px; background: currentColor; opacity: .7; }
+  .plan__go { display: flex; align-items: center; justify-content: space-between; min-height: 64px; padding: 0 28px; font-weight: 600; font-size: var(--step-body); text-decoration: none; transition: background-color var(--t-hover) ease; }
+  .plan__go:active { transform: scale(.99); }
+  /* a escada: alturas mínimas crescentes, o conteúdo nunca é cortado */
+  .plan--1 { min-height: 440px; background: var(--accent); color: #fff; }
+  .plan--1 .plan__go { background: var(--accent-strong); }
+  .plan--2 { min-height: 540px; background: var(--field-1); color: #fff; }
+  .plan--2 .plan__go { background: var(--accent); }
+  .plan--3 { min-height: 640px; background: var(--bg); color: #fff; }
+  .plan--3 .plan__go { background: var(--accent); }
+  @media (hover: hover) and (pointer: fine) {
+    .plan--1 .plan__go:hover { background: #9f1d1d; }
+    .plan--2 .plan__go:hover, .plan--3 .plan__go:hover { background: var(--accent-strong); }
+  }
+  .plans__note { margin-top: 28px; max-width: 62ch; font-size: var(--step-small); line-height: 1.5; color: var(--field-2-muted); }
+  @media (max-width: 1080px) {
+    .plans__row { grid-template-columns: 1fr; gap: 12px; }
+    .plan { min-height: 0 !important; }
+    .plan .price { font-size: clamp(2.5rem, 8vw, 4rem); }
+  }
+  @media (max-width: 600px) { .plan__body { padding: 24px 20px; } .plan__go { padding: 0 20px; } }
+
+  /* ---------- perguntas: fichas de prontuário ---------- */
+  .faq { background: var(--bg); padding: var(--gap-section) var(--m); }
+  .faq__inner { max-width: 980px; margin: 0 auto; }
+  .faq h2 { font-size: var(--step-head); line-height: .9; margin-bottom: 64px; }
+  .card { position: relative; margin-top: -24px; clip-path: polygon(0 40px, calc(var(--tab-x) ) 40px, calc(var(--tab-x)) 0, calc(var(--tab-x) + 200px) 0, calc(var(--tab-x) + 200px) 40px, 100% 40px, 100% 100%, 0 100%); padding-top: 40px; }
+  .card:first-child { margin-top: 0; }
+  .card summary { list-style: none; cursor: pointer; padding: 0 28px; min-height: 96px; display: flex; flex-direction: column; justify-content: center; }
+  .card summary::-webkit-details-marker { display: none; }
+  .card .tab { position: absolute; top: 0; left: var(--tab-x); width: 200px; height: 40px; display: grid; place-items: center; font-size: var(--step-small); font-weight: 600; }
+  .card .q { font-size: var(--step-lead); font-weight: 600; line-height: 1.3; }
+  .card .a { padding: 0 28px 32px; font-size: var(--step-body); line-height: 1.55; max-width: 56ch; }
+  .card:nth-child(3n+1) { background: var(--field-1); color: #fff; }
+  .card:nth-child(3n+2) { background: #f1f5f6; color: var(--field-2-ink); }
+  .card:nth-child(3n+3) { background: #1d3b43; color: #fff; }
+  .card summary { transition: opacity var(--t-hover) ease; }
+  @media (hover: hover) and (pointer: fine) { .card summary:hover .q { text-decoration: underline; text-underline-offset: .2em; } }
+  @media (max-width: 900px) {
+    .faq h2 { font-size: 9vw; }
+    .card { --tx: min(var(--tab-x-m), calc(100% - 120px)); clip-path: polygon(0 40px, var(--tx) 40px, var(--tx) 0, calc(var(--tx) + 120px) 0, calc(var(--tx) + 120px) 40px, 100% 40px, 100% 100%, 0 100%); }
+    .card .tab { left: var(--tx); width: 120px; }
+    .card summary { min-height: 88px; padding: 0 20px; }
+    .card .q { font-size: var(--step-body); }
+    .card .a { padding: 0 20px 24px; }
+  }
+
+  /* ---------- rodapé: a marca construída ---------- */
+  .footer { background: var(--field-1); color: #fff; padding: clamp(80px, 10vw, 120px) var(--m) 28px; }
+  .footer__cta { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px 40px; margin-bottom: clamp(48px, 6vw, 80px); }
+  .footer__cta h2 { font-size: clamp(2.25rem, 1.2rem + 3.6vw, 4.5rem); line-height: .95; max-width: 14ch; }
+  .footer__cta p { margin-top: 12px; max-width: 42ch; color: #c7d8db; font-size: var(--step-body); line-height: 1.5; }
+  .blocks { display: flex; gap: 4px; align-items: flex-end; height: 30svh; min-height: 200px; }
+  .blocks span { flex: 1; display: grid; place-items: center; font-family: var(--display); text-transform: uppercase; font-size: var(--step-head); line-height: 1; color: var(--field-1); }
+  .blocks .gap { flex: .45; background: transparent; }
+  .footer__cols { display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr)); gap: 40px var(--m); margin-top: 56px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,.14); font-size: var(--step-small); }
+  .footer__cols > div { display: grid; gap: 10px; align-content: start; }
+  .footer__cols h3 { font-family: var(--text); font-weight: 600; font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--monitor); margin-bottom: 4px; }
+  .footer__cols a, .footer__cols p { color: #d5e4e7; text-decoration: none; line-height: 1.4; }
+  .footer__brand p { max-width: 34ch; }
+  .footer__brand img { height: 48px; width: auto; margin-bottom: 6px; }
+  .footer__cols small { display: block; color: #8fa6ab; font-size: .8125rem; }
+  .footer__credits { margin-top: 40px; font-size: .8125rem; color: #8fa6ab; }
+  .footer__credits summary { cursor: pointer; width: fit-content; list-style: none; }
+  .footer__credits summary::-webkit-details-marker { display: none; }
+  .footer__credits summary::after { content: " +"; }
+  .footer__credits[open] summary::after { content: " −"; }
+  .footer__credits ul { list-style: none; padding: 0; margin-top: 12px; display: grid; gap: 6px; max-width: 80ch; line-height: 1.5; }
+  .footer__credits a { color: #c7d8db; }
+  .footer__last { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 20px; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.14); font-size: .8125rem; color: #8fa6ab; }
+  @media (max-width: 760px) {
+    .blocks { height: 22svh; min-height: 150px; flex-wrap: wrap; }
+    .blocks span { font-size: var(--step-head); flex: 0 0 calc((100% - 20px) / 6); height: 48% !important; }
+    .blocks .gap { display: none; }
+    .footer__cols { grid-template-columns: 1fr 1fr; }
+    .footer__brand { grid-column: 1 / -1; }
+    .footer__cta .button { width: 100%; }
+  }
+
+  /* ---------- movimento ---------- */
+  .shutter { overflow: hidden; }
+  @media (prefers-reduced-motion: no-preference) {
+    .js .shutter { clip-path: inset(100% 0 0 0); transition: clip-path 1100ms var(--ease-in-out); }
+    .js .shutter img { transform: scale(1.12); transition: transform 1500ms var(--ease-soft); }
+    .js .shutter.is-in { clip-path: inset(0); }
+    .js .shutter.is-in img { transform: none; }
+    .js .rise { opacity: 0; transform: translateY(24px); transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out); transition-delay: calc(var(--i, 0) * 80ms); }
+    .js .rise.is-in { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js');</script>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="topo">
+  <nav class="nav" aria-label="Principal">
+    <a class="wordmark" href="#topo">Sinais <span>Vitais</span></a>
+    <ul>
+      <li><a class="link" href="#checkup">Check-up</a></li>
+      <li><a class="link" href="#guia">O guia</a></li>
+      <li><a class="link" href="#preco">Preço</a></li>
+    </ul>
+  </nav>
+  <div class="hero__field"></div>
+  <h1 class="display"><span class="l1">Sinais</span><br><span class="l2">Vitais</span></h1>
+  <figure class="hero__photo">
+    <div class="shutter" data-shutter><img src="assets/capa-sinais-vitais.jpg" width="1144" height="2048" alt="Capa do e-book Sinais Vitais: um monitor cardíaco e um desfibrilador numa UTI, com o título em vermelho e branco"></div>
+  </figure>
+  <div class="hero__band">
+    <p>Sua empresa está respirando por aparelhos? <strong>O guia de 22 páginas para trazer o seu negócio de volta à vida, por R$ 27,00.</strong></p>
+    <a class="button button--dark js-checkout" href="#checkout">Quero o guia por R$ 27,00</a>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ INTRO ============ -->
+<section class="intro" aria-label="O problema">
+  <p class="rise">O movimento do balcão caiu, mas o cliente não sumiu: ele pesquisa no Google, olha o seu perfil e compra de quem responde primeiro no WhatsApp.</p>
+  <img class="chip chip--a rise" style="--i:1" src="assets/a-black-and-white-photo-of-a.jpg" width="2048" height="1536" alt="Rua comercial deserta com as portas de aço das lojas fechadas" loading="lazy">
+  <img class="chip chip--b rise" style="--i:2" src="assets/werner-haberkorn-vista-parcial-da-rua-barao.jpg" width="1920" height="2593" alt="Rua Barão de Itapetininga, em São Paulo, em fotografia antiga de Werner Haberkorn" loading="lazy">
+</section>
+
+<!-- ============ CHECK-UP (o monitor) ============ -->
+<section class="checkup" id="checkup" aria-labelledby="checkup-t">
+  <div class="checkup__head">
+    <h2 id="checkup-t" class="display rise">Faça o check-up da sua empresa</h2>
+    <p class="rise" style="--i:1">Cinco perguntas, uma para cada sinal vital. Responda com sinceridade: <strong>o monitor mostra o estado do seu negócio e por onde começar o tratamento.</strong></p>
+  </div>
+
+  <form class="monitor" id="monitor" aria-describedby="triage-text" onsubmit="return false">
+    <div class="monitor__top">
+      <div class="monitor__trace" aria-hidden="true">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path id="trace" d="M0 60 H1200"/></svg>
+      </div>
+      <div class="monitor__readout" aria-live="polite">
+        <div class="num" id="score">0/5</div>
+        <div class="unit">sinais vitais em dia</div>
+      </div>
+    </div>
+
+    <div class="vitals" data-ui>
+      <div class="vital">
+        <div><span class="vital__name">Ser encontrado</span><span class="vital__q">Minha empresa aparece no Google Maps com endereço, horário e avaliações.</span></div>
+        <fieldset><legend>Ser encontrado</legend>
+          <input class="yes" type="radio" name="v1" id="v1s" value="1"><label class="opt" for="v1s">Sim</label>
+          <input class="no" type="radio" name="v1" id="v1n" value="0"><label class="opt" for="v1n">Não</label></fieldset>
+      </div>
+      <div class="vital">
+        <div><span class="vital__name">Passar confiança</span><span class="vital__q">Minha bio diz o que vendo, para quem e leva direto ao WhatsApp.</span></div>
+        <fieldset><legend>Passar confiança</legend>
+          <input class="yes" type="radio" name="v2" id="v2s" value="1"><label class="opt" for="v2s">Sim</label>
+          <input class="no" type="radio" name="v2" id="v2n" value="0"><label class="opt" for="v2n">Não</label></fieldset>
+      </div>
+      <div class="vital">
+        <div><span class="vital__name">Engajar</span><span class="vital__q">Posto pelo menos três vezes por semana, todas as semanas.</span></div>
+        <fieldset><legend>Engajar</legend>
+          <input class="yes" type="radio" name="v3" id="v3s" value="1"><label class="opt" for="v3s">Sim</label>
+          <input class="no" type="radio" name="v3" id="v3n" value="0"><label class="opt" for="v3n">Não</label></fieldset>
+      </div>
+      <div class="vital">
+        <div><span class="vital__name">Atender bem</span><span class="vital__q">Respondo um novo contato em menos de uma hora no horário comercial.</span></div>
+        <fieldset><legend>Atender bem</legend>
+          <input class="yes" type="radio" name="v4" id="v4s" value="1"><label class="opt" for="v4s">Sim</label>
+          <input class="no" type="radio" name="v4" id="v4n" value="0"><label class="opt" for="v4n">Não</label></fieldset>
+      </div>
+      <div class="vital">
+        <div><span class="vital__name">Organizar o processo</span><span class="vital__q">Faço pós-venda e aviso clientes antigos sobre novidades.</span></div>
+        <fieldset><legend>Organizar o processo</legend>
+          <input class="yes" type="radio" name="v5" id="v5s" value="1"><label class="opt" for="v5s">Sim</label>
+          <input class="no" type="radio" name="v5" id="v5n" value="0"><label class="opt" for="v5n">Não</label></fieldset>
+      </div>
+    </div>
+
+    <div class="triage" id="triage" data-state="aguardando">
+      <p class="triage__state" id="triage-state">Aguardando leitura</p>
+      <p class="triage__text" id="triage-text">Responda as cinco perguntas ao lado. Assim que terminar, o monitor mostra se a sua empresa está em estado crítico, em observação ou saudável.</p>
+      <noscript><p>Conte os seus "Sim": de 0 a 1 é estado crítico, de 2 a 3 é observação, de 4 a 5 é saudável. Os "Não" mostram qual sinal vital tratar primeiro.</p></noscript>
+      <a class="button js-checkout" href="#checkout" id="triage-cta">Começar o tratamento por R$ 27,00</a>
+    </div>
+  </form>
+</section>
+
+<!-- ============ O GUIA: objeto na frente do texto ============ -->
+<section class="showcase" id="guia" aria-labelledby="guia-t">
+  <div class="stack">
+    <div class="ghost rise" data-w="Check-up" aria-hidden="true"></div>
+    <div class="ghost rise" style="--i:1" data-w="Receita" aria-hidden="true"></div>
+    <div class="ghost rise" style="--i:2" data-w="Alta" aria-hidden="true"></div>
+    <h2 id="guia-t" class="rise" style="--i:3">O guia completo</h2>
+  </div>
+  <figure class="showcase__object rise" style="--i:2">
+    <img src="assets/1947-defibrillator.jpg" width="1920" height="1440" alt="Desfibrilador de 1947, uma caixa de madeira com mostrador e duas pás de metal" loading="lazy">
+    <figcaption>Desfibrilador de 1947. A sua empresa não precisa de tanto: precisa de método.</figcaption>
+  </figure>
+  <div class="showcase__facts">
+    <div>
+      <p class="rise"><strong>Sinais Vitais é um e-book em PDF de 22 páginas</strong> para quem tem negócio físico e já vende pelo WhatsApp, Instagram, TikTok ou Facebook, mas no improviso.</p>
+      <p class="rise" style="--i:1">Ele começa com um <strong>check-up de 20 perguntas</strong>, trata os <strong>5 sinais vitais</strong> da empresa (ser encontrado, passar confiança, engajar, atender bem e organizar o processo) e termina com um <strong>tratamento de 30 dias</strong> e um prontuário para imprimir.</p>
+      <p class="muted rise" style="--i:2">Cada sinal vital traz os sintomas, o tratamento passo a passo, um checklist e a receita: modelos prontos para copiar, como 5 bios por tipo de negócio, 10 mensagens de WhatsApp e um calendário de 30 posts.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPARAÇÃO ============ -->
+<section class="compare" aria-labelledby="comp-t">
+  <h2 id="comp-t" class="display rise">Improviso ou tratamento</h2>
+  <div class="ctable rise" style="--i:1" role="table" aria-label="Comparação entre improvisar, contratar uma agência desde o início e usar o Sinais Vitais">
+    <div class="head colname" role="columnheader"><span class="sr-only">Sinal vital</span></div>
+    <div class="head colname" role="columnheader">No improviso</div>
+    <div class="head colname" role="columnheader">Agência desde o início</div>
+    <div class="head colname feat" role="columnheader">Com o Sinais Vitais</div>
+
+    <div class="cap" role="rowheader">Aparecer no Google</div><div data-col="No improviso">Só quem já conhece te acha</div><div data-col="Agência">Feito por eles, com mensalidade</div><div class="feat" data-col="Sinais Vitais">Passo a passo do Perfil da Empresa</div>
+    <div class="cap row-b" role="rowheader">Perfil que passa confiança</div><div class="row-b" data-col="No improviso">Bio genérica, sem link de compra</div><div class="row-b" data-col="Agência">Feito por eles</div><div class="feat" data-col="Sinais Vitais">Fórmula de 4 partes e 5 bios prontas</div>
+    <div class="cap" role="rowheader">O que postar</div><div data-col="No improviso">Quando sobra tempo</div><div data-col="Agência">Calendário da agência</div><div class="feat" data-col="Sinais Vitais">Calendário de 30 dias com legendas</div>
+    <div class="cap row-b" role="rowheader">Atendimento no WhatsApp</div><div class="row-b" data-col="No improviso">Resposta quando dá</div><div class="row-b" data-col="Agência">Depende do pacote</div><div class="feat" data-col="Sinais Vitais">Roteiro de 5 passos e 10 mensagens</div>
+    <div class="cap" role="rowheader">Cliente que sumiu</div><div data-col="No improviso">Fica perdido na conversa</div><div data-col="Agência">Depende do pacote</div><div class="feat" data-col="Sinais Vitais">Follow-up em 24 horas e em 3 dias</div>
+    <div class="cap row-b" role="rowheader">Pós-venda e recompra</div><div class="row-b" data-col="No improviso">Na memória do dono</div><div class="row-b" data-col="Agência">Depende do pacote</div><div class="feat" data-col="Sinais Vitais">Planilha, pós-venda e lista de clientes</div>
+    <div class="cap" role="rowheader">Por onde começar</div><div data-col="No improviso">Tentativa e erro</div><div data-col="Agência">Reunião de briefing</div><div class="feat" data-col="Sinais Vitais">Check-up de 20 perguntas</div>
+    <div class="cap row-b" role="rowheader">Investimento</div><div class="row-b" data-col="No improviso">Seu tempo, sem método</div><div class="row-b" data-col="Agência">Mensalidade</div><div class="feat" data-col="Sinais Vitais">R$ 27,00, uma vez só</div>
+  </div>
+</section>
+
+<!-- ============ SEQUÊNCIA (cortina) ============ -->
+<div class="lead-in"><p class="rise">Toda empresa que perde o movimento passa pelas mesmas três telas. A diferença está em qual delas você para.</p></div>
+<section class="curtain" aria-label="Da rua cheia ao monitor">
+  <figure><img src="assets/werner-haberkorn-vista-parcial-da-rua-barao.jpg" width="1920" height="2593" alt="Rua comercial movimentada de São Paulo em fotografia antiga" loading="lazy"><figcaption><span>Antes, bastava estar na rua certa. O cliente passava na frente e entrava.</span></figcaption></figure>
+  <figure class="drift"><img src="assets/a-black-and-white-photo-of-a.jpg" width="2048" height="1536" alt="Rua com as portas de aço das lojas fechadas" loading="lazy"><figcaption><span>Hoje, quem não aparece no celular fica de porta aberta para uma rua vazia.</span></figcaption></figure>
+  <figure><img src="assets/normal-electrocardiogram.jpg" width="1920" height="1391" alt="Monitor de eletrocardiograma mostrando o batimento e 88 batimentos por minuto" loading="lazy"><figcaption><span>O que se mede, se trata. O check-up mostra onde a sua empresa está perdendo o pulso.</span></figcaption></figure>
+</section>
+
+<!-- ============ DO CHECK-UP À ALTA ============ -->
+<section class="flow" aria-labelledby="flow-t">
+  <div class="flow__head">
+    <h2 id="flow-t" class="display rise">Do check-up à alta</h2>
+    <p class="rise" style="--i:1">Primeiro você mede, depois trata um sinal vital de cada vez e, em 30 dias, a empresa sai da UTI com um processo que não depende só da sua memória.</p>
+  </div>
+  <div class="flow__body">
+    <svg class="flow__diagram flow__diagram--h rise" viewBox="0 0 1200 270" role="img" aria-label="Quadrados espalhados à esquerda, apertados numa faixa no meio e organizados em fileiras vermelhas à direita"><rect x="123" y="53" width="12" height="12" fill="#2b4a52"/><rect x="35" y="138" width="12" height="12" fill="#3f6a73"/><rect x="214" y="220" width="12" height="12" fill="#2b4a52"/><rect x="23" y="115" width="12" height="12" fill="#2b4a52"/><rect x="94" y="141" width="12" height="12" fill="#2b4a52"/><rect x="299" y="47" width="12" height="12" fill="#2b4a52"/><rect x="231" y="148" width="12" height="12" fill="#2b4a52"/><rect x="212" y="107" width="12" height="12" fill="#2b4a52"/><rect x="26" y="209" width="12" height="12" fill="#3f6a73"/><rect x="157" y="139" width="12" height="12" fill="#3f6a73"/><rect x="206" y="170" width="12" height="12" fill="#2b4a52"/><rect x="214" y="161" width="12" height="12" fill="#3f6a73"/><rect x="44" y="177" width="12" height="12" fill="#2b4a52"/><rect x="227" y="129" width="12" height="12" fill="#3f6a73"/><rect x="282" y="122" width="12" height="12" fill="#3f6a73"/><rect x="137" y="75" width="12" height="12" fill="#2b4a52"/><rect x="255" y="74" width="12" height="12" fill="#3f6a73"/><rect x="194" y="213" width="12" height="12" fill="#3f6a73"/><rect x="111" y="236" width="12" height="12" fill="#2b4a52"/><rect x="189" y="56" width="12" height="12" fill="#3f6a73"/><rect x="63" y="128" width="12" height="12" fill="#2b4a52"/><rect x="347" y="37" width="12" height="12" fill="#3f6a73"/><rect x="129" y="97" width="12" height="12" fill="#3f6a73"/><rect x="213" y="120" width="12" height="12" fill="#2b4a52"/><rect x="341" y="124" width="12" height="12" fill="#2b4a52"/><rect x="31" y="174" width="12" height="12" fill="#3f6a73"/><rect x="110" y="105" width="12" height="12" fill="#3f6a73"/><rect x="18" y="122" width="12" height="12" fill="#2b4a52"/><rect x="224" y="129" width="12" height="12" fill="#2b4a52"/><rect x="279" y="48" width="12" height="12" fill="#2b4a52"/><rect x="149" y="222" width="12" height="12" fill="#3f6a73"/><rect x="38" y="119" width="12" height="12" fill="#3f6a73"/><rect x="319" y="200" width="12" height="12" fill="#3f6a73"/><rect x="257" y="237" width="12" height="12" fill="#3f6a73"/><rect x="345" y="53" width="12" height="12" fill="#2b4a52"/><rect x="63" y="165" width="12" height="12" fill="#2b4a52"/><rect x="180" y="150" width="12" height="12" fill="#3f6a73"/><rect x="109" y="52" width="12" height="12" fill="#3f6a73"/><rect x="223" y="90" width="12" height="12" fill="#2b4a52"/><rect x="252" y="133" width="12" height="12" fill="#2b4a52"/><rect x="170" y="212" width="12" height="12" fill="#3f6a73"/><rect x="149" y="107" width="12" height="12" fill="#3f6a73"/><rect x="232" y="34" width="12" height="12" fill="#2b4a52"/><rect x="355" y="117" width="12" height="12" fill="#2b4a52"/><rect x="129" y="32" width="12" height="12" fill="#2b4a52"/><rect x="208" y="138" width="12" height="12" fill="#3f6a73"/><rect x="225" y="35" width="12" height="12" fill="#2b4a52"/><rect x="225" y="53" width="12" height="12" fill="#3f6a73"/><rect x="430" y="103" width="17" height="17" fill="#a9bcc0"/><rect x="430" y="124" width="17" height="17" fill="#a9bcc0"/><rect x="430" y="145" width="17" height="17" fill="#a9bcc0"/><rect x="451" y="103" width="17" height="17" fill="#a9bcc0"/><rect x="451" y="124" width="17" height="17" fill="#a9bcc0"/><rect x="451" y="145" width="17" height="17" fill="#a9bcc0"/><rect x="472" y="103" width="17" height="17" fill="#a9bcc0"/><rect x="472" y="124" width="17" height="17" fill="#a9bcc0"/><rect x="472" y="145" width="17" height="17" fill="#a9bcc0"/><rect x="493" y="103" width="17" height="17" fill="#a9bcc0"/><rect x="493" y="124" width="17" height="17" fill="#a9bcc0"/><rect x="493" y="145" width="17" height="17" fill="#a9bcc0"/><rect x="514" y="103" width="17" height="17" fill="#a9bcc0"/><rect x="514" y="124" width="17" height="17" fill="#a9bcc0"/><rect x="514" y="145" width="17" height="17" fill="#a9bcc0"/><rect x="535" y="103" width="17" height="17" fill="#a9bcc0"/><rect x="535" y="124" width="17" height="17" fill="#a9bcc0"/><rect x="535" y="145" width="17" height="17" fill="#a9bcc0"/><rect x="556" y="103" width="17" height="17" fill="#a9bcc0"/><rect x="556" y="124" width="17" height="17" fill="#a9bcc0"/><rect x="556" y="145" width="17" height="17" fill="#a9bcc0"/><rect x="577" y="103" width="17" height="17" fill="#a9bcc0"/><rect x="577" y="124" width="17" height="17" fill="#a9bcc0"/><rect x="577" y="145" width="17" height="17" fill="#a9bcc0"/><rect x="598" y="103" width="17" height="17" fill="#a9bcc0"/><rect x="598" y="124" width="17" height="17" fill="#a9bcc0"/><rect x="598" y="145" width="17" height="17" fill="#a9bcc0"/><rect x="619" y="103" width="17" height="17" fill="#a9bcc0"/><rect x="619" y="124" width="17" height="17" fill="#a9bcc0"/><rect x="619" y="145" width="17" height="17" fill="#a9bcc0"/><rect x="640" y="103" width="17" height="17" fill="#a9bcc0"/><rect x="640" y="124" width="17" height="17" fill="#a9bcc0"/><rect x="640" y="145" width="17" height="17" fill="#a9bcc0"/><rect x="661" y="103" width="17" height="17" fill="#a9bcc0"/><rect x="661" y="124" width="17" height="17" fill="#a9bcc0"/><rect x="661" y="145" width="17" height="17" fill="#a9bcc0"/><rect x="682" y="103" width="17" height="17" fill="#a9bcc0"/><rect x="682" y="124" width="17" height="17" fill="#a9bcc0"/><rect x="682" y="145" width="17" height="17" fill="#a9bcc0"/><rect x="703" y="103" width="17" height="17" fill="#a9bcc0"/><rect x="703" y="124" width="17" height="17" fill="#a9bcc0"/><rect x="703" y="145" width="17" height="17" fill="#a9bcc0"/><rect x="724" y="103" width="17" height="17" fill="#a9bcc0"/><rect x="724" y="124" width="17" height="17" fill="#a9bcc0"/><rect x="724" y="145" width="17" height="17" fill="#a9bcc0"/><rect x="745" y="103" width="17" height="17" fill="#a9bcc0"/><rect x="745" y="124" width="17" height="17" fill="#a9bcc0"/><rect x="745" y="145" width="17" height="17" fill="#a9bcc0"/><rect x="830" y="45" width="18" height="18" fill="#e53935"/><rect x="830" y="77" width="18" height="18" fill="#e53935"/><rect x="830" y="109" width="18" height="18" fill="#e53935"/><rect x="830" y="141" width="18" height="18" fill="#e53935"/><rect x="830" y="173" width="18" height="18" fill="#e53935"/><rect x="830" y="205" width="18" height="18" fill="#e53935"/><rect x="860" y="45" width="18" height="18" fill="#e53935"/><rect x="860" y="77" width="18" height="18" fill="#e53935"/><rect x="860" y="109" width="18" height="18" fill="#e53935"/><rect x="860" y="141" width="18" height="18" fill="#e53935"/><rect x="860" y="173" width="18" height="18" fill="#e53935"/><rect x="860" y="205" width="18" height="18" fill="#e53935"/><rect x="890" y="45" width="18" height="18" fill="#e53935"/><rect x="890" y="77" width="18" height="18" fill="#e53935"/><rect x="890" y="109" width="18" height="18" fill="#e53935"/><rect x="890" y="141" width="18" height="18" fill="#e53935"/><rect x="890" y="173" width="18" height="18" fill="#e53935"/><rect x="890" y="205" width="18" height="18" fill="#e53935"/><rect x="920" y="45" width="18" height="18" fill="#e53935"/><rect x="920" y="77" width="18" height="18" fill="#e53935"/><rect x="920" y="109" width="18" height="18" fill="#e53935"/><rect x="920" y="141" width="18" height="18" fill="#e53935"/><rect x="920" y="173" width="18" height="18" fill="#e53935"/><rect x="920" y="205" width="18" height="18" fill="#e53935"/><rect x="950" y="45" width="18" height="18" fill="#e53935"/><rect x="950" y="77" width="18" height="18" fill="#e53935"/><rect x="950" y="109" width="18" height="18" fill="#e53935"/><rect x="950" y="141" width="18" height="18" fill="#e53935"/><rect x="950" y="173" width="18" height="18" fill="#e53935"/><rect x="950" y="205" width="18" height="18" fill="#e53935"/><rect x="980" y="45" width="18" height="18" fill="#e53935"/><rect x="980" y="77" width="18" height="18" fill="#e53935"/><rect x="980" y="109" width="18" height="18" fill="#e53935"/><rect x="980" y="141" width="18" height="18" fill="#e53935"/><rect x="980" y="173" width="18" height="18" fill="#e53935"/><rect x="980" y="205" width="18" height="18" fill="#e53935"/><rect x="1010" y="45" width="18" height="18" fill="#e53935"/><rect x="1010" y="77" width="18" height="18" fill="#e53935"/><rect x="1010" y="109" width="18" height="18" fill="#e53935"/><rect x="1010" y="141" width="18" height="18" fill="#e53935"/><rect x="1010" y="173" width="18" height="18" fill="#e53935"/><rect x="1010" y="205" width="18" height="18" fill="#e53935"/><rect x="1040" y="45" width="18" height="18" fill="#e53935"/><rect x="1040" y="77" width="18" height="18" fill="#e53935"/><rect x="1040" y="109" width="18" height="18" fill="#e53935"/><rect x="1040" y="141" width="18" height="18" fill="#e53935"/><rect x="1040" y="173" width="18" height="18" fill="#e53935"/><rect x="1040" y="205" width="18" height="18" fill="#e53935"/><rect x="1070" y="45" width="18" height="18" fill="#e53935"/><rect x="1070" y="77" width="18" height="18" fill="#e53935"/><rect x="1070" y="109" width="18" height="18" fill="#e53935"/><rect x="1070" y="141" width="18" height="18" fill="#e53935"/><rect x="1070" y="173" width="18" height="18" fill="#e53935"/><rect x="1070" y="205" width="18" height="18" fill="#e53935"/><rect x="1100" y="45" width="18" height="18" fill="#e53935"/><rect x="1100" y="77" width="18" height="18" fill="#e53935"/><rect x="1100" y="109" width="18" height="18" fill="#e53935"/><rect x="1100" y="141" width="18" height="18" fill="#e53935"/><rect x="1100" y="173" width="18" height="18" fill="#e53935"/><rect x="1100" y="205" width="18" height="18" fill="#e53935"/><rect x="1130" y="45" width="18" height="18" fill="#e53935"/><rect x="1130" y="77" width="18" height="18" fill="#e53935"/><rect x="1130" y="109" width="18" height="18" fill="#e53935"/><rect x="1130" y="141" width="18" height="18" fill="#e53935"/><rect x="1130" y="173" width="18" height="18" fill="#e53935"/><rect x="1130" y="205" width="18" height="18" fill="#e53935"/><rect x="1160" y="45" width="18" height="18" fill="#e53935"/><rect x="1160" y="77" width="18" height="18" fill="#e53935"/><rect x="1160" y="109" width="18" height="18" fill="#e53935"/><rect x="1160" y="141" width="18" height="18" fill="#e53935"/><rect x="1160" y="173" width="18" height="18" fill="#e53935"/><rect x="1160" y="205" width="18" height="18" fill="#e53935"/></svg>
+    <svg class="flow__diagram flow__diagram--v" viewBox="0 0 300 900" role="img" aria-label="Quadrados espalhados em cima, apertados numa faixa no meio e organizados em fileiras embaixo"><rect x="268" y="167" width="10" height="10" fill="#3f6a73"/><rect x="43" y="231" width="10" height="10" fill="#3f6a73"/><rect x="140" y="91" width="10" height="10" fill="#2b4a52"/><rect x="38" y="99" width="10" height="10" fill="#3f6a73"/><rect x="139" y="190" width="10" height="10" fill="#2b4a52"/><rect x="65" y="258" width="10" height="10" fill="#3f6a73"/><rect x="50" y="151" width="10" height="10" fill="#2b4a52"/><rect x="215" y="88" width="10" height="10" fill="#2b4a52"/><rect x="198" y="78" width="10" height="10" fill="#3f6a73"/><rect x="255" y="102" width="10" height="10" fill="#2b4a52"/><rect x="154" y="213" width="10" height="10" fill="#3f6a73"/><rect x="182" y="169" width="10" height="10" fill="#2b4a52"/><rect x="228" y="223" width="10" height="10" fill="#2b4a52"/><rect x="64" y="138" width="10" height="10" fill="#2b4a52"/><rect x="277" y="215" width="10" height="10" fill="#3f6a73"/><rect x="80" y="190" width="10" height="10" fill="#3f6a73"/><rect x="131" y="254" width="10" height="10" fill="#3f6a73"/><rect x="268" y="105" width="10" height="10" fill="#2b4a52"/><rect x="38" y="132" width="10" height="10" fill="#3f6a73"/><rect x="65" y="172" width="10" height="10" fill="#2b4a52"/><rect x="139" y="180" width="10" height="10" fill="#2b4a52"/><rect x="235" y="41" width="10" height="10" fill="#3f6a73"/><rect x="221" y="205" width="10" height="10" fill="#3f6a73"/><rect x="250" y="123" width="10" height="10" fill="#3f6a73"/><rect x="33" y="256" width="10" height="10" fill="#3f6a73"/><rect x="135" y="203" width="10" height="10" fill="#2b4a52"/><rect x="206" y="54" width="10" height="10" fill="#2b4a52"/><rect x="17" y="164" width="10" height="10" fill="#3f6a73"/><rect x="228" y="48" width="10" height="10" fill="#3f6a73"/><rect x="187" y="101" width="10" height="10" fill="#2b4a52"/><rect x="16" y="218" width="10" height="10" fill="#2b4a52"/><rect x="152" y="253" width="10" height="10" fill="#3f6a73"/><rect x="276" y="61" width="10" height="10" fill="#2b4a52"/><rect x="18" y="65" width="10" height="10" fill="#2b4a52"/><rect x="216" y="95" width="10" height="10" fill="#3f6a73"/><rect x="235" y="26" width="10" height="10" fill="#3f6a73"/><rect x="252" y="182" width="10" height="10" fill="#3f6a73"/><rect x="233" y="238" width="10" height="10" fill="#2b4a52"/><rect x="154" y="146" width="10" height="10" fill="#2b4a52"/><rect x="246" y="212" width="10" height="10" fill="#2b4a52"/><rect x="114" y="320" width="14" height="14" fill="#a9bcc0"/><rect x="138" y="320" width="14" height="14" fill="#a9bcc0"/><rect x="162" y="320" width="14" height="14" fill="#a9bcc0"/><rect x="114" y="338" width="14" height="14" fill="#a9bcc0"/><rect x="138" y="338" width="14" height="14" fill="#a9bcc0"/><rect x="162" y="338" width="14" height="14" fill="#a9bcc0"/><rect x="114" y="356" width="14" height="14" fill="#a9bcc0"/><rect x="138" y="356" width="14" height="14" fill="#a9bcc0"/><rect x="162" y="356" width="14" height="14" fill="#a9bcc0"/><rect x="114" y="374" width="14" height="14" fill="#a9bcc0"/><rect x="138" y="374" width="14" height="14" fill="#a9bcc0"/><rect x="162" y="374" width="14" height="14" fill="#a9bcc0"/><rect x="114" y="392" width="14" height="14" fill="#a9bcc0"/><rect x="138" y="392" width="14" height="14" fill="#a9bcc0"/><rect x="162" y="392" width="14" height="14" fill="#a9bcc0"/><rect x="114" y="410" width="14" height="14" fill="#a9bcc0"/><rect x="138" y="410" width="14" height="14" fill="#a9bcc0"/><rect x="162" y="410" width="14" height="14" fill="#a9bcc0"/><rect x="114" y="428" width="14" height="14" fill="#a9bcc0"/><rect x="138" y="428" width="14" height="14" fill="#a9bcc0"/><rect x="162" y="428" width="14" height="14" fill="#a9bcc0"/><rect x="114" y="446" width="14" height="14" fill="#a9bcc0"/><rect x="138" y="446" width="14" height="14" fill="#a9bcc0"/><rect x="162" y="446" width="14" height="14" fill="#a9bcc0"/><rect x="114" y="464" width="14" height="14" fill="#a9bcc0"/><rect x="138" y="464" width="14" height="14" fill="#a9bcc0"/><rect x="162" y="464" width="14" height="14" fill="#a9bcc0"/><rect x="114" y="482" width="14" height="14" fill="#a9bcc0"/><rect x="138" y="482" width="14" height="14" fill="#a9bcc0"/><rect x="162" y="482" width="14" height="14" fill="#a9bcc0"/><rect x="114" y="500" width="14" height="14" fill="#a9bcc0"/><rect x="138" y="500" width="14" height="14" fill="#a9bcc0"/><rect x="162" y="500" width="14" height="14" fill="#a9bcc0"/><rect x="114" y="518" width="14" height="14" fill="#a9bcc0"/><rect x="138" y="518" width="14" height="14" fill="#a9bcc0"/><rect x="162" y="518" width="14" height="14" fill="#a9bcc0"/><rect x="114" y="536" width="14" height="14" fill="#a9bcc0"/><rect x="138" y="536" width="14" height="14" fill="#a9bcc0"/><rect x="162" y="536" width="14" height="14" fill="#a9bcc0"/><rect x="114" y="554" width="14" height="14" fill="#a9bcc0"/><rect x="138" y="554" width="14" height="14" fill="#a9bcc0"/><rect x="162" y="554" width="14" height="14" fill="#a9bcc0"/><rect x="12" y="625" width="16" height="16" fill="#e53935"/><rect x="44" y="625" width="16" height="16" fill="#e53935"/><rect x="76" y="625" width="16" height="16" fill="#e53935"/><rect x="108" y="625" width="16" height="16" fill="#e53935"/><rect x="140" y="625" width="16" height="16" fill="#e53935"/><rect x="172" y="625" width="16" height="16" fill="#e53935"/><rect x="204" y="625" width="16" height="16" fill="#e53935"/><rect x="236" y="625" width="16" height="16" fill="#e53935"/><rect x="268" y="625" width="16" height="16" fill="#e53935"/><rect x="12" y="663" width="16" height="16" fill="#e53935"/><rect x="44" y="663" width="16" height="16" fill="#e53935"/><rect x="76" y="663" width="16" height="16" fill="#e53935"/><rect x="108" y="663" width="16" height="16" fill="#e53935"/><rect x="140" y="663" width="16" height="16" fill="#e53935"/><rect x="172" y="663" width="16" height="16" fill="#e53935"/><rect x="204" y="663" width="16" height="16" fill="#e53935"/><rect x="236" y="663" width="16" height="16" fill="#e53935"/><rect x="268" y="663" width="16" height="16" fill="#e53935"/><rect x="12" y="701" width="16" height="16" fill="#e53935"/><rect x="44" y="701" width="16" height="16" fill="#e53935"/><rect x="76" y="701" width="16" height="16" fill="#e53935"/><rect x="108" y="701" width="16" height="16" fill="#e53935"/><rect x="140" y="701" width="16" height="16" fill="#e53935"/><rect x="172" y="701" width="16" height="16" fill="#e53935"/><rect x="204" y="701" width="16" height="16" fill="#e53935"/><rect x="236" y="701" width="16" height="16" fill="#e53935"/><rect x="268" y="701" width="16" height="16" fill="#e53935"/><rect x="12" y="739" width="16" height="16" fill="#e53935"/><rect x="44" y="739" width="16" height="16" fill="#e53935"/><rect x="76" y="739" width="16" height="16" fill="#e53935"/><rect x="108" y="739" width="16" height="16" fill="#e53935"/><rect x="140" y="739" width="16" height="16" fill="#e53935"/><rect x="172" y="739" width="16" height="16" fill="#e53935"/><rect x="204" y="739" width="16" height="16" fill="#e53935"/><rect x="236" y="739" width="16" height="16" fill="#e53935"/><rect x="268" y="739" width="16" height="16" fill="#e53935"/><rect x="12" y="777" width="16" height="16" fill="#e53935"/><rect x="44" y="777" width="16" height="16" fill="#e53935"/><rect x="76" y="777" width="16" height="16" fill="#e53935"/><rect x="108" y="777" width="16" height="16" fill="#e53935"/><rect x="140" y="777" width="16" height="16" fill="#e53935"/><rect x="172" y="777" width="16" height="16" fill="#e53935"/><rect x="204" y="777" width="16" height="16" fill="#e53935"/><rect x="236" y="777" width="16" height="16" fill="#e53935"/><rect x="268" y="777" width="16" height="16" fill="#e53935"/><rect x="12" y="815" width="16" height="16" fill="#e53935"/><rect x="44" y="815" width="16" height="16" fill="#e53935"/><rect x="76" y="815" width="16" height="16" fill="#e53935"/><rect x="108" y="815" width="16" height="16" fill="#e53935"/><rect x="140" y="815" width="16" height="16" fill="#e53935"/><rect x="172" y="815" width="16" height="16" fill="#e53935"/><rect x="204" y="815" width="16" height="16" fill="#e53935"/><rect x="236" y="815" width="16" height="16" fill="#e53935"/><rect x="268" y="815" width="16" height="16" fill="#e53935"/><rect x="12" y="853" width="16" height="16" fill="#e53935"/><rect x="44" y="853" width="16" height="16" fill="#e53935"/><rect x="76" y="853" width="16" height="16" fill="#e53935"/><rect x="108" y="853" width="16" height="16" fill="#e53935"/><rect x="140" y="853" width="16" height="16" fill="#e53935"/><rect x="172" y="853" width="16" height="16" fill="#e53935"/><rect x="204" y="853" width="16" height="16" fill="#e53935"/><rect x="236" y="853" width="16" height="16" fill="#e53935"/><rect x="268" y="853" width="16" height="16" fill="#e53935"/></svg>
+    <ol class="flow__steps">
+      <li class="rise"><h3>Check-up</h3><p>Vinte perguntas mostram em 10 minutos <strong>qual sinal vital está mais fraco</strong> e por onde começar.</p>
+        <figure><img src="assets/pagina-checkup.jpg" width="1000" height="1414" alt="Página do check-up no e-book, com as perguntas de cada sinal vital" loading="lazy"></figure></li>
+      <li class="rise" style="--i:1"><h3>Tratamento</h3><p>Uma tarefa de 20 a 40 minutos por dia, com <strong>receitas prontas para copiar</strong>: bios, mensagens e posts.</p>
+        <figure><img src="assets/pagina-receita-mensagens.jpg" width="1000" height="1414" alt="Página de receitas do e-book com mensagens prontas de WhatsApp" loading="lazy"></figure></li>
+      <li class="rise" style="--i:2"><h3>Alta</h3><p>O <strong>prontuário</strong> fica perto do caixa. Quando todos os itens estão marcados, os sinais vitais estão em dia.</p>
+        <figure><img src="assets/pagina-prontuario.jpg" width="1000" height="1414" alt="Página do prontuário do e-book, com o checklist final para imprimir" loading="lazy"></figure></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ PREÇO: planos que sobem ============ -->
+<section class="plans" id="preco" aria-labelledby="preco-t">
+  <div class="plans__head">
+    <h2 id="preco-t" class="display rise">Escolha o tamanho do tratamento</h2>
+    <p class="plans__lead rise" style="--i:1">Comece pelo guia e aplique sozinho, ou chame a AW3S para examinar e tratar a sua empresa com você.</p>
+  </div>
+  <div class="plans__row">
+    <article class="plan plan--1 rise">
+      <div class="plan__body">
+        <h3>O guia</h3>
+        <p class="price">R$ 27,00</p><p class="price-note">Pagamento único</p>
+        <ul><li>E-book em PDF de 22 páginas</li><li>Check-up e os 5 sinais vitais</li><li>Tratamento de 30 dias</li><li>Receitas e prontuário para imprimir</li></ul>
+      </div>
+      <a class="plan__go js-checkout" href="#checkout">Comprar agora <span aria-hidden="true">→</span></a>
+    </article>
+    <article class="plan plan--2 rise" style="--i:1">
+      <div class="plan__body">
+        <h3>Diagnóstico</h3>
+        <p class="price">Sem compromisso</p>
+        <ul><li>Conversa com um especialista da AW3S</li><li>Como a empresa aparece no Google e no site</li><li>O que o seu perfil comunica nas redes</li><li>Onde o WhatsApp está perdendo vendas</li><li>Um plano de ação na ordem certa</li></ul>
+      </div>
+      <a class="plan__go" href="https://wa.me/5511978370758?text=Ol%C3%A1!%20Vi%20o%20Sinais%20Vitais%20e%20quero%20agendar%20um%20diagn%C3%B3stico" target="_blank" rel="noopener">Agendar pelo WhatsApp <span aria-hidden="true">→</span></a>
+    </article>
+    <article class="plan plan--3 rise" style="--i:2">
+      <div class="plan__body">
+        <h3>Tratamento AW3S</h3>
+        <p class="price">Sob medida</p>
+        <ul><li>Site profissional que aparece no Google</li><li>Perfil da Empresa e SEO local</li><li>Conteúdo e posicionamento da marca</li><li>Atende+Empresas: uma IA que atende o seu WhatsApp 24 horas</li><li>Acompanhamento do time da AW3S</li></ul>
+      </div>
+      <a class="plan__go" href="https://wa.me/5511978370758?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20o%20tratamento%20completo%20da%20AW3S" target="_blank" rel="noopener">Falar com a AW3S <span aria-hidden="true">→</span></a>
+    </article>
+  </div>
+  <p class="plans__note rise">O guia é entregue por e-mail logo após a confirmação do pagamento, pela Kiwify. Você tem 7 dias de garantia: se não for para você, pede o reembolso.</p>
+</section>
+
+<!-- ============ PERGUNTAS ============ -->
+<section class="faq" aria-labelledby="faq-t">
+  <div class="faq__inner">
+    <h2 id="faq-t" class="display rise">Perguntas antes da consulta</h2>
+    <div class="cards">
+      <details class="card" open style="--tab-x:0px;--tab-x-m:0px"><summary><span class="tab">Formato</span><span class="q">Como eu recebo o guia?</span></summary><p class="a">É um PDF de 22 páginas, enviado para o seu e-mail pela Kiwify logo depois que o pagamento é confirmado. Abre no celular, no computador ou impresso.</p></details>
+      <details class="card" style="--tab-x:150px;--tab-x-m:48px"><summary><span class="tab">Para quem</span><span class="q">Serve para o meu tipo de negócio?</span></summary><p class="a">Foi escrito para quem tem negócio físico e atende o público: loja, restaurante, salão, oficina, comércio de bairro e serviços locais. Os modelos têm campos para você trocar pelo seu segmento.</p></details>
+      <details class="card" style="--tab-x:300px;--tab-x-m:96px"><summary><span class="tab">Tempo</span><span class="q">Quanto tempo por dia vou precisar?</span></summary><p class="a">O tratamento tem uma tarefa por dia, de 20 a 40 minutos, durante 30 dias. Dá para fazer pelo celular, sem fechar a loja.</p></details>
+      <details class="card" style="--tab-x:450px;--tab-x-m:144px"><summary><span class="tab">Sozinho</span><span class="q">Preciso contratar alguém para aplicar?</span></summary><p class="a">Não. Tudo no guia pode ser feito por você, com o que já tem: celular, WhatsApp Business e as suas redes sociais.</p></details>
+      <details class="card" style="--tab-x:600px;--tab-x-m:192px"><summary><span class="tab">Garantia</span><span class="q">E se não for o que eu esperava?</span></summary><p class="a">Você tem 7 dias de garantia. Se o guia não for para você, é só pedir o reembolso pela Kiwify.</p></details>
+      <details class="card" style="--tab-x:750px;--tab-x-m:0px"><summary><span class="tab">Depois</span><span class="q">E se eu quiser ajuda de um especialista?</span></summary><p class="a">No fim do guia, e aqui nesta página, você pode agendar um diagnóstico completo da sua presença digital com a AW3S, sem compromisso.</p></details>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ RODAPÉ ============ -->
+<footer class="footer">
+  <div class="footer__cta">
+    <div>
+      <h2 class="display">Comece o tratamento hoje</h2>
+      <p>O check-up, os 5 sinais vitais e o plano de 30 dias, por R$ 27,00 e com 7 dias de garantia.</p>
+    </div>
+    <a class="button js-checkout" href="#checkout">Quero o guia por R$ 27,00 <span aria-hidden="true">→</span></a>
+  </div>
+  <div class="blocks" aria-label="Sinais Vitais" role="img">
+    <span style="height:70%;background:#e53935">S</span><span style="height:88%;background:#fff">I</span><span style="height:62%;background:#3ee6b0">N</span><span style="height:100%;background:#fff">A</span><span style="height:76%;background:#e53935">I</span><span style="height:92%;background:#fff">S</span>
+    <span class="gap"></span>
+    <span style="height:84%;background:#fff">V</span><span style="height:66%;background:#3ee6b0">I</span><span style="height:100%;background:#e53935">T</span><span style="height:72%;background:#fff">A</span><span style="height:90%;background:#3ee6b0">I</span><span style="height:78%;background:#fff">S</span>
+  </div>
+  <div class="footer__cols">
+    <div class="footer__brand">
+      <img src="assets/logo_aw3s_branco.png" width="151" height="126" alt="AW3S">
+      <p>Sinais Vitais é um guia da AW3S, agência digital de autoridade: site, Google, redes e WhatsApp para negócios locais.</p>
+    </div>
+    <div><h3>O guia</h3><a class="link" href="#checkup">Check-up</a><a class="link" href="#guia">O que tem dentro</a><a class="link" href="#preco">Preço</a></div>
+    <div><h3>Contato</h3><a class="link" href="https://wa.me/5511978370758" target="_blank" rel="noopener">WhatsApp <small>(11) 97837-0758</small></a><a class="link" href="https://www.instagram.com/aw3s.agenciadigital/" target="_blank" rel="noopener">Instagram</a><a class="link" href="https://aw3s.com.br" target="_blank" rel="noopener">aw3s.com.br</a></div>
+  </div>
+  <details class="footer__credits">
+    <summary>Créditos das fotografias</summary>
+    <ul>
+      <li><a href="https://wordpress.org/photos/photo/21869f2065/">Rua comercial com lojas fechadas</a>, Vishnu Chandra, <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>, WordPress Photo Directory</li>
+      <li><a href="https://commons.wikimedia.org/w/index.php?curid=135221751">Normal electrocardiogram</a>, medipics1066, <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a>, Wikimedia Commons</li>
+      <li><a href="https://commons.wikimedia.org/wiki/File:Werner_Haberkorn_-_Vista_parcial_da_Rua_Bar%C3%A3o_de_Itapetininga._S%C3%A3o_Paulo-SP.jpg">Vista parcial da Rua Barão de Itapetininga</a>, Werner Haberkorn/Fotolabor/Museu Paulista da USP, <a href="https://creativecommons.org/publicdomain/mark/1.0/">domínio público</a>, Wikimedia Commons</li>
+      <li><a href="https://commons.wikimedia.org/w/index.php?curid=141268641">1947 defibrillator</a>, Brigade Piron, <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>, Wikimedia Commons</li>
+      <li>Capa e páginas do e-book: Sinais Vitais · AW3S</li>
+    </ul>
+  </details>
+  <div class="footer__last"><span>© 2026 AW3S · Sinais Vitais</span><span>Pagamento e entrega pela Kiwify · 7 dias de garantia</span></div>
+</footer>
+
+<script>
+(function () {
+  /* link do checkout da Kiwify: troque aqui quando o produto estiver criado */
+  var CHECKOUT_URL = 'https://pay.kiwify.com.br/HHy0bA0';
+  document.querySelectorAll('.js-checkout').forEach(function (a) { a.href = CHECKOUT_URL; });
+
+  /* entradas e obturador */
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+  }, { threshold: 0.15, rootMargin: '0px 0px -5% 0px' }) : null;
+  document.querySelectorAll('.rise, [data-shutter]').forEach(function (el) { io ? io.observe(el) : el.classList.add('is-in'); });
+  requestAnimationFrame(function () { var s = document.querySelector('[data-shutter]'); if (s) setTimeout(function () { s.classList.add('is-in'); }, 150); });
+
+  /* perguntas: uma ficha aberta por vez */
+  var cards = document.querySelectorAll('.card');
+  cards.forEach(function (c) { c.addEventListener('toggle', function () { if (c.open) cards.forEach(function (o) { if (o !== c) o.open = false; }); }); });
+
+  /* ---------- o monitor ---------- */
+  var form = document.getElementById('monitor');
+  var trace = document.getElementById('trace');
+  var score = document.getElementById('score');
+  var triage = document.getElementById('triage');
+  var stateEl = document.getElementById('triage-state');
+  var textEl = document.getElementById('triage-text');
+  var names = ['ser encontrado', 'passar confiança', 'engajar', 'atender bem', 'organizar o processo'];
+  var pages = ['página 6', 'página 9', 'página 12', 'página 15', 'página 18'];
+  var colors = { aguardando: '#3ee6b0', critico: '#e53935', observacao: '#f2a516', saudavel: '#3ee6b0' };
+
+  function beat(x, amp) { /* um complexo P-QRS-T a partir de x */
+    return ' L' + (x + 14) + ' 60 l8 -' + (amp * .12) + ' l8 ' + (amp * .12) + ' l10 0 l5 ' + (amp * .18) + ' l7 -' + (amp * 1.05) + ' l8 ' + (amp * 1.3) + ' l6 -' + (amp * .43) + ' l14 0 l12 -' + (amp * .2) + ' l12 ' + (amp * .2);
+  }
+  function draw(spacing, amp) {
+    var d = 'M0 60', x = 0;
+    while (x < 1200) { d += beat(x, amp); x += spacing; d += ' L' + x + ' 60'; }
+    trace.setAttribute('d', d);
+  }
+  var box = trace.parentNode.parentNode;
+  function update() {
+    var sims = 0, answered = 0, firstNo = -1;
+    for (var i = 1; i <= 5; i++) {
+      var v = form.querySelector('input[name="v' + i + '"]:checked');
+      if (v) { answered++; if (v.value === '1') sims++; else if (firstNo < 0) firstNo = i - 1; }
+    }
+    score.textContent = sims + '/5';
+    var state = 'aguardando';
+    if (answered === 5) state = sims <= 1 ? 'critico' : sims <= 3 ? 'observacao' : 'saudavel';
+    triage.dataset.state = state;
+    var c = colors[state];
+    trace.style.stroke = c; score.style.color = c;
+    if (state === 'aguardando') {
+      stateEl.textContent = 'Lendo… ' + answered + ' de 5';
+      textEl.textContent = 'Faltam ' + (5 - answered) + ' respostas. Assim que terminar, o monitor mostra o estado da sua empresa.';
+      draw(300, 40 + answered * 6); box.style.setProperty('--sweep', '6s');
+    } else if (state === 'critico') {
+      stateEl.textContent = 'Estado crítico';
+      textEl.innerHTML = 'Sua empresa está respirando por aparelhos: o cliente não te encontra ou não confia no que vê. <strong>Comece pelo sinal vital ' + names[firstNo] + ' (' + pages[firstNo] + ' do guia).</strong>';
+      draw(600, 26); box.style.setProperty('--sweep', '9s');
+    } else if (state === 'observacao') {
+      stateEl.textContent = 'Em observação';
+      textEl.innerHTML = 'Você já é encontrado, mas perde vendas no caminho. <strong>O tratamento começa por ' + names[firstNo] + ' (' + pages[firstNo] + ' do guia).</strong>';
+      draw(200, 50); box.style.setProperty('--sweep', '6s');
+    } else {
+      stateEl.textContent = 'Saudável';
+      textEl.innerHTML = 'Sinais vitais em dia. Agora é ganhar força: <strong>processo, recompra e automação para não depender só de você.</strong> O guia e o diagnóstico da AW3S ajudam nesse passo.';
+      draw(150, 58); box.style.setProperty('--sweep', '4.5s');
+    }
+  }
+  form.addEventListener('change', update);
+  draw(300, 40);
+})();
+</script>
+</body>
+</html>

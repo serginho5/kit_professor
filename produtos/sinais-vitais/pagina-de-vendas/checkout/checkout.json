@@ -1,0 +1,38 @@
+{
+  "_comentario": "Checkout Kiwify do Sinais Vitais (produto 'Empresa na UTI'). Padrão Dieta Fácil/QChef; no lugar do celular vai a capa do e-book. Logo gerada por _logo.html.",
+  "logo_branca": "logo-sinais-vitais-branca.png",
+  "foto": "_foto.jpg",
+  "celular": "_capa.jpg",
+  "garantia_dias": 7,
+  "cor_fade": "#0b1a1f",
+  "cores": {
+    "fundo_banner": "radial-gradient(120% 140% at 0% 0%,#163038 0%,#0b1a1f 55%,#071114 100%)",
+    "destaque_banner": "#e53935",
+    "texto_suave_banner": "#a9bcc0",
+    "fundo_lateral": "#ffffff",
+    "texto_lateral": "#0f1b1f",
+    "titulo_lateral": "#b71c1c",
+    "check": "#d32f2f",
+    "fundo_garantia": "#eef3f4",
+    "selo": "#d32f2f"
+  },
+  "fontes": {
+    "titulo": "Work Sans",
+    "texto": "Work Sans",
+    "google": "https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700;800&display=block"
+  },
+  "produtos": {
+    "sinais-vitais": {
+      "titulo": "Traga sua empresa<br><span>de volta à vida.</span>",
+      "itens": [["22", "páginas de guia"], ["30", "dias de tratamento"], ["7", "dias de garantia"]],
+      "lista": [
+        "E-book em PDF de 22 páginas",
+        "Check-up de 20 perguntas",
+        "Os 5 pontos vitais, passo a passo",
+        "Plano de 30 dias, 20 min por dia",
+        "Bios, mensagens e posts prontos",
+        "Prontuário para imprimir"
+      ]
+    }
+  }
+}

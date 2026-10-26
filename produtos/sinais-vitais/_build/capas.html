@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Sinais Vitais · capas</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=block" rel="stylesheet">
+<style>
+  :root { --red:#e53935; --red2:#ff5a4a; --teal:#5fd3c6; --zap:#25d366; --dark1:#0b1a1f; --dark2:#12303a; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Montserrat", sans-serif; overflow: hidden; }
+  .v { display: none; position: relative; overflow: hidden; background: radial-gradient(circle at 35% 45%, #1c3d47 0%, var(--dark2) 35%, var(--dark1) 100%); color: #fff; }
+  .glow { position: absolute; border-radius: 50%; filter: blur(60px); }
+  .ecg { position: absolute; left: 0; width: 100%; fill: none; }
+  .ecg path, .ecg use { stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+
+  /* livro 3D com a capa da arte */
+  .book { position: absolute; transform-style: preserve-3d; }
+  .book .front { position: absolute; inset: 0; border-radius: 2px 6px 6px 2px; overflow: hidden; box-shadow: inset 4px 0 6px rgba(0,0,0,.35); }
+  .book .front img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .book .front::after { content: ""; position: absolute; inset: 0; background: linear-gradient(105deg, rgba(255,255,255,.18) 0%, rgba(255,255,255,0) 35%, rgba(0,0,0,.12) 100%); }
+  .book .spine { position: absolute; top: 0; bottom: 0; left: 0; transform-origin: left; transform: rotateY(-90deg); background: linear-gradient(90deg, #0d1418, #1b262c 50%, #10181c); display: flex; align-items: center; justify-content: center; }
+  .book .spine span { writing-mode: vertical-rl; transform: rotate(180deg); color: #fff; font-weight: 800; letter-spacing: .1em; white-space: nowrap; }
+  .book .spine span b { color: var(--red2); }
+  .book .pages { position: absolute; top: 1.5%; bottom: 1.5%; right: 0; transform-origin: right; transform: rotateY(-90deg); background: repeating-linear-gradient(90deg, #fff 0 2px, #e3e6ea 2px 3px); }
+  .book-shadow { position: absolute; border-radius: 50%; background: radial-gradient(closest-side, rgba(0,0,0,.6), rgba(0,0,0,0)); }
+
+  .tablet, .phone { position: absolute; background: #111; overflow: hidden; box-shadow: 0 25px 50px -18px rgba(0,0,0,.8); }
+  .tablet img, .phone img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; border-radius: inherit; }
+  .sheet { position: absolute; background: #fff; overflow: hidden; box-shadow: 0 14px 30px -12px rgba(0,0,0,.7); border-radius: 3px; }
+  .sheet img { width: 100%; display: block; }
+
+  .seal { position: absolute; border-radius: 50%; display: grid; place-items: center; text-align: center; color: #fff; font-weight: 900; line-height: 1.05; background: linear-gradient(140deg, var(--red2), var(--red)); box-shadow: 0 10px 26px -8px rgba(229,57,53,.8); }
+  .seal small { display: block; font-weight: 700; }
+  .ribbon { position: absolute; display: flex; align-items: center; color: #fff; font-weight: 800; border-radius: 10px; box-shadow: 0 10px 22px -8px rgba(0,0,0,.6); }
+  .chip { color: #fff; font-weight: 800; border-radius: 30px; }
+
+  .title .tag { font-weight: 800; letter-spacing: .24em; color: var(--red2); }
+  .title h1 { font-weight: 900; line-height: .95; letter-spacing: -.01em; }
+  .title h1 span { color: var(--red); }
+  .title p { font-weight: 600; color: #d6e6ea; line-height: 1.35; }
+
+  /* ===== CAPA KIWIFY 1000x1000 ===== */
+  #kiwify { width: 1000px; height: 1000px; }
+  #kiwify .bg { position: absolute; inset: -60px; background: url(assets/capa-cliente.jpg) center/cover; filter: blur(28px) brightness(.45) saturate(1.2); }
+  #kiwify .art { position: absolute; left: 50%; top: 50px; height: 900px; transform: translateX(-50%); border-radius: 14px; box-shadow: 0 40px 90px -20px rgba(0,0,0,.9), 0 0 0 1px rgba(255,255,255,.08); }
+
+  /* ===== MOCKUP LARGO 1024x572 ===== */
+  #banner { width: 1024px; height: 572px; }
+  #banner .title { position: absolute; right: 26px; top: 52px; width: 380px; text-align: center; }
+  #banner .title .tag { font-size: 13px; }
+  #banner .title h1 { font-size: 72px; margin-top: 8px; }
+  #banner .title p { font-size: 15px; margin-top: 12px; }
+
+  /* ===== MOCKUP ALTO 1024x851 ===== */
+  #banner2 { width: 1024px; height: 851px; }
+  #banner2 .title { position: absolute; left: 0; right: 0; top: 40px; text-align: center; }
+  #banner2 .title .tag { font-size: 15px; }
+  #banner2 .title h1 { font-size: 88px; margin-top: 8px; }
+  #banner2 .title p { font-size: 19px; margin-top: 12px; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute"><defs><path id="ecgp" d="M0 52 H110 l8 -3 l7 6 l5 -14 l7 26 l5 -18 l7 3 H230 l9 -5 l8 9 l7 -34 l9 66 l7 -46 l9 10 H380 l9 -7 l8 13 l9 -62 l11 96 l9 -66 l11 26 H600"/></defs></svg>
+
+<!-- ============ CAPA KIWIFY ============ -->
+<section class="v" id="kiwify">
+  <div class="bg"></div>
+  <img class="art" src="assets/capa-cliente.jpg" alt="Sinais Vitais">
+</section>
+
+<!-- ============ MOCKUP LARGO ============ -->
+<section class="v" id="banner">
+  <div class="glow" style="width:420px;height:420px;left:-80px;top:120px;background:var(--red);opacity:.22"></div>
+  <div class="glow" style="width:380px;height:380px;right:-60px;top:-120px;background:var(--teal);opacity:.16"></div>
+  <svg class="ecg" viewBox="0 0 600 100" preserveAspectRatio="none" style="top:250px;height:90px;opacity:.35"><use href="#ecgp" stroke="#e53935" stroke-width="2.6"/></svg>
+
+  <div class="sheet" style="left:236px;top:372px;width:146px;transform:rotate(-12deg)"><img src="mockup/pg8.png" alt=""></div>
+  <div class="sheet" style="left:452px;top:384px;width:146px;transform:rotate(9deg)"><img src="mockup/pg21.png" alt=""></div>
+  <div class="tablet" style="left:246px;top:118px;width:232px;height:312px;border-radius:18px;border:9px solid #1b1d22"><img src="mockup/pg4.png" alt=""></div>
+  <div class="phone" style="left:460px;top:198px;width:126px;height:256px;border-radius:20px;border:6px solid #1b1d22"><img src="mockup/pg17.png" alt=""></div>
+
+  <div class="book-shadow" style="width:300px;height:60px;left:30px;top:480px"></div>
+  <div style="position:absolute;left:66px;top:62px;width:228px;height:408px;perspective:1500px">
+    <div class="book" style="width:228px;height:408px;transform:rotateY(26deg)">
+      <div class="spine" style="width:30px"><span style="font-size:12px"><b>SINAIS VITAIS</b> · AW3S</span></div>
+      <div class="pages" style="width:26px"></div>
+      <div class="front"><img src="assets/capa-cliente.jpg" alt=""></div>
+    </div>
+  </div>
+
+  <div class="seal" style="left:330px;top:24px;width:92px;height:92px;font-size:24px">22<small style="font-size:12px">páginas</small></div>
+  <div class="ribbon" style="left:520px;top:124px;padding:9px 14px;background:linear-gradient(140deg,#13b85a,var(--zap));font-size:14px">✓ Checklists<br>prontos</div>
+
+  <div class="title">
+    <p class="tag">CHECK-UP + TRATAMENTO</p>
+    <h1>Sinais<br><span>Vitais</span></h1>
+    <p>Sua empresa está respirando por aparelhos? O guia completo para trazê-la de volta à vida</p>
+    <div style="display:flex;gap:8px;justify-content:center;margin-top:18px;flex-wrap:wrap">
+      <span class="chip" style="background:var(--red);font-size:13px;padding:8px 14px">Check-up</span>
+      <span class="chip" style="background:#1f6f73;font-size:13px;padding:8px 14px">5 sinais vitais</span>
+      <span class="chip" style="background:rgba(255,255,255,.14);border:1.5px solid rgba(255,255,255,.3);font-size:13px;padding:8px 14px">Tratamento de 30 dias</span>
+    </div>
+    <div style="margin-top:20px;display:inline-flex;align-items:center;gap:10px;background:#fff;border-radius:12px;padding:10px 18px;box-shadow:0 10px 24px -12px rgba(0,0,0,.6)">
+      <img src="assets/logo_aw3s.png" alt="" style="height:30px"><span style="font-weight:800;font-size:13px;color:#16262c">Acesso imediato · PDF</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MOCKUP ALTO ============ -->
+<section class="v" id="banner2">
+  <div class="glow" style="width:520px;height:520px;left:-150px;top:260px;background:var(--red);opacity:.22"></div>
+  <div class="glow" style="width:460px;height:460px;right:-140px;top:300px;background:var(--teal);opacity:.15"></div>
+  <svg class="ecg" viewBox="0 0 600 100" preserveAspectRatio="none" style="top:430px;height:110px;opacity:.5"><use href="#ecgp" stroke="#e53935" stroke-width="3"/></svg>
+
+  <div class="title">
+    <p class="tag">CHECK-UP + TRATAMENTO · AW3S</p>
+    <h1>Sinais <span>Vitais</span></h1>
+    <p>Sua empresa está respirando por aparelhos? O guia completo para trazê-la de volta à vida</p>
+  </div>
+
+  <div class="sheet" style="left:312px;top:600px;width:166px;transform:rotate(-10deg)"><img src="mockup/pg8.png" alt=""></div>
+  <div class="sheet" style="left:566px;top:606px;width:166px;transform:rotate(8deg)"><img src="mockup/pg14.png" alt=""></div>
+  <div class="tablet" style="left:404px;top:262px;width:266px;height:356px;border-radius:20px;border:10px solid #1b1d22"><img src="mockup/pg4.png" alt=""></div>
+  <div class="phone" style="left:654px;top:360px;width:144px;height:292px;border-radius:22px;border:7px solid #1b1d22"><img src="mockup/pg17.png" alt=""></div>
+
+  <div class="book-shadow" style="width:340px;height:70px;left:130px;top:680px"></div>
+  <div style="position:absolute;left:176px;top:226px;width:254px;height:454px;perspective:1600px">
+    <div class="book" style="width:254px;height:454px;transform:rotateY(24deg)">
+      <div class="spine" style="width:34px"><span style="font-size:13px"><b>SINAIS VITAIS</b> · AW3S</span></div>
+      <div class="pages" style="width:28px"></div>
+      <div class="front"><img src="assets/capa-cliente.jpg" alt=""></div>
+    </div>
+  </div>
+
+  <div class="seal" style="left:70px;top:590px;width:108px;height:108px;font-size:28px">22<small style="font-size:13px">páginas</small></div>
+  <div class="ribbon" style="left:780px;top:280px;padding:12px 18px;background:linear-gradient(140deg,#13b85a,var(--zap));font-size:16px">✓ Checklists<br>prontos</div>
+  <div class="ribbon" style="left:806px;top:690px;padding:12px 18px;background:linear-gradient(140deg,var(--red2),var(--red));font-size:16px">⚡ Acesso<br>imediato</div>
+
+  <div style="position:absolute;left:0;right:0;bottom:32px;display:flex;gap:10px;justify-content:center">
+    <span class="chip" style="background:var(--red);font-size:16px;padding:10px 18px">Check-up</span>
+    <span class="chip" style="background:#1f6f73;font-size:16px;padding:10px 18px">5 sinais vitais</span>
+    <span class="chip" style="background:#24414a;border:1.5px solid rgba(255,255,255,.3);font-size:16px;padding:10px 18px">Tratamento de 30 dias</span>
+    <span class="chip" style="background:#fff;color:#16262c;font-size:16px;padding:10px 18px">Modelos prontos</span>
+  </div>
+</section>
+
+<script>
+  const id = location.hash.slice(1) || "kiwify";
+  document.getElementById(id).style.display = "block";
+</script>
+</body>
+</html>

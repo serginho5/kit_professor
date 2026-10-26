@@ -1,0 +1,744 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Sinais Vitais · AW3S</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Varela+Round&display=block" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 0; }
+  :root {
+    --deep: #0700dd; --cyan: #00f2ff; --cyan2: #00dafc; --navy: #252c73; --footer: #1f2c82;
+    --purple: #6852ed; --coral: #ff7f50; --teal: #1fe0d3; --ink: #3d4459; --muted: #6b7080; --surface: #eef0f5; --zap: #25d366;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Montserrat", sans-serif; color: var(--ink); -webkit-print-color-adjust: exact; print-color-adjust: exact; font-size: 10pt; line-height: 1.45; }
+
+  .page { width: 210mm; height: 297mm; position: relative; overflow: hidden; page-break-after: always; padding: 18mm 18mm 22mm; }
+  .page:last-child { page-break-after: auto; }
+
+  /* rodapé das páginas de conteúdo */
+  .foot { position: absolute; left: 18mm; right: 18mm; bottom: 8mm; display: flex; justify-content: space-between; align-items: center; font-size: 8pt; color: var(--muted); border-top: 1px solid var(--surface); padding-top: 4mm; }
+  .foot img { height: 7mm; }
+
+  h1, h2, h3, .display { font-family: "Varela Round", sans-serif; font-weight: 400; }
+  h2 { font-size: 21pt; line-height: 1.15; color: var(--navy); margin-bottom: 4mm; }
+  h2 em { font-style: normal; color: var(--purple); }
+  h3 { font-size: 13pt; color: var(--navy); margin: 5mm 0 2mm; }
+  p { margin-bottom: 2.5mm; }
+  .kicker { font-weight: 800; font-size: 8.5pt; letter-spacing: .18em; text-transform: uppercase; color: var(--purple); display: flex; align-items: center; gap: 3mm; margin-bottom: 4mm; }
+  .kicker::before { content: ""; width: 10mm; height: 1mm; border-radius: 1mm; background: var(--coral); }
+  .lead { font-size: 11pt; color: var(--muted); margin-bottom: 4mm; }
+  b, strong { color: var(--navy); }
+
+  /* linha de batimento (ECG) */
+  .ecg { position: absolute; left: 0; width: 100%; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .ecg path { vector-effect: non-scaling-stroke; }
+  .cover .ecg { bottom: 62mm; height: 34mm; }
+  .cover .ecg path { stroke: var(--cyan); stroke-width: 3.2; filter: drop-shadow(0 0 2mm rgba(0,242,255,.8)); }
+  .opener .ecg { bottom: 30mm; height: 22mm; opacity: .55; }
+  .opener .ecg path { stroke: var(--coral); stroke-width: 2.4; }
+  .final .ecg { top: 92mm; height: 16mm; opacity: .35; }
+  .final .ecg path { stroke: #fff; stroke-width: 2; }
+
+  .cover-art { padding: 0; background: #0b1a1f; }
+  .cover-art .bg { position: absolute; inset: -12mm; background: url(assets/capa-cliente.jpg) center/cover; filter: blur(8mm) brightness(.45) saturate(1.2); }
+  .cover-art .art { position: absolute; left: 50%; top: 0; height: 297mm; transform: translateX(-50%); box-shadow: 0 0 18mm rgba(0,0,0,.7); }
+
+  /* capa */
+  .cover { background: linear-gradient(150deg, var(--deep) 0%, #0a3cf0 50%, var(--cyan) 140%); color: #fff; padding: 26mm 22mm; display: flex; flex-direction: column; }
+  .cover .blob { position: absolute; border-radius: 50%; background: #fff; opacity: .09; }
+  .cover .logo { height: 16mm; width: auto; align-self: flex-start; }
+  .cover .tag { margin-top: 30mm; font-weight: 800; font-size: 10pt; letter-spacing: .24em; color: var(--cyan); text-transform: uppercase; }
+  .cover h1 { font-size: 54pt; line-height: 1; margin-top: 6mm; }
+  .cover h1 span { color: var(--cyan); }
+  .cover .sub { font-size: 15pt; line-height: 1.4; margin-top: 8mm; max-width: 150mm; opacity: .95; }
+  .cover .chips { display: flex; flex-wrap: wrap; gap: 3mm; margin-top: 12mm; }
+  .cover .chips span { border: 1.5px solid rgba(255,255,255,.35); border-radius: 20mm; padding: 2.5mm 5mm; font-weight: 700; font-size: 10pt; }
+  .cover .bottom { margin-top: auto; display: flex; justify-content: space-between; align-items: flex-end; font-size: 10pt; opacity: .9; }
+
+  /* abertura de capítulo */
+  .opener { background: radial-gradient(circle at 85% 10%, #2a3bb0 0%, var(--footer) 45%, #121a55 100%); color: #fff; display: flex; flex-direction: column; justify-content: center; padding: 25mm 22mm; }
+  .opener .num { font-family: "Varela Round"; font-size: 120pt; line-height: 1; color: var(--cyan); opacity: .9; }
+  .opener .lbl { font-weight: 800; letter-spacing: .24em; text-transform: uppercase; font-size: 10pt; color: var(--coral); margin-top: 4mm; }
+  .opener h2 { color: #fff; font-size: 38pt; margin-top: 4mm; }
+  .opener p { font-size: 13pt; max-width: 150mm; opacity: .9; margin-top: 4mm; }
+  .opener .pain { margin-top: 12mm; border-left: 1.2mm solid var(--coral); padding: 2mm 0 2mm 6mm; font-size: 12pt; max-width: 150mm; }
+  .opener .pain b { color: #fff; }
+  .opener .blob { position: absolute; border-radius: 50%; background: #fff; opacity: .06; }
+
+  /* passos */
+  .steps { counter-reset: s; display: grid; gap: 2.4mm; }
+  .step { display: grid; grid-template-columns: 8mm 1fr; gap: 3.5mm; align-items: start; }
+  .step::before { counter-increment: s; content: counter(s); width: 8mm; height: 8mm; border-radius: 50%; background: linear-gradient(140deg, var(--deep), var(--cyan2)); color: #fff; font-family: "Varela Round"; font-size: 12pt; display: grid; place-items: center; }
+  .step > div > b:first-child { display: block; margin-bottom: .8mm; }
+
+  /* checklist */
+  .check { background: var(--surface); border-radius: 4mm; padding: 4.5mm 6mm; margin-top: 4mm; }
+  .check h4 { font-family: "Varela Round"; font-weight: 400; font-size: 12pt; color: var(--navy); margin-bottom: 2.5mm; display: flex; align-items: center; gap: 3mm; }
+  .check h4::before { content: "✓"; width: 7mm; height: 7mm; border-radius: 2mm; background: var(--teal); color: #fff; display: grid; place-items: center; font-size: 10pt; font-family: Montserrat; font-weight: 800; }
+  .check ul { list-style: none; display: grid; gap: 1.4mm; }
+  .check li { display: grid; grid-template-columns: 5mm 1fr; gap: 3mm; }
+  .check li::before { content: ""; width: 4.2mm; height: 4.2mm; border: .5mm solid var(--purple); border-radius: 1mm; margin-top: .6mm; background: #fff; }
+  .check.cols ul { grid-template-columns: 1fr 1fr; column-gap: 8mm; }
+
+  /* modelo pronto */
+  .tpl { border: .5mm dashed var(--purple); border-radius: 4mm; padding: 3.5mm 5mm; margin-top: 3mm; background: #fbfaff; }
+  .tpl .t { font-weight: 800; font-size: 8pt; letter-spacing: .14em; text-transform: uppercase; color: var(--purple); margin-bottom: 2mm; }
+  .tpl p { margin-bottom: 1mm; font-size: 9.5pt; }
+  .tpl .fill { color: var(--coral); font-weight: 600; }
+
+  /* dica */
+  .tip { display: grid; grid-template-columns: 8mm 1fr; gap: 4mm; background: #fff6f1; border-radius: 4mm; padding: 3.5mm 5mm; margin-top: 4mm; font-size: 9.5pt; }
+  .tip::before { content: "!"; width: 9mm; height: 9mm; border-radius: 50%; background: var(--coral); color: #fff; font-weight: 800; display: grid; place-items: center; font-size: 13pt; }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; }
+  .card { background: #fff; border: 1px solid #e2e5ee; border-radius: 4mm; padding: 3.5mm 4.5mm; }
+  .card h5 { font-family: "Varela Round"; font-weight: 400; font-size: 12pt; color: var(--navy); margin-bottom: 1.5mm; }
+  .card p { font-size: 9.5pt; margin: 0; color: var(--muted); }
+
+  /* tabelas */
+  table { width: 100%; border-collapse: collapse; font-size: 9pt; }
+  th { background: var(--navy); color: #fff; text-align: left; padding: 2.2mm 3mm; font-weight: 700; }
+  td { padding: 1.5mm 3mm; border-bottom: 1px solid #e2e5ee; vertical-align: top; }
+  tr:nth-child(even) td { background: #f7f8fb; }
+  .pill { display: inline-block; font-size: 7.5pt; font-weight: 800; padding: .6mm 2.4mm; border-radius: 3mm; color: #fff; }
+  .p-mostrar { background: var(--purple); } .p-ensinar { background: #0a8fd9; } .p-provar { background: var(--teal); } .p-vender { background: var(--coral); }
+
+  /* diagnóstico */
+  .quiz { display: grid; gap: 3mm; }
+  .qblock { border: 1px solid #e2e5ee; border-radius: 4mm; padding: 3mm 5mm; }
+  .qblock h5 { font-family: "Varela Round"; font-weight: 400; font-size: 11.5pt; color: var(--purple); margin-bottom: 2mm; }
+  .qrow { display: grid; grid-template-columns: 1fr 11mm 11mm; gap: 2mm; align-items: center; font-size: 9pt; padding: .8mm 0; border-bottom: 1px dashed #e2e5ee; }
+  .qrow:last-child { border: 0; }
+  .qrow span.b { width: 5mm; height: 5mm; border: .5mm solid var(--navy); border-radius: 1mm; justify-self: center; }
+  .qhead { display: grid; grid-template-columns: 1fr 11mm 11mm; font-size: 8pt; font-weight: 800; color: var(--muted); text-align: center; }
+  .score { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; margin-top: 5mm; }
+  .score div { border-radius: 4mm; padding: 5mm; color: #fff; }
+  .score b { color: #fff; display: block; font-family: "Varela Round"; font-weight: 400; font-size: 14pt; margin-bottom: 1mm; }
+  .score span { font-size: 9pt; opacity: .95; }
+
+  /* jornada */
+  .journey { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3mm; margin: 4mm 0; }
+  .journey div { background: var(--surface); border-radius: 4mm; padding: 4mm 3mm; text-align: center; position: relative; }
+  .journey div b { display: block; font-family: "Varela Round"; font-weight: 400; font-size: 12pt; color: var(--deep); margin-bottom: 1.5mm; }
+  .journey div span { font-size: 8.5pt; color: var(--muted); line-height: 1.35; display: block; }
+  .journey div::after { content: "→"; position: absolute; right: -3.2mm; top: 40%; color: var(--coral); font-weight: 800; }
+  .journey div:last-child::after { content: none; }
+
+  .big-quote { font-family: "Varela Round"; font-size: 15pt; line-height: 1.3; color: var(--navy); border-left: 1.4mm solid var(--purple); padding-left: 6mm; margin: 5mm 0; }
+
+  /* página final */
+  .final { background: linear-gradient(150deg, var(--deep) 0%, #0a3cf0 55%, var(--cyan) 140%); color: #fff; }
+  .final h2, .final b, .final strong { color: #fff; }
+  .final h2 em { color: var(--cyan); }
+  .final .lead { color: rgba(255,255,255,.9); }
+  .final .svc { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; margin: 6mm 0; }
+  .final .svc div { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); border-radius: 4mm; padding: 5mm; }
+  .final .svc h5 { font-family: "Varela Round"; font-weight: 400; font-size: 13pt; margin-bottom: 1.5mm; color: var(--cyan); }
+  .final .svc p { font-size: 9.5pt; margin: 0; }
+  .final .cta { display: flex; gap: 5mm; margin-top: 8mm; }
+  .final .cta a { flex: 1; text-decoration: none; border-radius: 4mm; padding: 5mm; text-align: center; font-weight: 800; font-size: 11pt; }
+  .final .cta .a1 { background: var(--zap); color: #062a1a; }
+  .final .cta .a2 { background: #fff; color: var(--deep); }
+  .final .cta small { display: block; font-weight: 500; font-size: 8.5pt; margin-top: 1mm; }
+  .final .offer { background: #fff; color: var(--ink); border-radius: 5mm; padding: 6mm 7mm; margin-top: 7mm; box-shadow: 0 10mm 25mm -10mm rgba(0,0,0,.45); position: relative; }
+  .final .offer .badge { display: inline-block; background: var(--coral); color: #fff; font-weight: 800; font-size: 8pt; letter-spacing: .14em; text-transform: uppercase; padding: 1.2mm 3.5mm; border-radius: 3mm; }
+  .final .offer h3 { color: var(--navy); font-size: 17pt; margin: 3mm 0 1.5mm; }
+  .final .offer-head p { color: var(--muted); margin-bottom: 3.5mm; }
+  .final .offer ul { list-style: none; display: grid; gap: 2.2mm; }
+  .final .offer li { display: grid; grid-template-columns: 6mm 1fr; gap: 3mm; font-size: 10pt; }
+  .final .offer li::before { content: "✓"; width: 6mm; height: 6mm; border-radius: 50%; background: var(--teal); color: #fff; font-weight: 800; font-size: 8.5pt; display: grid; place-items: center; }
+  .final .offer li b { color: var(--navy); }
+  .final .cta-big { display: block; margin-top: 7mm; background: var(--zap); color: #062a1a; text-decoration: none; text-align: center; border-radius: 5mm; padding: 6mm; font-weight: 800; font-size: 16pt; box-shadow: 0 8mm 18mm -8mm rgba(37,211,102,.9); }
+  .final .cta-big small { display: block; font-weight: 600; font-size: 9pt; margin-top: 1.5mm; color: #0b3d22; }
+  .final .closing { font-family: "Varela Round"; font-size: 14pt; line-height: 1.35; margin-top: 7mm; text-align: center; }
+  .final .closing b { color: var(--cyan); font-weight: 400; }
+  .final .svc-line { text-align: center; font-size: 9pt; opacity: .8; margin-top: 2mm; }
+  .final .foot { border-color: rgba(255,255,255,.2); color: rgba(255,255,255,.8); }
+
+  /* ================= TEMA SINAIS VITAIS (layout próprio, sem identidade AW3S) ================= */
+  :root { --sv-ink:#13232a; --sv-red:#d32f2f; --sv-red2:#ff5a4a; --sv-green:#1fa38f; --sv-mon:#3ee6b0; --sv-amber:#f2a516; --sv-soft:#eef3f4; --sv-line:#d5dee1; --sv-muted:#5d6b70; }
+  body { color: #2c3a3f; }
+  h1, h2, h3, .display { font-family: "Montserrat", sans-serif; font-weight: 800; letter-spacing: -.015em; }
+  h2 { color: var(--sv-ink); font-size: 20pt; }
+  h2 em { color: var(--sv-red); }
+  h3 { color: var(--sv-ink); font-size: 12.5pt; }
+  b, strong { color: var(--sv-ink); }
+  .lead { color: var(--sv-muted); }
+
+  .kicker { color: var(--sv-red); }
+  .kicker::before { content: "+"; width: 5.5mm; height: 5.5mm; border-radius: 1.2mm; background: var(--sv-red); color: #fff; display: grid; place-items: center; font-size: 10pt; font-weight: 800; letter-spacing: 0; }
+
+  .step::before { background: var(--sv-ink); font-family: "Montserrat"; font-weight: 800; font-size: 10pt; }
+
+  .check { background: var(--sv-soft); border-left: 1.4mm solid var(--sv-green); border-radius: 2.5mm; }
+  .check h4 { font-family: "Montserrat"; font-weight: 800; font-size: 11pt; color: var(--sv-ink); }
+  .check h4::before { background: var(--sv-green); }
+  .check li::before { border-color: var(--sv-ink); border-radius: .8mm; }
+
+  .tpl { position: relative; background: #fff; border: .35mm solid var(--sv-line); border-top: 1.8mm solid var(--sv-red); border-radius: 2mm; }
+  .tpl::after { content: "℞"; position: absolute; right: 4mm; top: 1.5mm; font-size: 17pt; color: rgba(211,47,47,.16); font-family: Georgia, serif; }
+  .tpl .t { color: var(--sv-red); }
+  .tpl .fill { color: var(--sv-red); }
+
+  .tip { background: #fff3f1; border-left: 1.2mm solid var(--sv-red); border-radius: 2mm; }
+  .tip::before { background: var(--sv-red); }
+
+  .card { border-color: var(--sv-line); border-radius: 2.5mm; }
+  .card h5 { font-family: "Montserrat"; font-weight: 800; font-size: 11pt; color: var(--sv-ink); }
+  th { background: var(--sv-ink); }
+  .p-mostrar { background: #455a64; } .p-ensinar { background: var(--sv-green); } .p-provar { background: var(--sv-amber); } .p-vender { background: var(--sv-red); }
+
+  .qblock { border-color: var(--sv-line); border-radius: 2.5mm; }
+  .qblock h5 { font-family: "Montserrat"; font-weight: 800; font-size: 10.5pt; color: var(--sv-red); }
+  .qrow span.b { border-color: var(--sv-ink); }
+  .score div:nth-child(1) { background: var(--sv-red) !important; }
+  .score div:nth-child(2) { background: var(--sv-amber) !important; }
+  .score div:nth-child(3) { background: var(--sv-green) !important; }
+  .score b { font-family: "Montserrat"; font-weight: 800; font-size: 12.5pt; }
+
+  .journey div { background: var(--sv-soft); border-radius: 2.5mm; }
+  .journey div b { font-family: "Montserrat"; font-weight: 800; font-size: 11pt; color: var(--sv-red); }
+  .journey div::after { color: var(--sv-ink); }
+  .big-quote { font-family: "Montserrat"; font-weight: 700; font-size: 13.5pt; color: var(--sv-ink); border-left-color: var(--sv-red); }
+
+  /* aberturas: tela de monitor */
+  .opener { background:
+      repeating-linear-gradient(0deg, rgba(62,230,176,.05) 0 1px, transparent 1px 9mm),
+      repeating-linear-gradient(90deg, rgba(62,230,176,.05) 0 1px, transparent 1px 9mm),
+      radial-gradient(circle at 80% 15%, #17343c 0%, #0e1f24 50%, #081215 100%); }
+  .opener .blob { display: none; }
+  .opener .num { font-family: "Montserrat"; font-weight: 900; color: var(--sv-mon); text-shadow: 0 0 6mm rgba(62,230,176,.45); }
+  .opener .lbl { color: var(--sv-red2); }
+  .opener h2 { font-family: "Montserrat"; font-weight: 900; font-size: 36pt; }
+  .opener .pain { border-left-color: var(--sv-red); }
+  .opener .ecg { opacity: .9; }
+  .opener .ecg path { stroke: var(--sv-mon); filter: drop-shadow(0 0 1.5mm rgba(62,230,176,.8)); }
+
+  /* página final */
+  .final { background:
+      repeating-linear-gradient(0deg, rgba(62,230,176,.05) 0 1px, transparent 1px 9mm),
+      repeating-linear-gradient(90deg, rgba(62,230,176,.05) 0 1px, transparent 1px 9mm),
+      radial-gradient(circle at 80% 10%, #17343c 0%, #0e1f24 50%, #081215 100%); }
+  .final h2 em { color: var(--sv-red2); }
+  .final .kicker { color: var(--sv-mon) !important; }
+  .final .kicker::before { background: var(--sv-mon); color: #081215; }
+  .final .ecg path { stroke: var(--sv-mon); }
+  .final .offer .badge { background: var(--sv-red); }
+  .final .offer h3 { font-family: "Montserrat"; font-weight: 800; color: var(--sv-ink); }
+  .final .offer li::before { background: var(--sv-green); }
+  .final .closing { font-family: "Montserrat"; font-weight: 700; font-size: 13pt; }
+  .final .closing b { color: var(--sv-mon); font-weight: 800; }
+
+  /* assinatura AW3S no rodapé */
+  .foot { border-top-color: var(--sv-line); }
+  .foot span { font-weight: 600; letter-spacing: .04em; }
+
+  /* ===== COMPATIBILIDADE COM LEITORES DE PDF: sem filtros, sem padrões, sem sombras grandes ===== */
+  .opener, .final { background: #0b181c url(assets/bg-monitor.jpg) center / cover no-repeat !important; }
+  .cover-art .bg { inset: 0 !important; background: url(assets/capa-bg.jpg) center / cover !important; filter: none !important; }
+  .cover-art .art { box-shadow: none !important; }
+  .ecg path, .opener .ecg path, .cover .ecg path { filter: none !important; }
+  .opener .num { text-shadow: none !important; }
+  .final .offer { box-shadow: none !important; }
+  .final .cta-big { box-shadow: none !important; }
+  .blob { display: none !important; }
+  .final .blob { display: none !important; }
+</style>
+</head>
+<body>
+
+<!-- 1 · CAPA (arte do cliente) -->
+<section class="page cover-art">
+  <div class="bg"></div>
+  <img class="art" src="assets/capa-cliente.jpg" alt="Sinais Vitais">
+</section>
+
+<!-- 2 · PARA QUEM É -->
+<section class="page">
+  <p class="kicker">Antes de começar</p>
+  <h2>Este guia é para você se <em>o movimento da loja está caindo</em> e o digital ainda não compensa.</h2>
+  <div class="check" style="margin-top:2mm">
+    <h4>Os sintomas: você se reconhece em pelo menos 2?</h4>
+    <ul>
+      <li>O movimento no ponto físico diminuiu e você sente isso no caixa.</li>
+      <li>Você já vende pelo WhatsApp, Instagram, TikTok ou Facebook, mas no improviso.</li>
+      <li>Posta quando dá tempo e não vê retorno.</li>
+      <li>Quem procura o que você vende no Google encontra o concorrente, não você.</li>
+      <li>Perde cliente porque demorou a responder ou esqueceu de retornar.</li>
+      <li>As vendas dependem da sua memória: não existe um processo.</li>
+    </ul>
+  </div>
+  <h3>Como usar este guia</h3>
+  <div class="steps">
+    <div class="step"><div><b>Faça o check-up (página 4).</b>Em 10 minutos você mede os sinais vitais da sua empresa e descobre onde ela está fraca.</div></div>
+    <div class="step"><div><b>Trate os 5 sinais vitais na ordem.</b>Cada um tem os sintomas, o tratamento passo a passo, um checklist e a prescrição: modelos prontos para copiar.</div></div>
+    <div class="step"><div><b>Siga o tratamento de 30 dias.</b>Uma tarefa possível por dia, sem precisar parar a loja.</div></div>
+    <div class="step"><div><b>Preencha o prontuário.</b>Uma página para imprimir e colar perto do caixa.</div></div>
+  </div>
+  <div class="tip"><div>Você <b>não precisa de agência</b> para começar. Precisa de método e de constância. Tudo neste guia pode ser feito por você, com o celular, em poucos minutos por dia.</div></div>
+  <div class="foot"><img src="assets/logo_aw3s.png" alt=""><span>Sinais Vitais · 2</span></div>
+</section>
+
+<!-- 3 · O CLIENTE MUDOU DE CAMINHO -->
+<section class="page">
+  <p class="kicker">O quadro clínico</p>
+  <h2>O cliente não sumiu. <em>Ele mudou de caminho.</em></h2>
+  <p class="lead">Antes, o cliente passava na frente da loja e entrava. Hoje, antes de sair de casa, ele faz um caminho inteiro pelo celular. Se a sua empresa não aparece bem em cada etapa, ele escolhe outra, mesmo que você seja a melhor opção.</p>
+  <div class="journey">
+    <div><b>Procura</b><span>Pesquisa no Google ou nas redes o que precisa</span></div>
+    <div><b>Compara</b><span>Olha fotos, avaliações e perfis</span></div>
+    <div><b>Conversa</b><span>Chama no WhatsApp para tirar dúvidas</span></div>
+    <div><b>Compra</b><span>Fecha com quem respondeu bem e rápido</span></div>
+    <div><b>Volta</b><span>Compra de novo se foi lembrado</span></div>
+  </div>
+  <p>Repare: <b>em nenhuma dessas etapas o cliente vê a qualidade do seu produto</b>. Ele vê o que você mostra. Por isso empresas boas perdem para empresas que só parecem melhores.</p>
+  <div class="big-quote">Empresa respirando por aparelhos não é a que não tem Instagram. É a que não é encontrada, não passa confiança e não responde na hora certa.</div>
+  <h3>Os 5 sinais vitais da sua empresa</h3>
+  <div class="grid2">
+    <div class="card"><h5>1 · Ser encontrado</h5><p>Aparecer quando o cliente procura: Google, endereço, avaliações e site.</p></div>
+    <div class="card"><h5>2 · Passar confiança</h5><p>Perfis arrumados que convencem em 5 segundos.</p></div>
+    <div class="card"><h5>3 · Engajar</h5><p>Conteúdo simples e constante que faz o cliente lembrar de você.</p></div>
+    <div class="card"><h5>4 · Atender bem</h5><p>WhatsApp organizado, resposta rápida e follow-up.</p></div>
+    <div class="card" style="grid-column:span 2"><h5>5 · Organizar o processo</h5><p>Do primeiro contato ao pós-venda, sem depender da sua memória, para o cliente voltar a comprar.</p></div>
+  </div>
+  <div class="foot"><img src="assets/logo_aw3s.png" alt=""><span>Sinais Vitais · 3</span></div>
+</section>
+
+<!-- 4 · DIAGNÓSTICO -->
+<section class="page">
+  <p class="kicker">Check-up</p>
+  <h2>Como estão os <em>sinais vitais</em> da sua empresa?</h2>
+  <p style="margin-bottom:4mm">Responda com sinceridade. Cada <b>Sim</b> vale 1 ponto. Os <b>Não</b> mostram exatamente qual sinal vital tratar primeiro.</p>
+  <div class="qhead"><span></span><span>Sim</span><span>Não</span></div>
+  <div class="quiz">
+    <div class="qblock"><h5>Sinal vital 1 · Ser encontrado</h5>
+      <div class="qrow"><span>Minha empresa aparece no Google Maps com endereço e horário corretos.</span><span class="b"></span><span class="b"></span></div>
+      <div class="qrow"><span>Tenho avaliações no Google e respondo todas elas.</span><span class="b"></span><span class="b"></span></div>
+      <div class="qrow"><span>Nome, endereço e telefone são iguais em todos os canais.</span><span class="b"></span><span class="b"></span></div>
+      <div class="qrow"><span>Tenho um site ou página própria com o que vendo e como comprar.</span><span class="b"></span><span class="b"></span></div></div>
+    <div class="qblock"><h5>Sinal vital 2 · Passar confiança</h5>
+      <div class="qrow"><span>Minha bio diz em uma frase o que vendo, para quem e onde.</span><span class="b"></span><span class="b"></span></div>
+      <div class="qrow"><span>O link da bio leva direto para o WhatsApp ou para o catálogo.</span><span class="b"></span><span class="b"></span></div>
+      <div class="qrow"><span>Tenho destaques com produtos, depoimentos e "como comprar".</span><span class="b"></span><span class="b"></span></div>
+      <div class="qrow"><span>Mostro clientes reais e depoimentos com frequência.</span><span class="b"></span><span class="b"></span></div></div>
+    <div class="qblock"><h5>Sinal vital 3 · Engajar</h5>
+      <div class="qrow"><span>Posto pelo menos 3 vezes por semana, todas as semanas.</span><span class="b"></span><span class="b"></span></div>
+      <div class="qrow"><span>Faço vídeos curtos (Reels ou TikTok), não só fotos de produto.</span><span class="b"></span><span class="b"></span></div>
+      <div class="qrow"><span>Meus posts ensinam ou mostram bastidores, não só preço.</span><span class="b"></span><span class="b"></span></div>
+      <div class="qrow"><span>Respondo comentários e mensagens das redes no mesmo dia.</span><span class="b"></span><span class="b"></span></div></div>
+    <div class="qblock"><h5>Sinal vital 4 · Atender bem</h5>
+      <div class="qrow"><span>Uso WhatsApp Business com perfil, catálogo e horário preenchidos.</span><span class="b"></span><span class="b"></span></div>
+      <div class="qrow"><span>Respondo novos contatos em menos de 1 hora no horário comercial.</span><span class="b"></span><span class="b"></span></div>
+      <div class="qrow"><span>Tenho respostas prontas para preço, entrega e pagamento.</span><span class="b"></span><span class="b"></span></div>
+      <div class="qrow"><span>Volto a falar com quem pediu orçamento e não fechou.</span><span class="b"></span><span class="b"></span></div></div>
+    <div class="qblock"><h5>Sinal vital 5 · Organizar o processo</h5>
+      <div class="qrow"><span>Tenho uma lista (planilha ou caderno) com todos os clientes.</span><span class="b"></span><span class="b"></span></div>
+      <div class="qrow"><span>Mando mensagem de pós-venda e peço avaliação.</span><span class="b"></span><span class="b"></span></div>
+      <div class="qrow"><span>Aviso clientes antigos sobre novidades e promoções.</span><span class="b"></span><span class="b"></span></div>
+      <div class="qrow"><span>Sei quantos contatos, orçamentos e vendas tive no mês passado.</span><span class="b"></span><span class="b"></span></div></div>
+  </div>
+  <div class="foot"><img src="assets/logo_aw3s.png" alt=""><span>Sinais Vitais · 4</span></div>
+</section>
+
+<!-- 5 · RESULTADO -->
+<section class="page">
+  <p class="kicker">Resultado do check-up</p>
+  <h2>Some os seus <em>Sim</em> e veja onde você está</h2>
+  <div class="score">
+    <div style="background:var(--coral)"><b>0 a 7 · Estado crítico</b><span>Sua empresa está respirando por aparelhos: o cliente não te encontra ou não confia no que vê. Comece pelos sinais vitais 1 e 2, que respondem mais rápido.</span></div>
+    <div style="background:#0a8fd9"><b>8 a 14 · Em observação</b><span>Você já é encontrado, mas perde vendas no caminho. Trate o sinal vital com mais "Não", geralmente o 4 (atendimento).</span></div>
+    <div style="background:var(--teal)"><b>15 a 20 · Saudável</b><span>Sinais vitais em dia. Agora é ganhar força: processo, recompra e automação para não depender só de você.</span></div>
+  </div>
+  <h3>Anote aqui o seu ponto de partida</h3>
+  <table style="margin-top:2mm">
+    <tr><th>Sinal vital</th><th style="width:28mm">Meus "Sim"</th><th>O sintoma que mais me incomoda</th></tr>
+    <tr><td>1 · Ser encontrado</td><td>___ / 4</td><td>&nbsp;</td></tr>
+    <tr><td>2 · Passar confiança</td><td>___ / 4</td><td>&nbsp;</td></tr>
+    <tr><td>3 · Engajar</td><td>___ / 4</td><td>&nbsp;</td></tr>
+    <tr><td>4 · Atender bem</td><td>___ / 4</td><td>&nbsp;</td></tr>
+    <tr><td>5 · Organizar o processo</td><td>___ / 4</td><td>&nbsp;</td></tr>
+    <tr><td><b>Total</b></td><td><b>___ / 20</b></td><td>Data: ___/___/______</td></tr>
+  </table>
+  <div class="tip"><div>Refaça o check-up <b>daqui a 30 dias</b>, quando terminar o tratamento. Ver a pontuação subir é a melhor motivação para continuar.</div></div>
+  <div class="big-quote" style="margin-top:10mm">Não tente tratar tudo de uma vez. Um sinal vital estabilizado vende mais do que cinco tratados pela metade.</div>
+  <div class="foot"><img src="assets/logo_aw3s.png" alt=""><span>Sinais Vitais · 5</span></div>
+</section>
+
+<!-- PILAR 1 -->
+<section class="page opener">
+  <div class="blob" style="width:160mm;height:160mm;right:-60mm;top:-60mm"></div>
+  <div class="num">01</div><p class="lbl">Sinal vital 1</p>
+  <h2>Ser encontrado</h2>
+  <p>Antes de convencer alguém, você precisa aparecer. Este sinal vital coloca a sua empresa no mapa, literalmente.</p>
+  <div class="pain">O sintoma: o cliente pesquisa <b>"[o que você vende] perto de mim"</b> e encontra três concorrentes. Você nem aparece.</div>
+  <svg class="ecg" viewBox="0 0 600 100" preserveAspectRatio="none"><path d="M0 52 H110 l8 -3 l7 6 l5 -14 l7 26 l5 -18 l7 3 H230 l9 -5 l8 9 l7 -34 l9 66 l7 -46 l9 10 H380 l9 -7 l8 13 l9 -62 l11 96 l9 -66 l11 26 H600"/></svg>
+</section>
+
+<section class="page">
+  <p class="kicker">Sinal vital 1 · Tratamento</p>
+  <h2>Coloque sua empresa <em>no Google</em></h2>
+  <div class="steps">
+    <div class="step"><div><b>Crie ou reivindique o Perfil da Empresa no Google.</b>Acesse <b>google.com/business</b> com um Gmail da empresa. Use o mesmo nome da fachada (sem enfeites) e escolha a categoria mais específica possível.</div></div>
+    <div class="step"><div><b>Preencha 100% das informações.</b>Endereço, área de atendimento, horários (inclusive feriados), telefone/WhatsApp, link do site ou catálogo e uma descrição clara do que você vende.</div></div>
+    <div class="step"><div><b>Coloque fotos de verdade.</b>Fachada (para o cliente reconhecer na rua), interior, produtos e equipe. Adicione fotos novas todo mês: perfis atualizados passam mais confiança.</div></div>
+    <div class="step"><div><b>Peça avaliações de forma ativa.</b>Cliente satisfeito raramente avalia sozinho. Mande o link logo depois da compra (modelo na próxima página).</div></div>
+    <div class="step"><div><b>Responda todas as avaliações.</b>Agradeça as positivas e responda as negativas com calma e solução. Quem lê a resposta é o próximo cliente.</div></div>
+    <div class="step"><div><b>Padronize nome, endereço e telefone.</b>Os mesmos dados no Google, Instagram, Facebook, WhatsApp e site. Informação diferente em cada lugar confunde o cliente e o Google.</div></div>
+    <div class="step"><div><b>Tenha um endereço próprio na internet.</b>Rede social é terreno alugado. Um site simples, com o que você faz, onde fica e como comprar, é encontrado por quem pesquisa e não depende de algoritmo.</div></div>
+  </div>
+  <div class="check">
+    <h4>Checklist · Ser encontrado</h4>
+    <ul>
+      <li>Perfil da Empresa no Google criado e verificado</li>
+      <li>Categoria, endereço, horários e telefone preenchidos</li>
+      <li>Pelo menos 10 fotos (fachada, interior, produtos, equipe)</li>
+      <li>Descrição com o que vendo e onde atendo</li>
+      <li>Pedi avaliação para os últimos 10 clientes</li>
+      <li>Respondi todas as avaliações</li>
+      <li>Mesmos dados em todos os canais</li>
+      <li>Site ou página própria com link no Google e nas redes</li>
+    </ul>
+  </div>
+  <div class="foot"><img src="assets/logo_aw3s.png" alt=""><span>Sinais Vitais · 7</span></div>
+</section>
+
+<section class="page">
+  <p class="kicker">Sinal vital 1 · Prescrição</p>
+  <h2>Copie, ajuste e <em>use hoje</em></h2>
+  <div class="tpl"><p class="t">Descrição do Perfil da Empresa no Google</p>
+    <p>A <span class="fill">[nome da empresa]</span> é <span class="fill">[o que você é: loja de roupas femininas / restaurante / oficina...]</span> em <span class="fill">[bairro, cidade]</span>. Trabalhamos com <span class="fill">[principais produtos ou serviços]</span> e atendemos <span class="fill">[para quem]</span> com <span class="fill">[diferencial: entrega no mesmo dia / atendimento personalizado / X anos de experiência]</span>.</p>
+    <p>Atendimento presencial de <span class="fill">[dias e horários]</span> e pelo WhatsApp <span class="fill">[número]</span>. Venha nos visitar ou peça pelo WhatsApp!</p></div>
+  <div class="tpl"><p class="t">Mensagem para pedir avaliação (WhatsApp, logo após a compra)</p>
+    <p>Oi, <span class="fill">[nome]</span>! Aqui é da <span class="fill">[empresa]</span> 😊 Obrigado pela compra! Se puder, deixa sua opinião sobre a gente no Google? Leva menos de 1 minuto e ajuda muito outras pessoas a nos encontrarem: <span class="fill">[link de avaliação]</span></p></div>
+  <div class="tpl"><p class="t">Resposta a uma avaliação positiva</p>
+    <p>Que alegria ler isso, <span class="fill">[nome]</span>! Obrigado por escolher a <span class="fill">[empresa]</span>. Ficamos felizes que você gostou de <span class="fill">[produto/serviço]</span>. Esperamos você de novo em breve! 💙</p></div>
+  <div class="tpl"><p class="t">Resposta a uma avaliação negativa</p>
+    <p>Olá, <span class="fill">[nome]</span>. Sentimos muito pela sua experiência com <span class="fill">[o problema]</span>, não é o padrão que queremos oferecer. Já conversamos com a equipe sobre isso. Pode nos chamar no WhatsApp <span class="fill">[número]</span>? Queremos resolver da melhor forma para você.</p></div>
+  <div class="tip"><div><b>Onde achar o link de avaliação:</b> no painel do seu Perfil da Empresa no Google, procure a opção "Pedir avaliações" ou "Compartilhar perfil". Salve o link nas respostas rápidas do WhatsApp para enviar com um toque.</div></div>
+  <div class="foot"><img src="assets/logo_aw3s.png" alt=""><span>Sinais Vitais · 8</span></div>
+</section>
+
+<!-- PILAR 2 -->
+<section class="page opener">
+  <div class="blob" style="width:160mm;height:160mm;right:-60mm;top:-60mm"></div>
+  <div class="num">02</div><p class="lbl">Sinal vital 2</p>
+  <h2>Passar confiança</h2>
+  <p>O cliente decide em segundos se a sua empresa parece séria. Este sinal vital arruma a sua vitrine digital.</p>
+  <div class="pain">O sintoma: o cliente entra no seu perfil, <b>não entende o que você vende nem como comprar</b>, e sai sem falar com você.</div>
+  <svg class="ecg" viewBox="0 0 600 100" preserveAspectRatio="none"><path d="M0 52 H110 l8 -3 l7 6 l5 -14 l7 26 l5 -18 l7 3 H230 l9 -5 l8 9 l7 -34 l9 66 l7 -46 l9 10 H380 l9 -7 l8 13 l9 -62 l11 96 l9 -66 l11 26 H600"/></svg>
+</section>
+
+<section class="page">
+  <p class="kicker">Sinal vital 2 · Tratamento</p>
+  <h2>Transforme o perfil em <em>uma vitrine que vende</em></h2>
+  <div class="steps">
+    <div class="step"><div><b>Foto de perfil: o logo, legível.</b>Teste no tamanho de uma moeda: se não dá para ler, simplifique. Use a mesma foto em todas as redes.</div></div>
+    <div class="step"><div><b>Nome que é encontrado na busca.</b>No campo "nome" do Instagram, coloque o nome da empresa + o que você faz + a cidade. Ex.: "Bella Moda · Roupas femininas · Osasco".</div></div>
+    <div class="step"><div><b>Bio com a fórmula de 4 partes.</b>O que você vende + para quem + o seu diferencial + uma chamada para ação. Modelos na próxima página.</div></div>
+    <div class="step"><div><b>Link que leva direto para a compra.</b>Link do WhatsApp com mensagem pronta (wa.me/55DDDNÚMERO), catálogo ou site. Nunca deixe o cliente procurando como comprar.</div></div>
+    <div class="step"><div><b>Destaques organizados.</b>Crie pelo menos 5: <b>Como comprar</b>, <b>Produtos</b>, <b>Clientes</b> (depoimentos), <b>Entrega/Endereço</b> e <b>Quem somos</b>.</div></div>
+    <div class="step"><div><b>Prova social sempre à vista.</b>Prints de elogios (com autorização), fotos de clientes usando o produto, número de clientes atendidos. Confiança se mostra, não se promete.</div></div>
+    <div class="step"><div><b>Padrão visual simples.</b>2 cores e 2 fontes, sempre. Feed coerente parece empresa organizada.</div></div>
+  </div>
+  <div class="check cols">
+    <h4>Checklist · Passar confiança</h4>
+    <ul>
+      <li>Foto de perfil igual e legível em todas as redes</li>
+      <li>Nome do perfil com o que faço e a cidade</li>
+      <li>Bio com o que vendo, para quem, diferencial e chamada</li>
+      <li>Link da bio leva ao WhatsApp, catálogo ou site</li>
+      <li>5 destaques criados e com capa padronizada</li>
+      <li>Pelo menos 3 depoimentos publicados</li>
+      <li>Defini minhas 2 cores e 2 fontes</li>
+    </ul>
+  </div>
+  <div class="foot"><img src="assets/logo_aw3s.png" alt=""><span>Sinais Vitais · 10</span></div>
+</section>
+
+<section class="page">
+  <p class="kicker">Sinal vital 2 · Prescrição</p>
+  <h2>5 bios prontas <em>por tipo de negócio</em></h2>
+  <p>Estrutura: <b>o que vende</b> → <b>para quem</b> → <b>diferencial</b> → <b>chamada</b>. Troque os campos em laranja.</p>
+  <div class="tpl"><p class="t">Loja de roupas e acessórios</p><p>👗 Moda feminina do P ao GG em <span class="fill">[cidade]</span><br>✨ Peças novas toda semana<br>🚚 Entregamos em <span class="fill">[região]</span><br>👇 Peça pelo WhatsApp</p></div>
+  <div class="tpl"><p class="t">Restaurante, lanchonete ou delivery</p><p>🍔 <span class="fill">[especialidade]</span> artesanal em <span class="fill">[bairro]</span><br>⏰ <span class="fill">[dias e horário]</span><br>🛵 Delivery próprio e retirada no local<br>👇 Faça seu pedido</p></div>
+  <div class="tpl"><p class="t">Salão de beleza, estética ou barbearia</p><p>💇 <span class="fill">[serviços principais]</span> em <span class="fill">[cidade]</span><br>⭐ Mais de <span class="fill">[número]</span> clientes atendidos<br>📅 Horário marcado, sem espera<br>👇 Agende pelo WhatsApp</p></div>
+  <div class="tpl"><p class="t">Oficina, assistência técnica ou serviços</p><p>🔧 <span class="fill">[serviço]</span> com garantia em <span class="fill">[cidade]</span><br>✅ Orçamento sem compromisso<br>📍 <span class="fill">[endereço resumido]</span><br>👇 Fale com um técnico</p></div>
+  <div class="tpl"><p class="t">Loja de materiais, mercado ou comércio de bairro</p><p>🏪 Tudo em <span class="fill">[segmento]</span> no <span class="fill">[bairro]</span> há <span class="fill">[X]</span> anos<br>💳 Parcelamos no cartão<br>🚚 Entrega rápida na região<br>👇 Consulte preços no WhatsApp</p></div>
+  <div class="tip"><div><b>Mensagem pronta no link do WhatsApp:</b> use <b>wa.me/55DDDNÚMERO?text=Olá!%20Vim%20pelo%20Instagram</b>. Assim você sabe de onde o cliente veio e ele não precisa digitar nada.</div></div>
+  <div class="foot"><img src="assets/logo_aw3s.png" alt=""><span>Sinais Vitais · 11</span></div>
+</section>
+
+<!-- PILAR 3 -->
+<section class="page opener">
+  <div class="blob" style="width:160mm;height:160mm;right:-60mm;top:-60mm"></div>
+  <div class="num">03</div><p class="lbl">Sinal vital 3</p>
+  <h2>Engajar</h2>
+  <p>Conteúdo não é para "aparecer". É para o cliente lembrar de você na hora em que precisar comprar.</p>
+  <div class="pain">O sintoma: você <b>posta quando lembra</b>, quase sempre foto de produto com preço, e quase ninguém interage.</div>
+  <svg class="ecg" viewBox="0 0 600 100" preserveAspectRatio="none"><path d="M0 52 H110 l8 -3 l7 6 l5 -14 l7 26 l5 -18 l7 3 H230 l9 -5 l8 9 l7 -34 l9 66 l7 -46 l9 10 H380 l9 -7 l8 13 l9 -62 l11 96 l9 -66 l11 26 H600"/></svg>
+</section>
+
+<section class="page">
+  <p class="kicker">Sinal vital 3 · Tratamento</p>
+  <h2>A regra dos <em>4 tipos de conteúdo</em></h2>
+  <p>Quem só posta oferta vira panfleto. Alterne estes 4 tipos e o seu perfil passa a ser seguido, não ignorado.</p>
+  <div class="grid2" style="margin:2mm 0 3mm;gap:3mm">
+    <div class="card"><h5><span class="pill p-mostrar">MOSTRAR</span> Bastidores</h5><p>Chegada de mercadoria, preparo, equipe, a loja abrindo. Gera proximidade.</p></div>
+    <div class="card"><h5><span class="pill p-ensinar">ENSINAR</span> Dicas</h5><p>Como escolher, como usar, como conservar. Mostra que você entende do assunto.</p></div>
+    <div class="card"><h5><span class="pill p-provar">PROVAR</span> Clientes</h5><p>Depoimentos, antes e depois, cliente usando o produto. Gera confiança.</p></div>
+    <div class="card"><h5><span class="pill p-vender">VENDER</span> Ofertas</h5><p>Produto, preço e chamada clara: "chama no WhatsApp", "últimas unidades".</p></div>
+  </div>
+  <div class="steps">
+    <div class="step"><div><b>Combine uma frequência que você aguenta.</b>3 posts por semana + stories todos os dias é melhor do que 10 posts numa semana e nada no mês seguinte.</div></div>
+    <div class="step"><div><b>Priorize vídeo curto (Reels e TikTok).</b>Use a fórmula de 3 partes: <b>gancho</b> nos 3 primeiros segundos ("3 erros ao escolher..."), <b>conteúdo</b> rápido e <b>chamada</b> no final ("chama no WhatsApp").</div></div>
+    <div class="step"><div><b>Grave em lote.</b>Separe 1 hora por semana para gravar 5 a 6 vídeos. Assim você não depende de inspiração no dia a dia.</div></div>
+    <div class="step"><div><b>Reaproveite em todas as redes.</b>O mesmo vídeo vai para Reels, TikTok, status do WhatsApp e Facebook. Adapte só a legenda.</div></div>
+    <div class="step"><div><b>Toda postagem tem um próximo passo.</b>Feche com uma pergunta ("qual você escolheria?") ou uma ação ("comenta EU QUERO").</div></div>
+  </div>
+  <div class="check cols">
+    <h4>Checklist · Engajar</h4>
+    <ul>
+      <li>Defini minha frequência semanal</li>
+      <li>Separei 1 hora fixa para gravar</li>
+      <li>Tenho 5 vídeos curtos prontos</li>
+      <li>Usei os 4 tipos de conteúdo na semana</li>
+      <li>Todo post tem chamada para ação</li>
+      <li>Publico também no TikTok e no status</li>
+      <li>Respondo comentários no mesmo dia</li>
+      <li>Sigo o calendário de 30 dias</li>
+    </ul>
+  </div>
+  <div class="foot"><img src="assets/logo_aw3s.png" alt=""><span>Sinais Vitais · 13</span></div>
+</section>
+
+<section class="page">
+  <p class="kicker">Sinal vital 3 · Prescrição</p>
+  <h2>Calendário de <em>30 dias</em> de conteúdo</h2>
+  <table>
+    <tr><th style="width:11mm">Dia</th><th style="width:22mm">Tipo</th><th>Ideia de post</th><th style="width:11mm">Dia</th><th style="width:22mm">Tipo</th><th>Ideia de post</th></tr>
+    <tr><td>1</td><td><span class="pill p-mostrar">MOSTRAR</span></td><td>Apresente a loja e quem está por trás</td><td>16</td><td><span class="pill p-mostrar">MOSTRAR</span></td><td>Um dia na loja em 30 segundos</td></tr>
+    <tr><td>2</td><td><span class="pill p-ensinar">ENSINAR</span></td><td>3 erros ao escolher [seu produto]</td><td>17</td><td><span class="pill p-ensinar">ENSINAR</span></td><td>Mito ou verdade sobre [seu segmento]</td></tr>
+    <tr><td>3</td><td><span class="pill p-provar">PROVAR</span></td><td>Depoimento de um cliente fiel</td><td>18</td><td><span class="pill p-vender">VENDER</span></td><td>Combo ou kit com preço especial</td></tr>
+    <tr><td>4</td><td><span class="pill p-vender">VENDER</span></td><td>Produto mais vendido + como pedir</td><td>19</td><td><span class="pill p-provar">PROVAR</span></td><td>Print de elogio no WhatsApp</td></tr>
+    <tr><td>5</td><td><span class="pill p-mostrar">MOSTRAR</span></td><td>Chegada de mercadoria nova</td><td>20</td><td><span class="pill p-mostrar">MOSTRAR</span></td><td>Bastidores da embalagem/preparo</td></tr>
+    <tr><td>6</td><td><span class="pill p-ensinar">ENSINAR</span></td><td>Como usar/conservar [produto]</td><td>21</td><td><span class="pill p-ensinar">ENSINAR</span></td><td>Perguntas que todo cliente faz</td></tr>
+    <tr><td>7</td><td><span class="pill p-vender">VENDER</span></td><td>Oferta da semana com prazo</td><td>22</td><td><span class="pill p-vender">VENDER</span></td><td>Lançamento ou novidade</td></tr>
+    <tr><td>8</td><td><span class="pill p-provar">PROVAR</span></td><td>Antes e depois / cliente usando</td><td>23</td><td><span class="pill p-provar">PROVAR</span></td><td>Avaliação do Google em destaque</td></tr>
+    <tr><td>9</td><td><span class="pill p-mostrar">MOSTRAR</span></td><td>A história da empresa</td><td>24</td><td><span class="pill p-mostrar">MOSTRAR</span></td><td>Apresente a equipe</td></tr>
+    <tr><td>10</td><td><span class="pill p-ensinar">ENSINAR</span></td><td>Como escolher o tamanho/modelo certo</td><td>25</td><td><span class="pill p-ensinar">ENSINAR</span></td><td>Dica rápida em 15 segundos</td></tr>
+    <tr><td>11</td><td><span class="pill p-vender">VENDER</span></td><td>Formas de pagamento e entrega</td><td>26</td><td><span class="pill p-vender">VENDER</span></td><td>Últimas unidades / reposição</td></tr>
+    <tr><td>12</td><td><span class="pill p-provar">PROVAR</span></td><td>Quantos clientes você já atendeu</td><td>27</td><td><span class="pill p-provar">PROVAR</span></td><td>Cliente marcando a loja</td></tr>
+    <tr><td>13</td><td><span class="pill p-mostrar">MOSTRAR</span></td><td>Pergunta: "qual você escolheria?"</td><td>28</td><td><span class="pill p-mostrar">MOSTRAR</span></td><td>Enquete nos stories sobre novidades</td></tr>
+    <tr><td>14</td><td><span class="pill p-ensinar">ENSINAR</span></td><td>Comparativo: opção A x opção B</td><td>29</td><td><span class="pill p-ensinar">ENSINAR</span></td><td>Tutorial passo a passo</td></tr>
+    <tr><td>15</td><td><span class="pill p-vender">VENDER</span></td><td>Benefício exclusivo para seguidores</td><td>30</td><td><span class="pill p-vender">VENDER</span></td><td>Resumo do mês + oferta de agradecimento</td></tr>
+  </table>
+  <div class="tpl" style="margin-top:5mm"><p class="t">Legenda base (serve para qualquer post)</p>
+    <p><span class="fill">[Gancho: uma frase que gera curiosidade ou toca na dor]</span><br><span class="fill">[2 ou 3 linhas com a dica, a história ou o benefício]</span><br><span class="fill">[Chamada: "Chama no WhatsApp", "Comenta EU QUERO" ou "Salva para lembrar"]</span><br>📍 <span class="fill">[bairro, cidade]</span> · #<span class="fill">[cidade]</span> #<span class="fill">[segmento]</span></p></div>
+  <div class="foot"><img src="assets/logo_aw3s.png" alt=""><span>Sinais Vitais · 14</span></div>
+</section>
+
+<!-- PILAR 4 -->
+<section class="page opener">
+  <div class="blob" style="width:160mm;height:160mm;right:-60mm;top:-60mm"></div>
+  <div class="num">04</div><p class="lbl">Sinal vital 4</p>
+  <h2>Atender bem</h2>
+  <p>O WhatsApp virou o balcão da sua loja. Quem atende rápido e bem, vende. Quem demora, entrega o cliente para o concorrente.</p>
+  <div class="pain">O sintoma: o cliente pergunta o preço, <b>você responde horas depois</b> e ele já comprou em outro lugar.</div>
+  <svg class="ecg" viewBox="0 0 600 100" preserveAspectRatio="none"><path d="M0 52 H110 l8 -3 l7 6 l5 -14 l7 26 l5 -18 l7 3 H230 l9 -5 l8 9 l7 -34 l9 66 l7 -46 l9 10 H380 l9 -7 l8 13 l9 -62 l11 96 l9 -66 l11 26 H600"/></svg>
+</section>
+
+<section class="page">
+  <p class="kicker">Sinal vital 4 · Tratamento</p>
+  <h2>Organize o WhatsApp como <em>um balcão de vendas</em></h2>
+  <div class="steps">
+    <div class="step"><div><b>Use o WhatsApp Business, não o pessoal.</b>Com perfil comercial completo: descrição, endereço, horário e site.</div></div>
+    <div class="step"><div><b>Monte o catálogo.</b>Os mais vendidos com foto e preço: o cliente vê sem precisar perguntar.</div></div>
+    <div class="step"><div><b>Ative as mensagens automáticas.</b>Saudação para quem chama pela primeira vez e mensagem de ausência fora do horário.</div></div>
+    <div class="step"><div><b>Crie respostas rápidas.</b>Atalhos como <b>/preco</b>, <b>/entrega</b>, <b>/pagamento</b>, <b>/endereco</b> e <b>/avaliacao</b>. Você responde em 2 toques.</div></div>
+    <div class="step"><div><b>Use etiquetas para não perder ninguém.</b>Novo contato · Orçamento enviado · Aguardando pagamento · Pago · Pós-venda.</div></div>
+    <div class="step"><div><b>Siga o roteiro de atendimento em 5 passos.</b>1) Cumprimente pelo nome · 2) Entenda a necessidade com uma pergunta · 3) Ofereça com foto e preço · 4) Conduza ao fechamento (pagamento e entrega) · 5) Confirme e agradeça.</div></div>
+    <div class="step"><div><b>Faça follow-up.</b>Quem pediu orçamento e sumiu recebe uma mensagem em 24 horas e outra em 3 dias. A maioria das vendas perdidas é só falta de retorno.</div></div>
+    <div class="step"><div><b>Responda em menos de 1 hora.</b>Se não der conta, é hora de pensar em automação (veja a página final).</div></div>
+  </div>
+  <div class="check cols">
+    <h4>Checklist · Atender bem</h4>
+    <ul>
+      <li>WhatsApp Business com perfil completo</li>
+      <li>Catálogo com os mais vendidos</li>
+      <li>Saudação e ausência ativadas</li>
+      <li>5 respostas rápidas criadas</li>
+      <li>Etiquetas configuradas e em uso</li>
+      <li>Roteiro de 5 passos colado perto do caixa</li>
+      <li>Follow-up em 24h e em 3 dias</li>
+      <li>Respondo em menos de 1 hora</li>
+    </ul>
+  </div>
+  <div class="foot"><img src="assets/logo_aw3s.png" alt=""><span>Sinais Vitais · 16</span></div>
+</section>
+
+<section class="page">
+  <p class="kicker">Sinal vital 4 · Prescrição</p>
+  <h2>Mensagens que <em>fecham vendas</em></h2>
+  <div class="grid2" style="gap:4mm">
+    <div class="tpl" style="margin:0"><p class="t">Saudação automática</p><p>Oi! 😊 Aqui é da <span class="fill">[empresa]</span>. Que bom ter você por aqui! Me conta o que você procura que eu já te ajudo.</p></div>
+    <div class="tpl" style="margin:0"><p class="t">Fora do horário</p><p>Oi! Nosso atendimento é de <span class="fill">[horário]</span>. Deixa sua mensagem que a gente responde assim que abrir, combinado? 💙</p></div>
+    <div class="tpl" style="margin:0"><p class="t">/preco (com foto)</p><p>Esse é o <span class="fill">[produto]</span> por <span class="fill">[preço]</span>, em até <span class="fill">[X]</span>x no cartão. Quer que eu separe para você?</p></div>
+    <div class="tpl" style="margin:0"><p class="t">/entrega</p><p>Entregamos em <span class="fill">[região]</span> em até <span class="fill">[prazo]</span>, taxa de <span class="fill">[valor]</span>. Também dá para retirar na loja: <span class="fill">[endereço]</span>.</p></div>
+    <div class="tpl" style="margin:0"><p class="t">/pagamento</p><p>Aceitamos Pix, cartão de crédito e débito <span class="fill">[e outras formas]</span>. No Pix, a chave é <span class="fill">[chave]</span>. Me manda o comprovante que já separo seu pedido!</p></div>
+    <div class="tpl" style="margin:0"><p class="t">Conduzindo ao fechamento</p><p>Perfeito! Para eu já deixar pronto: prefere retirar na loja ou receber em casa? E vai pagar no Pix ou no cartão?</p></div>
+    <div class="tpl" style="margin:0"><p class="t">Follow-up · 24 horas</p><p>Oi, <span class="fill">[nome]</span>! Passando para saber se ficou alguma dúvida sobre o <span class="fill">[produto]</span>. Ainda tenho disponível, quer que eu reserve?</p></div>
+    <div class="tpl" style="margin:0"><p class="t">Follow-up · 3 dias</p><p>Oi, <span class="fill">[nome]</span>! O <span class="fill">[produto]</span> que você viu está saindo bastante. Consigo segurar até <span class="fill">[dia]</span> para você. Posso confirmar?</p></div>
+    <div class="tpl" style="margin:0"><p class="t">Confirmação do pedido</p><p>Pedido confirmado! ✅ <span class="fill">[resumo do pedido]</span>. Previsão de <span class="fill">[entrega/retirada]</span>: <span class="fill">[data]</span>. Qualquer coisa é só chamar aqui.</p></div>
+    <div class="tpl" style="margin:0"><p class="t">Cliente que reclamou</p><p>Poxa, <span class="fill">[nome]</span>, sinto muito por isso. Obrigado por avisar. Vou resolver agora: <span class="fill">[solução]</span>. Te retorno até <span class="fill">[horário]</span>.</p></div>
+  </div>
+  <div class="tip"><div><b>Salve estas mensagens como respostas rápidas</b> no WhatsApp Business (Ferramentas comerciais › Respostas rápidas) e cole o roteiro de 5 passos perto do caixa para toda a equipe atender igual.</div></div>
+  <div class="big-quote" style="font-size:13pt">E quando o volume de mensagens passar do que você consegue responder, essas mesmas mensagens podem ser enviadas por uma IA, 24 horas por dia. Falamos disso na página final.</div>
+  <div class="foot"><img src="assets/logo_aw3s.png" alt=""><span>Sinais Vitais · 17</span></div>
+</section>
+
+<!-- PILAR 5 -->
+<section class="page opener">
+  <div class="blob" style="width:160mm;height:160mm;right:-60mm;top:-60mm"></div>
+  <div class="num">05</div><p class="lbl">Sinal vital 5</p>
+  <h2>Organizar o processo</h2>
+  <p>Vender uma vez é bom. Fazer o cliente voltar é o que sustenta o negócio. Este sinal vital tira a venda da sua memória e coloca num processo.</p>
+  <div class="pain">O sintoma: você não sabe quantos clientes tem, <b>esquece de retornar</b> e só lembra do cliente quando ele aparece de novo (se aparecer).</div>
+  <svg class="ecg" viewBox="0 0 600 100" preserveAspectRatio="none"><path d="M0 52 H110 l8 -3 l7 6 l5 -14 l7 26 l5 -18 l7 3 H230 l9 -5 l8 9 l7 -34 l9 66 l7 -46 l9 10 H380 l9 -7 l8 13 l9 -62 l11 96 l9 -66 l11 26 H600"/></svg>
+</section>
+
+<section class="page">
+  <p class="kicker">Sinal vital 5 · Tratamento</p>
+  <h2>Do primeiro contato <em>à recompra</em></h2>
+  <div class="journey" style="grid-template-columns:repeat(5,1fr)">
+    <div><b>Contato</b><span>Etiqueta "Novo"</span></div>
+    <div><b>Orçamento</b><span>Follow-up 24h e 3 dias</span></div>
+    <div><b>Fechamento</b><span>Pagamento e entrega</span></div>
+    <div><b>Pós-venda</b><span>Mensagem + avaliação</span></div>
+    <div><b>Recompra</b><span>Lista de novidades</span></div>
+  </div>
+  <div class="steps">
+    <div class="step"><div><b>Desenhe o seu processo em uma folha.</b>Use as 5 etapas acima e escreva quem faz o quê e em quanto tempo. Se dependesse de outra pessoa, ela conseguiria seguir?</div></div>
+    <div class="step"><div><b>Tenha uma lista de clientes.</b>Uma planilha simples (modelo abaixo) já resolve. Cliente cadastrado é cliente que você pode chamar de novo.</div></div>
+    <div class="step"><div><b>Padronize o que se repete.</b>Tabela de preços, prazos de entrega, formas de pagamento e política de troca. Escreva uma vez e use sempre.</div></div>
+    <div class="step"><div><b>Faça pós-venda em 3 dias.</b>Pergunte se deu tudo certo e peça a avaliação no Google. Cliente bem tratado depois da compra volta e indica.</div></div>
+    <div class="step"><div><b>Crie uma lista de transmissão.</b>No WhatsApp, avise clientes antigos sobre novidades e ofertas (no máximo 1 vez por semana).</div></div>
+    <div class="step"><div><b>Olhe 5 números toda semana.</b>Contatos recebidos · Orçamentos enviados · Vendas fechadas · Ticket médio · Novas avaliações.</div></div>
+  </div>
+  <div class="tpl"><p class="t">Planilha de clientes (crie no Google Planilhas ou no Excel)</p>
+    <table style="font-size:8.5pt"><tr><th>Nome</th><th>WhatsApp</th><th>Como chegou</th><th>O que comprou</th><th>Data</th><th>Valor</th><th>Próxima ação</th></tr>
+    <tr><td>Ana Souza</td><td>(11) 9....</td><td>Instagram</td><td>Vestido azul</td><td>12/10</td><td>R$ 149</td><td>Pós-venda 15/10</td></tr>
+    <tr><td>&nbsp;</td><td></td><td></td><td></td><td></td><td></td><td></td></tr></table></div>
+  <div class="grid2" style="gap:4mm;margin-top:4mm">
+    <div class="tpl" style="margin:0"><p class="t">Pós-venda · 3 dias depois</p><p>Oi, <span class="fill">[nome]</span>! Tudo certo com o <span class="fill">[produto]</span>? Se gostou, sua avaliação no Google ajuda muito: <span class="fill">[link]</span> 💙</p></div>
+    <div class="tpl" style="margin:0"><p class="t">Recompra · lista de transmissão</p><p>Oi! Chegou novidade na <span class="fill">[empresa]</span>: <span class="fill">[novidade]</span>. Como você já é cliente, separei <span class="fill">[benefício]</span> até <span class="fill">[data]</span>. Quer ver?</p></div>
+  </div>
+  <div class="foot"><img src="assets/logo_aw3s.png" alt=""><span>Sinais Vitais · 19</span></div>
+</section>
+
+<!-- PLANO 30 DIAS -->
+<section class="page">
+  <p class="kicker">Tratamento</p>
+  <h2>Tratamento de <em>30 dias</em>, semana a semana</h2>
+  <p>Uma tarefa por dia, de 20 a 40 minutos. Marque cada uma quando concluir.</p>
+  <div class="grid2" style="gap:5mm">
+    <div class="check" style="margin:0"><h4>Semana 1 · Ser encontrado</h4><ul>
+      <li>Criar/reivindicar o Perfil da Empresa no Google</li>
+      <li>Preencher horários, contato e descrição</li>
+      <li>Subir 10 fotos (fachada, interior, produtos)</li>
+      <li>Padronizar nome, endereço e telefone</li>
+      <li>Pedir avaliação para 10 clientes</li>
+      <li>Responder todas as avaliações</li>
+      <li>Revisar: o Google mostra tudo certo?</li></ul></div>
+    <div class="check" style="margin:0"><h4>Semana 2 · Confiança e atendimento</h4><ul>
+      <li>Trocar foto, nome e bio do perfil</li>
+      <li>Colocar link do WhatsApp com mensagem</li>
+      <li>Criar os 5 destaques</li>
+      <li>Ativar WhatsApp Business completo</li>
+      <li>Montar o catálogo dos mais vendidos</li>
+      <li>Criar respostas rápidas e etiquetas</li>
+      <li>Imprimir o roteiro de 5 passos</li></ul></div>
+    <div class="check" style="margin:0"><h4>Semana 3 · Engajar</h4><ul>
+      <li>Escolher a frequência semanal</li>
+      <li>Gravar 5 vídeos curtos em lote</li>
+      <li>Publicar dias 1 a 7 do calendário</li>
+      <li>Publicar o mesmo vídeo no TikTok</li>
+      <li>Usar os 4 tipos de conteúdo</li>
+      <li>Responder todos os comentários</li>
+      <li>Ver quais posts geraram mensagens</li></ul></div>
+    <div class="check" style="margin:0"><h4>Semana 4 · Processo</h4><ul>
+      <li>Desenhar o processo em 5 etapas</li>
+      <li>Criar a planilha de clientes</li>
+      <li>Cadastrar os clientes do mês</li>
+      <li>Fazer pós-venda com quem comprou</li>
+      <li>Criar a lista de transmissão</li>
+      <li>Anotar os 5 números da semana</li>
+      <li>Refazer o check-up da página 4</li></ul></div>
+  </div>
+  <div class="foot"><img src="assets/logo_aw3s.png" alt=""><span>Sinais Vitais · 20</span></div>
+</section>
+
+<!-- CHECKLIST MESTRE -->
+<section class="page">
+  <p class="kicker">Para imprimir</p>
+  <h2>Prontuário da <em>sua empresa</em></h2>
+  <p>Cole perto do caixa. Quando todos estiverem marcados, a sua empresa saiu da UTI e está com os sinais vitais em dia.</p>
+  <div class="check cols"><h4>1 · Ser encontrado</h4><ul>
+    <li>Perfil da Empresa no Google verificado</li><li>Horários, contato e descrição completos</li>
+    <li>10+ fotos atualizadas</li><li>Avaliações pedidas e respondidas</li>
+    <li>Dados iguais em todos os canais</li><li>Site ou página própria</li></ul></div>
+  <div class="check cols"><h4>2 · Passar confiança</h4><ul>
+    <li>Logo legível como foto de perfil</li><li>Nome com o que faço + cidade</li>
+    <li>Bio com a fórmula de 4 partes</li><li>Link direto para WhatsApp/compra</li>
+    <li>5 destaques organizados</li><li>Depoimentos publicados</li></ul></div>
+  <div class="check cols"><h4>3 · Engajar</h4><ul>
+    <li>Frequência semanal definida</li><li>Vídeos curtos gravados em lote</li>
+    <li>4 tipos de conteúdo na semana</li><li>Chamada para ação em todo post</li>
+    <li>Conteúdo também no TikTok e status</li><li>Comentários respondidos no dia</li></ul></div>
+  <div class="check cols"><h4>4 · Atender bem</h4><ul>
+    <li>WhatsApp Business completo</li><li>Catálogo com os mais vendidos</li>
+    <li>Saudação e ausência ativas</li><li>Respostas rápidas e etiquetas</li>
+    <li>Follow-up em 24h e 3 dias</li><li>Resposta em menos de 1 hora</li></ul></div>
+  <div class="check cols"><h4>5 · Organizar o processo</h4><ul>
+    <li>Processo desenhado em 5 etapas</li><li>Planilha de clientes atualizada</li>
+    <li>Pós-venda em 3 dias</li><li>Lista de transmissão ativa</li>
+    <li>Preços e prazos padronizados</li><li>5 números olhados toda semana</li></ul></div>
+  <div class="foot"><img src="assets/logo_aw3s.png" alt=""><span>Sinais Vitais · 21</span></div>
+</section>
+
+<!-- PRÓXIMO PASSO -->
+<section class="page final">
+  <div class="blob" style="position:absolute;border-radius:50%;background:#fff;opacity:.07;width:150mm;height:150mm;right:-60mm;top:-55mm"></div>
+  <img src="assets/logo_aw3s_branco.png" alt="AW3S" style="height:13mm;position:relative">
+  <svg class="ecg" viewBox="0 0 600 100" preserveAspectRatio="none"><path d="M0 52 H110 l8 -3 l7 6 l5 -14 l7 26 l5 -18 l7 3 H230 l9 -5 l8 9 l7 -34 l9 66 l7 -46 l9 10 H380 l9 -7 l8 13 l9 -62 l11 96 l9 -66 l11 26 H600"/></svg>
+  <p class="kicker" style="color:var(--cyan);margin-top:10mm">Hora do especialista</p>
+  <h2 style="font-size:34pt;line-height:1.08">Quer subir de nível?<br><em>Deixe sua empresa nas mãos de um especialista.</em></h2>
+  <p class="lead" style="font-size:12.5pt">Você já estabilizou os primeiros sinais vitais. Agora imagine ter ao seu lado um time que olha para o seu negócio inteiro, encontra os gargalos que travam suas vendas e cria o caminho para a sua marca ser a primeira escolha da sua região.</p>
+
+  <div class="offer">
+    <div class="offer-head">
+      <span class="badge">Sem compromisso</span>
+      <h3>Diagnóstico completo da sua presença digital</h3>
+      <p>Uma conversa com um especialista da AW3S para analisar a sua empresa e mostrar exatamente o que fazer.</p>
+    </div>
+    <ul>
+      <li><span><b>Google e site:</b> como a sua empresa aparece para quem procura o que você vende.</span></li>
+      <li><span><b>Redes sociais:</b> o que o seu perfil comunica e o que está afastando clientes.</span></li>
+      <li><span><b>Atendimento no WhatsApp:</b> onde as vendas estão se perdendo e como recuperá-las.</span></li>
+      <li><span><b>Plano de ação:</b> os próximos passos, na ordem certa, para vender mais.</span></li>
+    </ul>
+  </div>
+
+  <a class="cta-big" href="https://wa.me/5511978370758?text=Ol%C3%A1!%20Li%20o%20guia%20Sinais%20Vitais%20e%20quero%20agendar%20meu%20diagn%C3%B3stico%20completo">
+    Quero agendar meu diagnóstico
+    <small>Chame no WhatsApp (11) 97837-0758 · ou acesse aw3s.com.br</small>
+  </a>
+
+  <p class="closing">Estamos aqui para direcionar a sua empresa a <b>vender mais</b> e a alcançar a <b>autoridade que a sua marca merece</b>.</p>
+  <p class="svc-line">Site profissional · Google e SEO · Conteúdo e posicionamento · Atende+Empresas (IA no WhatsApp 24h)</p>
+
+  <div class="foot"><span>© AW3S · Agência digital de autoridade</span><span>@aw3s.agenciadigital</span></div>
+</section>
+
+</body>
+</html>
