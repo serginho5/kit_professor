@@ -1,0 +1,51 @@
+{
+  "vozKokoro": "pm_santa:0.6+am_fenrir:0.4",
+  "velocidade": 1.15,
+  "pronuncia": {
+    "R$ 27": "vinte e sete reais",
+    "AW3S": "a dáblio três ésse",
+    "WhatsApp": "uótsap",
+    "Google": "gúgol",
+    "CHECKUP": "check-up"
+  },
+  "respiroInicio": 0.45,
+  "respiroFim": 0.6,
+  "respiroFinal": 1.8,
+  "cenas": [
+    {
+      "id": "c1",
+      "manchete": "Sua empresa está respirando por aparelhos?",
+      "fala": "O movimento do balcão caiu? Cuidado: a sua empresa pode estar respirando por aparelhos."
+    },
+    {
+      "id": "c2",
+      "manchete": "O cliente não sumiu",
+      "fala": "O cliente não sumiu. Ele pesquisa no Google, olha o seu perfil e compra de quem responde primeiro no WhatsApp."
+    },
+    {
+      "id": "c3",
+      "manchete": "Faça o check-up agora",
+      "fala": "Responda rápido. A sua empresa aparece no Google? A sua bio leva direto ao WhatsApp? Você responde um cliente novo em menos de uma hora?"
+    },
+    {
+      "id": "c4",
+      "manchete": "Sinais Vitais: o check-up da sua empresa",
+      "fala": "Se faltou um sim, o Sinais Vitais é para você. Um guia de 22 páginas que examina, passo a passo, os cinco sinais vitais da sua empresa."
+    },
+    {
+      "id": "c5",
+      "manchete": "Descubra onde dói",
+      "fala": "Você descobre onde a sua empresa está perdendo clientes, o que dá para resolver sozinho e quando é hora de pedir ajuda."
+    },
+    {
+      "id": "c6",
+      "manchete": "A direção certa na palma da mão",
+      "fala": "É a direção certa, na palma da sua mão. Comente CHECKUP aqui embaixo e receba o link do seu check-up."
+    },
+    {
+      "id": "c7",
+      "manchete": "A decisão está nas suas mãos",
+      "fala": "A decisão está nas suas mãos. Tire a sua empresa dos aparelhos agora e volte a crescer de forma consistente."
+    }
+  ]
+}

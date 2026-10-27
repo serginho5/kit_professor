@@ -1,0 +1,35 @@
+{
+  "titulo": "Sinais Vitais · Reels 02 (orgânico, CTA de comentário)",
+  "subtitulo": "Vertical 1080×1920 · 30 fps · 64 s (4,6 s de abertura sem fala + 59,6 s de narração) · voz pm_santa+am_fenrir 1,15× com EQ de notícia · quadros reais tirados de renderAt(t). O player de cada cena toca o áudio final (bipes + narração).",
+  "visual": {
+    "c1": "ABERTURA SEM FALA (0–4,6 s): rua com lojas fechadas (CC0) ao fundo e o monitor 'pulso da empresa', com um giroflex vermelho girando em cima dele (feixes de luz varrendo a tela) até o primeiro título aparecer. Quatro bipes cada vez mais lentos e fracos; o número cai 72 → 62 → 41 → 23 → 9 e a linha vai do verde ao vermelho. Em 3,85 s zera: linha reta, 'SEM PULSO' piscando, tela vermelha e o som contínuo de monitor sem batimento, que some quando a narração começa. NARRAÇÃO: em 'balcão' entra BALCÃO VAZIO; depois de 'aparelhos' volta um batimento fraco (28) com bipe baixo.",
+    "c2": "Celular sobe. Em 'pesquisa' a busca é digitada ('loja de roupa perto de mim') e aparecem os resultados com a loja concorrente no topo (4,8 estrelas, aberta). Em 'olha' o dedo toca e abre o perfil com bio e botão de WhatsApp; em 'compra' toca no botão e abre a conversa: cliente pergunta, a loja digita e responde em 'primeiro'. Etiqueta verde 'respondeu em 1 min'. Nomes de lojas fictícios, sem marcas reais.",
+    "c3": "Painel de check-up igual ao da página. Cada pergunta acende na hora em que é dita e é marcada no fim da frase: Google = Sim (verde), bio = Não (vermelho), resposta em 1 hora = Não. O contador fica em 1/3 e o rodapé vira ESTADO CRÍTICO em vermelho.",
+    "c4": "A capa do e-book entra no início da cena e dá um tranco em 'Sinais Vitais'. Em 'guia' quatro páginas reais abrem em leque e entra '22 páginas'; em 'passo a passo' entra a etiqueta verde. Em 'cinco' as páginas recolhem, a capa vai para a esquerda e os 5 sinais vitais entram um a um à direita.",
+    "c5": "Monitor 'Resultado do exame' com os 5 sinais vitais. Em 'descobre' uma linha de leitura desce e cada sinal recebe barra e estado: EM DIA (verde), ATENÇÃO (amarelo) ou CRÍTICO (vermelho). Em 'perdendo' os críticos piscam em vermelho. Em 'sozinho' os amarelos viram FAÇA SOZINHO; em 'ajuda' os críticos viram PEÇA AJUDA.",
+    "c6": "O celular sobe com a capa do guia; em 'palma' a tela troca para a página do check-up. Em 'Comente' entra a caixa de comentário (como no Reels), CHECKUP é digitado letra a letra e o dedo toca em enviar.",
+    "c7": "Monitor com o pulso fraco e vermelho (34). Em 'Tire' um flash de desfibrilador: a linha fica verde, forte, e o número sobe até 82. Em 'crescer' a linha de base sobe como um gráfico de crescimento e entra o cartão final: capa do guia + botão COMENTE CHECKUP pulsando. Sem citar a AW3S."
+  },
+  "notas": {
+    "c1": "Sem promessa de resultado: 'respirando por aparelhos' é a metáfora do produto. A foto do desfibrilador (CC BY) não é usada no vídeo.",
+    "c2": "Interface genérica de busca e de rede social, sem logotipos do Google, Instagram ou WhatsApp. 'Bella Moda' é uma loja fictícia.",
+    "c3": "As três perguntas são as mesmas do check-up da página (versão curta).",
+    "c4": "'22 páginas' e os 5 sinais vitais conferem com o e-book e a página de vendas.",
+    "c5": "Posicionamento pedido pelo usuário: o guia é um diagnóstico e uma direção (descobrir onde perde clientes, o que resolver sozinho e quando pedir ajuda), não uma rotina de 30 dias. Os estados do exame são um exemplo ilustrativo.",
+    "c6": "Versão para Reels orgânico: o link não é clicável no Reels, então o comentário CHECKUP dispara a resposta automática com o link da página. A versão 01 (toque no link) fica para Stories e anúncio.",
+    "c7": "Fechamento de convencimento pedido pelo usuário, sem citar a AW3S. 'Volte a crescer de forma consistente' é aspiracional; não há número nem prazo prometido."
+  },
+  "quadros": {
+    "c1": [
+      0.3,
+      0.75,
+      1.6,
+      2.6,
+      3.9,
+      4.6,
+      6.2,
+      7.5,
+      10.5
+    ]
+  }
+}
