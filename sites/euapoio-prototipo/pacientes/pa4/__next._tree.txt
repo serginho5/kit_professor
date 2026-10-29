@@ -1,0 +1,7 @@
+:HL["/euapoio-prototipo/_next/static/chunks/170qn_o_4vlk7.css","style"]
+:HL["/euapoio-prototipo/_next/static/media/d8aeca813a9ab546-s.p.18rizl4rsrl42.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+4:[["children",{"s":"__PAGE__","h":160}]]
+3:[["children",{"s":{"n":"id","t":"d","k":"pa4","s":[]},"h":65632,"c":"$Q4"}]]
+2:[["children",{"s":"pacientes","h":131168,"c":"$Q3"}]]
+1:[["children",{"s":"(app)","h":131168,"c":"$Q2"}]]
+0:{"b":"4FaUvGPyIOyEYenrLRXub","t":{"t":{"s":"","h":131152,"c":"$Q1"}}}
