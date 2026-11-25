@@ -17,6 +17,7 @@ produtos/relatorios-creche/_build/nul*
 
 # Materiais locais (não versionar)
 produtos/turma-em-dia/
+produtos/hub-bioguia/campanha-*/
 produtos/relatorios-creche/marketing/
 produtos/*/capa_*.jpg
 
